@@ -1,5 +1,162 @@
+import React, { useState } from 'react';
 
-import React from 'react';
+// Icons
+const MailIcon: React.FC<{ className?: string }> = ({ className = "w-4 h-4" }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+  </svg>
+);
+
+const LinkedInIcon: React.FC<{ className?: string }> = ({ className = "w-4 h-4" }) => (
+  <svg className={className} fill="currentColor" viewBox="0 0 24 24">
+    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+  </svg>
+);
+
+const PhoneIcon: React.FC<{ className?: string }> = ({ className = "w-4 h-4" }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+  </svg>
+);
+
+const CopyIcon: React.FC<{ className?: string }> = ({ className = "w-4 h-4" }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+  </svg>
+);
+
+const CheckIcon: React.FC<{ className?: string }> = ({ className = "w-4 h-4" }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+  </svg>
+);
+
+const EyeIcon: React.FC<{ className?: string }> = ({ className = "w-4 h-4" }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+  </svg>
+);
+
+const ExternalIcon: React.FC<{ className?: string }> = ({ className = "w-4 h-4" }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+  </svg>
+);
+
+// Contact List Item with Copy
+interface ContactItemProps {
+  icon: React.ReactNode;
+  text: string;
+  href?: string;
+  copyText?: string;
+  external?: boolean;
+}
+
+const ContactItem: React.FC<ContactItemProps> = ({ icon, text, href, copyText, external }) => {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (copyText) {
+      await navigator.clipboard.writeText(copyText);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
+  };
+
+  const content = (
+    <div className="flex items-center gap-3 flex-1 min-w-0">
+      <span className="text-stone-400 flex-shrink-0">{icon}</span>
+      <span className="text-sm text-stone-700 truncate">{text}</span>
+    </div>
+  );
+
+  return (
+    <div className="flex items-center gap-2 py-2 group">
+      {href ? (
+        <a
+          href={href}
+          target={external ? "_blank" : undefined}
+          className="flex items-center gap-3 flex-1 min-w-0 hover:text-amber-600 transition-colors"
+        >
+          <span className="text-stone-400 group-hover:text-amber-600 transition-colors flex-shrink-0">{icon}</span>
+          <span className="text-sm text-stone-700 group-hover:text-amber-600 transition-colors truncate">{text}</span>
+          {external && <ExternalIcon className="w-3 h-3 opacity-30 flex-shrink-0" />}
+        </a>
+      ) : (
+        content
+      )}
+      {copyText && (
+        <button
+          onClick={handleCopy}
+          className={`px-3 py-1.5 rounded-lg border transition-all flex-shrink-0 flex items-center gap-1.5 text-xs ${copied
+            ? 'bg-green-50 border-green-300 text-green-600'
+            : 'border-stone-200 text-stone-400 hover:border-amber-600 hover:text-amber-600'
+            }`}
+          title={copied ? "Copied!" : "Copy"}
+        >
+          {copied ? <CheckIcon className="w-3.5 h-3.5" /> : <CopyIcon className="w-3.5 h-3.5" />}
+        </button>
+      )}
+    </div>
+  );
+};
+
+// Phone with reveal
+const PhoneItem: React.FC = () => {
+  const [revealed, setRevealed] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  const areaCode = "415";
+  const firstPart = "368";
+  const secondPart = "9017";
+  const fullNumber = `+1${areaCode}${firstPart}${secondPart}`;
+  const displayNumber = `(${areaCode}) ${firstPart}-${secondPart}`;
+
+  const handleCopy = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    await navigator.clipboard.writeText(fullNumber);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  return (
+    <div className="flex items-center gap-2 py-2 group">
+      <div className="flex items-center gap-3 flex-1 min-w-0">
+        <span className="text-stone-400 flex-shrink-0"><PhoneIcon /></span>
+        {revealed ? (
+          <a
+            href={`tel:${fullNumber}`}
+            className="text-sm text-amber-600 hover:underline tabular-nums"
+          >
+            {displayNumber}
+          </a>
+        ) : (
+          <button
+            onClick={() => setRevealed(true)}
+            className="text-sm text-stone-400 hover:text-amber-600 transition-colors flex items-center gap-2 tabular-nums"
+          >
+            ({areaCode}) •••-••••
+            <EyeIcon className="w-3.5 h-3.5" />
+          </button>
+        )}
+      </div>
+      <button
+        onClick={handleCopy}
+        className={`px-3 py-1.5 rounded-lg border transition-all flex-shrink-0 flex items-center gap-1.5 text-xs ${copied
+          ? 'bg-green-50 border-green-300 text-green-600'
+          : 'border-stone-200 text-stone-400 hover:border-amber-600 hover:text-amber-600'
+          }`}
+        title={copied ? "Copied!" : "Copy"}
+      >
+        {copied ? <CheckIcon className="w-3.5 h-3.5" /> : <CopyIcon className="w-3.5 h-3.5" />}
+      </button>
+    </div>
+  );
+};
 
 const About: React.FC = () => {
   const photos = [
@@ -28,132 +185,126 @@ const About: React.FC = () => {
   ];
 
   return (
-    <div className="py-20 animate-in fade-in slide-in-from-bottom-4 duration-700 space-y-32">
-      {/* Header & Bio Section */}
-      <section className="grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-20 items-start">
-        <div className="md:col-span-7 space-y-12">
-          <header className="space-y-6">
-            <h1 className="text-6xl md:text-8xl font-serif text-stone-900 leading-[0.9] tracking-tight">
-              Designing systems for <span className="italic text-amber-600">human speed.</span>
-            </h1>
-          </header>
-          
-          <div className="space-y-8 text-xl md:text-2xl text-stone-600 font-light leading-relaxed">
-            <p>
-              I’ve always been fascinated by how people navigate complex systems. Before I was a Product Designer, I studied Economics: a field dedicated to understanding incentives, trade-offs, and systemic logic. Today, I apply that same analytical lens to digital products.
-            </p>
-            
-            <p>
-              I transitioned from being an economic analyst to a product designer because I realized how perfectly my research and knowledge-synthesis skills transferred to the world of UX. I loved the idea of taking rigorous data and turning it into something someone could actually touch, use, and benefit from in their daily life.
-            </p>
+    <div className="py-20 animate-in fade-in slide-in-from-bottom-4 duration-700 space-y-24">
+      {/* Photo Gallery Section */}
+      <section>
+        <div className="grid grid-cols-4 gap-3 md:gap-6">
+          {photos.map((photo, i) => (
+            <div
+              key={i}
+              className={`aspect-[3/4] max-h-[40vh] rounded-2xl md:rounded-[2rem] overflow-hidden bg-stone-100 border border-stone-200 group relative ${i % 2 !== 0 ? 'md:translate-y-6' : ''}`}
+            >
+              <img
+                src={photo.url}
+                alt={photo.alt}
+                className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-stone-900/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+            </div>
+          ))}
+        </div>
+      </section>
 
-            <p>
-              Currently, I’m a Senior Product Designer at <span className="text-stone-900 font-medium">Workstream</span>, where I lead design for high-stakes financial tools and operations. I specialize in taking 'messy' industries (like payroll and compliance) and distilling them into intuitive mobile and web experiences that actually work for the people who use them.
-            </p>
-
-            <p>
-              Outside of the 9-to-5, I spend a lot of time "vibecoding" mini-games and small web experiments. I’m also a recent tea enthusiast, a persistent foodie, and serial language learner.
-            </p>
+      {/* Contact & Info Section - 1/3 + 2/3 Layout */}
+      <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {/* Contact Info - 1/3 width */}
+        <div className="bg-white border border-stone-200 p-6 rounded-[2rem] shadow-sm">
+          <div className="divide-y divide-stone-100">
+            <ContactItem
+              icon={<MailIcon />}
+              text="nicholasabasolo@gmail.com"
+              href="mailto:nicholasabasolo@gmail.com"
+              copyText="nicholasabasolo@gmail.com"
+            />
+            <PhoneItem />
+            <ContactItem
+              icon={<LinkedInIcon />}
+              text="/nickabasolo"
+              href="https://linkedin.com/in/nickabasolo"
+              external
+            />
           </div>
+
+          <a
+            href="/portfolio-2026/resume.pdf"
+            target="_blank"
+            className="flex items-center justify-center gap-2 w-full bg-stone-900 text-white py-3.5 rounded-xl font-bold uppercase tracking-widest text-[9px] hover:bg-amber-600 transition-all shadow-lg shadow-stone-900/10 group/resume mt-5"
+          >
+            <svg className="w-3 h-3 group-hover/resume:-translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M12 4v12m0 0l-4-4m4 4l4-4M4 20h16" />
+            </svg>
+            Resume
+          </a>
         </div>
 
-        <div className="md:col-span-5 space-y-6 sticky top-32">
-          {/* Box 1: Contact Info */}
-          <div className="bg-white border border-stone-200 p-8 rounded-[2.5rem] shadow-sm space-y-6 relative overflow-hidden group">
-            <div className="absolute top-0 right-0 w-24 h-24 bg-stone-50 blur-3xl -mr-12 -mt-12" />
-            
-            <div className="space-y-3 relative z-10">
-              <a 
-                href="mailto:hello@nickabasolo.design" 
-                className="flex items-center justify-between w-full bg-stone-900 text-white px-6 py-4 rounded-2xl font-medium hover:bg-amber-600 transition-all group/btn"
-              >
-                <span>Email</span>
-                <span className="text-stone-400 group-hover/btn:text-white transition-colors text-sm">hello@nickabasolo.design</span>
-              </a>
-              <a 
-                href="https://linkedin.com/in/nickabasolo" 
-                target="_blank"
-                className="flex items-center justify-between w-full border border-stone-200 text-stone-900 px-6 py-4 rounded-2xl font-medium hover:border-amber-600 hover:text-amber-600 transition-all"
-              >
-                <span>LinkedIn</span>
-                <span className="opacity-40 text-sm">/nickabasolo</span>
-              </a>
-              <div className="flex items-center justify-between w-full border border-stone-200 text-stone-900 px-6 py-4 rounded-2xl font-medium bg-stone-50/30">
-                <span>Phone</span>
-                <span className="opacity-40 tabular-nums text-sm">+1 (604) ••• ••••</span>
+        {/* At a Glance - 2/3 width */}
+        <div className="md:col-span-2 bg-amber-50/40 text-stone-900 p-6 md:p-8 rounded-[2rem] shadow-sm border border-amber-100">
+          <div className="grid grid-cols-2 gap-x-6 gap-y-5">
+            <div className="space-y-1">
+              <div className="text-[10px] uppercase tracking-widest text-stone-400 font-bold">Current Position</div>
+              <div className="text-sm text-stone-900 font-medium leading-snug">
+                Senior Product Designer at Workstream
+              </div>
+            </div>
+
+            <div className="space-y-1">
+              <div className="text-[10px] uppercase tracking-widest text-stone-400 font-bold">Experience</div>
+              <div className="text-sm text-stone-900 font-medium">6 Years</div>
+            </div>
+
+            <div className="space-y-1">
+              <div className="text-[10px] uppercase tracking-widest text-stone-400 font-bold">Location</div>
+              <div className="text-sm text-stone-900 font-medium">Vancouver, BC</div>
+              <div className="inline-block px-2 py-0.5 rounded-full bg-amber-100/50 text-[9px] font-bold text-amber-700 border border-amber-200 uppercase tracking-wider mt-1">
+                Open to relocation
+              </div>
+            </div>
+
+            <div className="space-y-1">
+              <div className="text-[10px] uppercase tracking-widest text-stone-400 font-bold">Work Authorization</div>
+              <div className="space-y-1">
+                <div className="flex items-center gap-2">
+                  <span className="text-base">🇺🇸</span>
+                  <span className="text-sm font-medium text-stone-900">US Citizen</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-base">🇨🇦</span>
+                  <span className="text-sm font-medium text-stone-900">Canadian Citizen</span>
+                </div>
               </div>
             </div>
           </div>
+        </div>
+      </section>
 
-          {/* Box 2: At a Glance */}
-          <div className="bg-amber-50/40 text-stone-900 p-8 md:p-10 rounded-[2.5rem] shadow-sm space-y-10 border border-amber-100">
-            <div className="grid grid-cols-2 gap-y-10 gap-x-6">
-              <div className="col-span-2 space-y-1.5">
-                <div className="text-[10px] uppercase tracking-widest text-stone-400 font-bold">Current Position</div>
-                <div className="text-stone-900 font-medium text-lg leading-snug">
-                  Senior Product Designer at Workstream
-                </div>
-              </div>
+      {/* Bio Section */}
+      <section className="max-w-4xl">
+        <div className="flex items-center gap-6 mb-10">
+          <h2 className="text-[10px] uppercase tracking-[0.3em] font-bold text-stone-400 whitespace-nowrap">About Me</h2>
+          <div className="flex-1 h-px bg-stone-200" />
+        </div>
+        <div className="space-y-6 text-lg md:text-xl text-stone-600 font-light leading-relaxed">
+          <p>
+            I've always been fascinated by how people navigate complex systems. Before I was a Product Designer, I studied Economics: a field dedicated to understanding incentives, trade-offs, and systemic logic. Today, I apply that same analytical lens to digital products.
+          </p>
 
-              <div className="col-span-2 space-y-1">
-                <div className="text-[10px] uppercase tracking-widest text-stone-400 font-bold">Experience</div>
-                <div className="text-stone-900 text-2xl font-serif">6 Years</div>
-              </div>
+          <p>
+            Currently, I'm a Senior Product Designer at Workstream, where I design experiences for restaurant workers and their managers. I specialize in tackling complex workflows like payroll and compliance, and distilling them into intuitive mobile and web experiences that actually work for the people who use them.
+          </p>
 
-              <div className="col-span-2 space-y-3 pt-2">
-                <div className="text-[10px] uppercase tracking-widest text-stone-400 font-bold">Work Authorization</div>
-                <div className="grid grid-cols-1 gap-2">
-                  <div className="flex items-center gap-3 bg-white/60 border border-amber-200/50 p-3 rounded-xl">
-                    <span className="text-xl">🇺🇸</span>
-                    <div className="flex-1">
-                      <div className="text-xs font-bold text-stone-800 tracking-tight">United States</div>
-                      <div className="text-[9px] text-stone-500 uppercase tracking-tighter font-medium">Dual Citizen / Full Authorization</div>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3 bg-white/60 border border-amber-200/50 p-3 rounded-xl">
-                    <span className="text-xl">🇨🇦</span>
-                    <div className="flex-1">
-                      <div className="text-xs font-bold text-stone-800 tracking-tight">Canada</div>
-                      <div className="text-[9px] text-stone-500 uppercase tracking-tighter font-medium">Dual Citizen / Full Authorization</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="col-span-2 space-y-1 pt-2">
-                <div className="text-[10px] uppercase tracking-widest text-stone-400 font-bold">Current Location</div>
-                <div className="flex items-center justify-between">
-                  <div className="text-stone-900 font-medium">Vancouver, BC</div>
-                  <div className="px-3 py-1 rounded-full bg-amber-100/50 text-[10px] font-bold text-amber-700 border border-amber-200 uppercase tracking-wider">
-                    Open to relocation
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="pt-2">
-              <a 
-                href="/resume.pdf" 
-                target="_blank"
-                className="flex items-center justify-center gap-3 w-full bg-stone-900 text-white py-4 rounded-2xl font-bold uppercase tracking-widest text-[10px] hover:bg-amber-600 transition-all shadow-lg shadow-stone-900/10 group/resume"
-              >
-                <svg className="w-3.5 h-3.5 group-hover/resume:-translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M12 4v12m0 0l-4-4m4 4l4-4M4 20h16" />
-                </svg>
-                Download Full Resume
-              </a>
-            </div>
-          </div>
+          <p>
+            Outside of the 9-to-5, I spend a lot of time "vibecoding" mini-games and small web experiments. I'm also a recent tea enthusiast, a persistent foodie, and serial language learner.
+          </p>
         </div>
       </section>
 
       {/* Expertise & Skills Section */}
       <section className="space-y-16">
         <div className="flex items-center gap-6">
-           <h2 className="text-[10px] uppercase tracking-[0.3em] font-bold text-stone-400 whitespace-nowrap">Expertise & Stack</h2>
-           <div className="flex-1 h-px bg-stone-200" />
+          <h2 className="text-[10px] uppercase tracking-[0.3em] font-bold text-stone-400 whitespace-nowrap">Expertise & Stack</h2>
+          <div className="flex-1 h-px bg-stone-200" />
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-20">
           {skillCategories.map((cat, i) => (
             <div key={i} className="space-y-8 group">
@@ -169,32 +320,6 @@ const About: React.FC = () => {
                   </li>
                 ))}
               </ul>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Photo Gallery Section */}
-      <section className="space-y-12">
-        <div className="flex items-center gap-6">
-           <h2 className="text-[10px] uppercase tracking-[0.3em] font-bold text-stone-400 whitespace-nowrap">Behind the Screen</h2>
-           <div className="flex-1 h-px bg-stone-200" />
-        </div>
-        
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
-          {photos.map((photo, i) => (
-            <div 
-              key={i} 
-              className={`aspect-[4/5] rounded-[2.5rem] overflow-hidden bg-stone-100 border border-stone-200 group relative ${
-                i % 2 !== 0 ? 'md:translate-y-8' : ''
-              }`}
-            >
-              <img 
-                src={photo.url} 
-                alt={photo.alt} 
-                className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-stone-900/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
             </div>
           ))}
         </div>
