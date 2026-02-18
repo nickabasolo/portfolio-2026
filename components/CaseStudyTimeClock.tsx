@@ -2,6 +2,7 @@
 import React from 'react';
 import { CaseStudy } from '../types';
 import { Section, TextContent, Quote, Metrics, Visual, GridList, SubHeading, Table, JourneyMap } from './CaseStudyPrimitives';
+import { getAssetPath } from '../utils/paths';
 
 interface Props {
   project: CaseStudy;
@@ -28,9 +29,9 @@ const CaseStudyTimeClock: React.FC<Props> = ({ project }) => {
           <p>I negotiated for additional discovery time and engineering resources by framing the problem as an ROI calculation: Every error we prevented the worker from making, was an error the manager never had to touch.</p>
           <p>We shifted our focus from the manager's dashboard to the Worker's Time Clock experience. After 12 exploratory interviews with workers, I identified three key touchpoints for a design intervention:</p>
         </TextContent>
-        
+
         <div className="space-y-12">
-          <Table 
+          <Table
             headers={["Touchpoint", "The Research Insight", "Design Strategy", "Business ROI"]}
             rows={[
               [
@@ -66,7 +67,7 @@ const CaseStudyTimeClock: React.FC<Props> = ({ project }) => {
             <TextContent>
               <p>Workers often committed errors simply because they didn't know what their schedule was for the shift. The challenge was exposing the right information to the user at the right time. The nature of restaurant work is that they’ll spend 95% of the time not looking at their phone, and instead doing something in the real world. This meant we needed a system of progressive disclosure to help the user know what to do.</p>
             </TextContent>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="p-8 bg-stone-900 text-stone-300 rounded-3xl space-y-4">
                 <div className="text-amber-400 font-bold text-[10px] uppercase tracking-widest">Notifications</div>
@@ -85,12 +86,12 @@ const CaseStudyTimeClock: React.FC<Props> = ({ project }) => {
               <p>Errors are inevitable in a chaotic kitchen, but the legacy system offered the worker no way to fix them. I explored a range of solutions, ranging from simple commenting to full direct editing.</p>
               <p>But in initial user tests, managers were terrified of giving edit access to employees. They feared that allowing workers to touch the timecard would lead to unchecked payroll manipulation.</p>
             </TextContent>
-            
+
             <Visual label="The Edit Request Workflow" bg="bg-stone-50">
-              <img 
-                src="Review shift.png" 
-                alt="Edit Request Flow" 
-                className="w-full h-auto object-contain max-h-[700px] rounded-lg shadow-lg" 
+              <img
+                src={getAssetPath('assets/case-studies/review-shift.png')}
+                alt="Edit Request Flow"
+                className="w-full h-auto object-contain max-h-[700px] rounded-lg shadow-lg"
               />
             </Visual>
 

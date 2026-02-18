@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { TextContent, Visual } from './CaseStudyPrimitives';
+import { getAssetPath } from '../utils/paths';
 
 const SideProjectGuardian: React.FC = () => {
   return (
@@ -51,7 +52,7 @@ const SideProjectGuardian: React.FC = () => {
           caption="A ternary plot visualizing the movement of 343 electoral districts."
         >
           <img
-            src="assets/side-projects/guardian-data-viz-chart.png"
+            src={getAssetPath('assets/side-projects/guardian-data-viz-chart.png')}
             alt="Ternary plot showing third-party collapse in Canadian 2025 election"
             className="w-full h-auto object-contain rounded-lg"
           />

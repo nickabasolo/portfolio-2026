@@ -2,6 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { CASE_STUDIES, SIDE_PROJECTS } from '../constants';
+import { getAssetPath } from '../utils/paths';
 
 const Home: React.FC = () => {
   return (
@@ -32,7 +33,7 @@ const Home: React.FC = () => {
                   <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
                 </a>
                 <a
-                  href="/portfolio-2026/resume.pdf"
+                  href={getAssetPath('resume.pdf')}
                   download
                   className="inline-flex items-center justify-center px-8 py-4 bg-transparent text-stone-900 rounded-full font-medium border-2 border-stone-300 hover:border-amber-600 hover:text-amber-600 transition-all group"
                 >
@@ -48,7 +49,7 @@ const Home: React.FC = () => {
           {/* Headshot */}
           <div className="shrink-0">
             <img
-              src="assets/about/headshot.png"
+              src={getAssetPath('assets/about/headshot.png')}
               alt="Nick Abasolo"
               className="w-48 h-48 md:w-64 md:h-64 rounded-full object-cover border-4 border-white shadow-2xl shadow-stone-900/10"
             />
@@ -69,7 +70,7 @@ const Home: React.FC = () => {
             className="md:col-span-8 md:row-span-2 group cursor-pointer relative overflow-hidden rounded-3xl bg-stone-900 flex flex-col justify-end p-8 md:p-12 transition-all hover:shadow-2xl hover:shadow-amber-500/10"
           >
             <img
-              src={CASE_STUDIES[0].image}
+              src={getAssetPath(CASE_STUDIES[0].image)}
               className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-1000"
               alt={CASE_STUDIES[0].title}
             />
@@ -86,7 +87,7 @@ const Home: React.FC = () => {
           >
             <div className="flex-1 overflow-hidden rounded-2xl mb-6 shadow-sm relative">
               <img
-                src={CASE_STUDIES[1].image}
+                src={getAssetPath(CASE_STUDIES[1].image)}
                 className="w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
                 alt=""
               />
@@ -106,7 +107,7 @@ const Home: React.FC = () => {
           >
             <div className="w-full md:w-1/3 h-48 rounded-2xl overflow-hidden bg-stone-100 relative">
               <img
-                src={CASE_STUDIES[2].image}
+                src={getAssetPath(CASE_STUDIES[2].image)}
                 className="w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
                 alt=""
               />
@@ -140,7 +141,7 @@ const Home: React.FC = () => {
                 <div
                   className="aspect-[4/3] bg-stone-100 rounded-3xl overflow-hidden relative border border-stone-200 shadow-sm"
                 >
-                  <img src={project.image} alt={project.title} className="w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" />
+                  <img src={getAssetPath(project.image)} alt={project.title} className="w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" />
                   <div className="absolute inset-0 flex items-center justify-center">
                     <span className="text-xs uppercase tracking-widest font-bold text-stone-900 px-5 py-2.5 bg-white/90 backdrop-blur rounded-full shadow-lg group-hover:scale-110 transition-transform">Coming Soon</span>
                   </div>
@@ -158,7 +159,7 @@ const Home: React.FC = () => {
                   to={`/side-project/${project.id}`}
                   className="aspect-[4/3] bg-stone-100 rounded-3xl overflow-hidden relative border border-stone-200 shadow-sm cursor-pointer block"
                 >
-                  <img src={project.image} alt={project.title} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" />
+                  <img src={getAssetPath(project.image)} alt={project.title} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" />
                   <div className="absolute inset-0 bg-stone-900/0 group-hover:bg-stone-900/10 transition-colors flex items-center justify-center">
                     <span className="opacity-0 group-hover:opacity-100 transition-opacity bg-white text-stone-900 px-6 py-2 rounded-full font-bold text-xs uppercase tracking-widest shadow-xl">
                       View Project

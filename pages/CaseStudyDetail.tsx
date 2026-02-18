@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link, useLocation } from 'react-router-dom';
 import { CaseStudy, SideProject } from '../types';
 import { CASE_STUDIES, SIDE_PROJECTS } from '../constants';
+import { getAssetPath } from '../utils/paths';
 import CaseStudyTimeClock from '../components/CaseStudyTimeClock';
 import SideProjectGuardian from '../components/SideProjectGuardian';
 import SideProjectPoetry from '../components/SideProjectPoetry';
@@ -166,7 +167,7 @@ const CaseStudyDetail: React.FC = () => {
 
       {/* Hero Image */}
       <div className="rounded-[2.5rem] overflow-hidden mb-24 bg-stone-100 shadow-2xl shadow-stone-200/50 border border-stone-200">
-        <img src={project.image} alt={project.title} className="w-full object-cover max-h-[700px]" />
+        <img src={getAssetPath(project.image)} alt={project.title} className="w-full object-cover max-h-[700px]" />
       </div>
 
       {/* Narrative Content */}
@@ -212,7 +213,7 @@ const CaseStudyDetail: React.FC = () => {
             className="w-full group relative overflow-hidden rounded-[2.5rem] bg-stone-900 p-12 md:p-20 text-left transition-all hover:shadow-2xl hover:shadow-amber-500/20 block"
           >
             <img
-              src={nextProject.image}
+              src={getAssetPath(nextProject.image)}
               className="absolute inset-0 w-full h-full object-cover opacity-30 grayscale group-hover:scale-105 group-hover:opacity-50 group-hover:grayscale-0 transition-all duration-1000"
               alt=""
             />

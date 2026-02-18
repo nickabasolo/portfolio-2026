@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { getAssetPath } from '../utils/paths';
 
 // Icons
 const MailIcon: React.FC<{ className?: string }> = ({ className = "w-4 h-4" }) => (
@@ -226,7 +227,7 @@ const About: React.FC = () => {
           </div>
 
           <a
-            href="/portfolio-2026/resume.pdf"
+            href={getAssetPath('resume.pdf')}
             target="_blank"
             className="flex items-center justify-center gap-2 w-full bg-stone-900 text-white py-3.5 rounded-xl font-bold uppercase tracking-widest text-[9px] hover:bg-amber-600 transition-all shadow-lg shadow-stone-900/10 group/resume mt-5"
           >

@@ -2,6 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { SIDE_PROJECTS } from '../constants';
+import { getAssetPath } from '../utils/paths';
 
 const SideProjects: React.FC = () => {
   return (
@@ -18,7 +19,7 @@ const SideProjects: React.FC = () => {
               to={`/side-project/${project.id}`}
               className="aspect-[4/3] bg-stone-100 rounded-3xl overflow-hidden relative border border-stone-200 shadow-sm cursor-pointer block"
             >
-              <img src={project.image} alt={project.title} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" />
+              <img src={getAssetPath(project.image)} alt={project.title} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" />
               <div className="absolute top-6 left-6">
                 <span className="bg-white/90 backdrop-blur px-4 py-1.5 rounded-full text-[10px] uppercase font-bold tracking-[0.15em] text-stone-600 border border-stone-100 shadow-sm">
                   {project.category}
