@@ -5,6 +5,7 @@ import { Section, TextContent, Quote, Metrics, Visual, GridList, SubHeading, Tab
 import { getAssetPath } from '../utils/paths';
 
 import ReviewShift from './ReviewShift';
+import BeforeAfterSlider from './BeforeAfterSlider';
 
 interface Props {
   project: CaseStudy;
@@ -20,7 +21,14 @@ const CaseStudyTimeClock: React.FC<Props> = ({ project }) => {
           <p>The timesheet was constantly flooded with error flags like missed breaks and forgotten clock-outs. Each flag represented a manual investigation for the manager: inaccurate timecards lead to labor law violations and hefty fines.</p>
           <p>The manual process of investigating these 40+ flags per week was exhausting and unsustainable.</p>
         </TextContent>
-        <Visual label="Legacy Timesheet Audit: 40+ Flags" />
+        <div className="py-8">
+          <img
+            src={getAssetPath('assets/case-studies/Timesheet_before.png')}
+            alt="Legacy timesheets could have 40+ flags a week. (Live screenshot with PII redacted)"
+            className="w-full h-auto rounded-lg shadow-xl border border-stone-200"
+          />
+          <p className="text-center text-stone-400 text-xs tracking-widest mt-4">Legacy timesheets could have 40+ flags a week. (Live screenshot with PII redacted)</p>
+        </div>
       </Section>
 
       {/* 02 Strategy */}
@@ -71,13 +79,15 @@ const CaseStudyTimeClock: React.FC<Props> = ({ project }) => {
             </TextContent>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="p-8 bg-stone-900 text-stone-300 rounded-3xl space-y-4">
-                <div className="text-amber-400 font-bold text-[10px] uppercase tracking-widest">Notifications</div>
-                <p className="text-sm leading-relaxed">Since workers are rarely looking at their phones mid-shift, I utilized a robust notification system to push critical updates. For newer iOS users, we implemented Live Activities to pin shift status and break countdowns. However, acknowledging that many users rely on older hardware or Android, we ensured the experience was centered around high-signal, actionable push notifications that provide a "glanceable" source of truth without requiring an app unlock.</p>
+              <div className="p-8 bg-white border border-stone-200 rounded-3xl space-y-4">
+                <div className="text-stone-400 font-bold text-[10px] uppercase tracking-widest">Notifications</div>
+                <p className="text-sm text-stone-600 leading-relaxed">Since workers are rarely looking at their phones mid-shift, I utilized push notifications at specific points in their shift: before and after breaks, and before clock out.</p>
+                <p className="text-sm text-stone-600 leading-relaxed">Live Activities were particularly helpful for newer iOS users; however, our user demographic trended towards Android and older iOS devices, so push notifications remained essential.</p>
               </div>
               <div className="p-8 bg-white border border-stone-200 rounded-3xl space-y-4">
                 <div className="text-stone-400 font-bold text-[10px] uppercase tracking-widest">Agenda View</div>
                 <p className="text-sm text-stone-600 leading-relaxed">Once they’re interacting with the app – whether that’s to clock in or take a break – we have a little more of the user’s attention. This was the appropriate place to include a fuller agenda, with more context on what lies ahead.</p>
+                <p className="text-sm text-stone-600 leading-relaxed">This new agenda view was designed to help workers orient themselves in relation to the schedule of the shift.</p>
               </div>
             </div>
           </div>
@@ -112,6 +122,22 @@ const CaseStudyTimeClock: React.FC<Props> = ({ project }) => {
             <Visual label="High-Score Shift Summary UI" bg="bg-stone-100">
               <ReviewShift />
             </Visual>
+          </div>
+
+          <div className="space-y-6">
+            <SubHeading>Polishing the manager's timesheet table</SubHeading>
+            <TextContent>
+              <p>And while I had expanded the strategy to enable a lot more autonomy for the worker, I still thought that the legacy timesheet table itself could a little visual polish and cleanup.</p>
+              <p>In particular, the Flagged column was often truncated, unhelpful, and made the whole page loud by highlighting the entire row. I introduced new status chips to display in the Flagged column, with clearer microcopy and visual hierarchy to communicate to them manager why the time card was flagged.</p>
+              <p>Where we could, I also surfaced banners when we could encourage managers to make changes in their settings that would reduce the amount of time card flagged..</p>
+            </TextContent>
+
+            <BeforeAfterSlider
+              beforeSrc={getAssetPath('assets/case-studies/Timesheet_before.png')}
+              afterSrc={getAssetPath('assets/case-studies/Timesheet_after.png')}
+              alt="Timesheet UI Evolution"
+              className="my-8"
+            />
           </div>
         </div>
       </Section>

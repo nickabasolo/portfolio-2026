@@ -25,13 +25,13 @@ const Home: React.FC = () => {
                 </p>
               </div>
               <div className="flex flex-wrap gap-4">
-                <a
-                  href="mailto:nick@example.com"
+                <Link
+                  to="/about"
                   className="inline-flex items-center justify-center px-8 py-4 bg-stone-900 text-white rounded-full font-medium hover:bg-amber-600 transition-all shadow-lg shadow-stone-900/10 group"
                 >
                   Contact me
                   <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
-                </a>
+                </Link>
                 <a
                   href={getAssetPath('assets/about/Resume - Nick Abasolo (2026).pdf')}
                   download

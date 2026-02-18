@@ -3,10 +3,32 @@ import './ReviewShift.css';
 
 const ReviewShift: React.FC = () => {
     const [replayKey, setReplayKey] = useState(0);
+    const [hasStarted, setHasStarted] = useState(false);
+    const containerRef = useRef<HTMLDivElement>(null);
     const paidTimeRef = useRef<HTMLSpanElement>(null);
     const estEarningsRef = useRef<HTMLSpanElement>(null);
 
+    // Scroll Trigger Logic
     useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting && !hasStarted) {
+                    setHasStarted(true);
+                }
+            },
+            { threshold: 0.4 } // Trigger when 40% visible
+        );
+
+        if (containerRef.current) {
+            observer.observe(containerRef.current);
+        }
+
+        return () => observer.disconnect();
+    }, [hasStarted]);
+
+    useEffect(() => {
+        if (!hasStarted) return;
+
         // Animation Logic
         const animateTime = (element: HTMLSpanElement) => {
             const targetStr = element.getAttribute('data-target'); // "07:32:03"
@@ -86,22 +108,22 @@ const ReviewShift: React.FC = () => {
         }, 600);
 
         return () => clearTimeout(timer);
-    }, [replayKey]);
+    }, [replayKey, hasStarted]);
 
     return (
-        <div className="review-shift-wrapper relative">
+        <div className="review-shift-wrapper relative" ref={containerRef}>
             <button
                 onClick={() => setReplayKey(k => k + 1)}
-                className="absolute -top-6 -right-6 z-50 flex items-center gap-3 bg-white hover:bg-stone-50 text-stone-900 px-10 py-4 rounded-full transition-colors text-xs font-semibold tracking-wide uppercase shadow-lg border border-stone-200"
+                className="absolute -top-6 -right-6 z-50 flex items-center gap-3 bg-white hover:bg-stone-50 text-stone-900 px-10 py-4 rounded-full transition-all duration-300 shadow-xl shadow-stone-900/5 hover:shadow-stone-900/10 border border-stone-200 group animate-float"
             >
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <svg className="text-amber-500" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M23 4v6h-6" />
                     <path d="M1 20v-6h6" />
                     <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" />
                 </svg>
-                Replay Animation
+                <span className="text-xs font-semibold tracking-wide uppercase">Replay Animation</span>
             </button>
-            <div className="app-container" key={replayKey}>
+            <div className={`app-container ${hasStarted ? 'animate-in' : 'opacity-0'}`} key={replayKey}>
                 {/* Status Bar */}
                 <div className="status-bar">
                     <span className="status-time">19:12</span>
