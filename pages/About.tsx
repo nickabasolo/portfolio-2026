@@ -181,13 +181,13 @@ const About: React.FC = () => {
     {
       title: "AI & Development",
       description: "Leveraging modern LLMs and agentic tools for building.",
-      skills: ["Cursor", "Gemini", "AI Studio", "Antigravity", "Github"]
+      skills: ["Cursor & Anti", "Gemini", "AI Studio", "Antigravity", "Github"]
     }
   ];
 
   return (
     <div className="py-20 animate-in fade-in slide-in-from-bottom-4 duration-700 space-y-24">
-      {/* Photo Gallery Section */}
+      {/* Photo Gallery Section - Hidden for now
       <section>
         <div className="grid grid-cols-4 gap-3 md:gap-6">
           {photos.map((photo, i) => (
@@ -205,6 +205,7 @@ const About: React.FC = () => {
           ))}
         </div>
       </section>
+      */}
 
       {/* Contact & Info Section - 1/3 + 2/3 Layout */}
       <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
