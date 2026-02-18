@@ -9,7 +9,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     role: 'Senior Product Designer',
     duration: '4 Months',
     company: 'Workstream',
-    image: 'casestudy01-hero.gif',
+    image: 'assets/case-studies/time-clock-hero.png',
     tags: ['Labor Compliance', 'Mobile UX', 'Behavioral Design'],
     overview: 'The worker clock-in is the most critical touchpoint in the labor lifecycle. I redesigned this flow to move compliance resolution from the manager’s Sunday night to the worker’s daily exit.',
     problem: 'Managers were losing 5+ hours a week to admin overhead: manually auditing and correcting flagged timecards that their workers were punching in to the system.',
@@ -32,7 +32,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     role: 'Senior Product Designer',
     duration: 'Ongoing',
     company: 'Workstream',
-    image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=1200',
+    image: 'assets/case-studies/performance-reviews-hero.png',
     tags: ['Performance Management', 'Multi-user Flows', 'B2B'],
     overview: '',
     problem: '',
@@ -51,7 +51,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     role: 'Senior Product Designer',
     duration: 'In Progress',
     company: 'Workstream',
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1200',
+    image: 'assets/case-studies/manager-dashboard-hero.png',
     tags: ['Data Visualization', 'Dashboard Design', 'Enterprise'],
     overview: '',
     problem: '',
@@ -68,37 +68,37 @@ export const CASE_STUDIES: CaseStudy[] = [
 export const SIDE_PROJECTS: SideProject[] = [
   {
     id: 'guardian-data-viz',
-    title: 'The Crunch: Data Storytelling',
-    subtitle: 'Featured in The Guardian: Visualizing the intersections of climate, conflict, and Canadian politics.',
-    description: 'A data visualization project exploring global crises, from marine heatwaves to geopolitical shifts. Featured in The Guardian’s "The Crunch" series.',
+    title: 'Visualizing Canada\'s 2025 election data',
+    subtitle: 'Testing the hypothesis that the 2025 Canadian election defined a shift away from minor third parties.',
+    description: 'A data visualization project using Python to analyze and visualize the 2025 Canadian election data.',
     link: 'https://www.theguardian.com/news/2025/jun/13/the-crunch-how-ukraine-drones-hit-russia-marine-heatwaves-and-the-collapse-of-canadas-third-parties',
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800',
+    image: 'assets/side-projects/guardian-data-viz-hero.png',
     category: 'Data Visualization',
     role: 'Data Designer',
     duration: '2 Weeks',
     company: 'The Guardian (Featured)',
     tags: ['Data Viz', 'Climate', 'Editorial'],
     summary: {
-      problem: "Communicating three disconnected global crises (Ukraine drones, heatwaves, Canadian politics) in a single, cohesive weekly digest.",
-      solution: "A modular, scrollytelling interface that emphasizes comparative scales across disparate datasets.",
-      outcome: "Featured as a primary editorial piece in The Guardian's data series."
+      problem: "Canada’s parliament has had a long history of many different political parties – until recently, when its two major parties dominated the 2025 election.",
+      solution: "A ternary plot tracking the vote share of all 343 electoral districts from 2021 to 2025, visualizing the movement of millions of voters.",
+      outcome: "In 92% of ridings (317 of 343), the political periphery collapsed, narrowing the Canadian competitive field."
     }
   },
   {
-    id: 'poetry-game',
-    title: 'Single Syllable',
-    subtitle: 'A linguistic experiment in simple speech. Explain the complex using only one-beat words.',
-    description: 'A browser-based word game inspired by Poetry for Neanderthals. Explain complex topics using only one-syllable words.',
-    image: 'https://images.unsplash.com/photo-1553481187-be93c21490a9?auto=format&fit=crop&q=80&w=800',
+    id: 'time-auction',
+    title: 'Time Auction',
+    subtitle: 'A multiplayer party game inspired by Netflix\'s Devil\'s Plan.',
+    description: 'A real-time, multiplayer party game where players bid their time in real-time auctions, inspired by Netflix\'s The Devil\'s Plan. Created in Cursor AI with Node.js and Socket.IO.',
+    image: 'assets/side-projects/time-auction-hero.png',
     category: 'Game Design',
-    role: 'Independent Developer',
-    duration: '1 Month',
+    role: 'Vibe Coder',
+    duration: 'In Progress',
     company: 'Personal Project',
-    tags: ['Game Design', 'Linguistics', 'Web App'],
+    tags: ['Game Design', 'AI-Assisted', 'Web App'],
     summary: {
-      problem: "Traditional word games often rely on expansive vocabularies, making them inaccessible to non-native speakers or young learners.",
-      solution: "A system that uses a syllable-counting engine to provide real-time feedback and 'haptic' rejection of long words.",
-      outcome: "A viral personal project used as a teaching aid for ESL students."
+      problem: "Party games often require expensive equipment or complex setup, limiting spontaneous play.",
+      solution: "A browser-based multiplayer game where players use their phones to bid time in tense real-time auctions.",
+      outcome: "In development."
     }
   }
 ];

@@ -1,12 +1,9 @@
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { SIDE_PROJECTS } from '../constants';
 
-interface SideProjectsProps {
-  onProjectClick: (id: string) => void;
-}
-
-const SideProjects: React.FC<SideProjectsProps> = ({ onProjectClick }) => {
+const SideProjects: React.FC = () => {
   return (
     <div className="py-20 animate-in fade-in slide-in-from-bottom-4 duration-700">
       <header className="max-w-2xl mb-16 space-y-4">
@@ -17,9 +14,9 @@ const SideProjects: React.FC<SideProjectsProps> = ({ onProjectClick }) => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
         {SIDE_PROJECTS.map((project) => (
           <div key={project.id} className="group space-y-6">
-            <div 
-              className="aspect-[4/3] bg-stone-100 rounded-3xl overflow-hidden relative border border-stone-200 shadow-sm cursor-pointer"
-              onClick={() => onProjectClick(project.id)}
+            <Link
+              to={`/side-project/${project.id}`}
+              className="aspect-[4/3] bg-stone-100 rounded-3xl overflow-hidden relative border border-stone-200 shadow-sm cursor-pointer block"
             >
               <img src={project.image} alt={project.title} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" />
               <div className="absolute top-6 left-6">
@@ -28,23 +25,23 @@ const SideProjects: React.FC<SideProjectsProps> = ({ onProjectClick }) => {
                 </span>
               </div>
               <div className="absolute inset-0 bg-stone-900/0 group-hover:bg-stone-900/10 transition-colors flex items-center justify-center">
-                 <span className="opacity-0 group-hover:opacity-100 transition-opacity bg-white text-stone-900 px-6 py-2 rounded-full font-bold text-xs uppercase tracking-widest shadow-xl">
-                   Read Story
-                 </span>
+                <span className="opacity-0 group-hover:opacity-100 transition-opacity bg-white text-stone-900 px-6 py-2 rounded-full font-bold text-xs uppercase tracking-widest shadow-xl">
+                  Read Story
+                </span>
               </div>
-            </div>
+            </Link>
             <div className="space-y-3 px-2">
               <div className="flex items-center justify-between">
-                <h3 
-                  className="font-serif text-2xl text-stone-900 cursor-pointer hover:text-amber-600 transition-colors"
-                  onClick={() => onProjectClick(project.id)}
+                <Link
+                  to={`/side-project/${project.id}`}
+                  className="font-serif text-2xl text-stone-900 hover:text-amber-600 transition-colors"
                 >
                   {project.title}
-                </h3>
+                </Link>
                 {project.link && (
-                  <a 
-                    href={project.link} 
-                    target="_blank" 
+                  <a
+                    href={project.link}
+                    target="_blank"
                     rel="noopener noreferrer"
                     className="text-stone-400 hover:text-amber-600 transition-colors"
                     title="External Link"
@@ -56,27 +53,27 @@ const SideProjects: React.FC<SideProjectsProps> = ({ onProjectClick }) => {
                 )}
               </div>
               <p className="text-stone-500 leading-relaxed">{project.description}</p>
-              <button 
-                onClick={() => onProjectClick(project.id)}
+              <Link
+                to={`/side-project/${project.id}`}
                 className="inline-flex items-center text-xs font-bold uppercase tracking-widest text-amber-600 hover:text-amber-700 transition-colors pt-2"
               >
                 View Case Study <span className="ml-1 text-lg">›</span>
-              </button>
+              </Link>
             </div>
           </div>
         ))}
       </div>
-      
+
       {/* Playground / Dribbble-like grid section */}
       <section className="mt-40">
         <div className="flex items-center gap-6 mb-12">
-           <h2 className="text-[10px] uppercase tracking-[0.3em] font-bold text-stone-400 whitespace-nowrap">The Lab / Experiments</h2>
-           <div className="flex-1 h-px bg-stone-200" />
+          <h2 className="text-[10px] uppercase tracking-[0.3em] font-bold text-stone-400 whitespace-nowrap">The Lab / Experiments</h2>
+          <div className="flex-1 h-px bg-stone-200" />
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {[1,2,3,4,5,6,7,8].map(i => (
+          {[1, 2, 3, 4, 5, 6, 7, 8].map(i => (
             <div key={i} className="aspect-square bg-stone-100 rounded-[2rem] overflow-hidden grayscale hover:grayscale-0 transition-all duration-700 border border-stone-200 group">
-               <img src={`https://picsum.photos/seed/lab-${i}/600/600`} alt="Lab Work" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+              <img src={`https://picsum.photos/seed/lab-${i}/600/600`} alt="Lab Work" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
             </div>
           ))}
         </div>

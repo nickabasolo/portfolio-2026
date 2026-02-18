@@ -1,27 +1,33 @@
 
 import React, { useEffect, useState } from 'react';
+import { useParams, Link, useLocation } from 'react-router-dom';
 import { CaseStudy, SideProject } from '../types';
 import { CASE_STUDIES, SIDE_PROJECTS } from '../constants';
 import CaseStudyTimeClock from '../components/CaseStudyTimeClock';
 import SideProjectGuardian from '../components/SideProjectGuardian';
 import SideProjectPoetry from '../components/SideProjectPoetry';
 
-interface CaseStudyDetailProps {
-  project: CaseStudy | SideProject;
-  onBack: () => void;
-  onNextProject: (id: string) => void;
-}
-
-const CaseStudyDetail: React.FC<CaseStudyDetailProps> = ({ project, onBack, onNextProject }) => {
+const CaseStudyDetail: React.FC = () => {
+  const { projectId } = useParams<{ projectId: string }>();
+  const location = useLocation();
   const [activeSection, setActiveSection] = useState<string | null>(null);
-  const isSideProject = 'category' in project;
+
+  // Determine if this is a side project based on URL path
+  const isSideProjectRoute = location.pathname.startsWith('/side-project');
+
+  // Find the project from either array
+  const project = isSideProjectRoute
+    ? SIDE_PROJECTS.find(p => p.id === projectId)
+    : CASE_STUDIES.find(p => p.id === projectId) || SIDE_PROJECTS.find(p => p.id === projectId);
+
+  const isSideProject = project ? 'category' in project : false;
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [project.id]);
+  }, [projectId]);
 
   useEffect(() => {
-    if (isSideProject) return;
+    if (isSideProject || !project) return;
 
     const sections = ['challenge', 'strategy', 'execution', 'impact', 'learnings'];
     const observerOptions = {
@@ -45,7 +51,7 @@ const CaseStudyDetail: React.FC<CaseStudyDetailProps> = ({ project, onBack, onNe
     });
 
     return () => observer.disconnect();
-  }, [project.id, isSideProject]);
+  }, [projectId, isSideProject, project]);
 
   const navItems = [
     { id: 'challenge', label: '01 Challenge' },
@@ -60,9 +66,24 @@ const CaseStudyDetail: React.FC<CaseStudyDetailProps> = ({ project, onBack, onNe
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
+  // Handle project not found
+  if (!project) {
+    return (
+      <div className="py-20 text-center">
+        <h1 className="text-3xl font-serif text-stone-900 mb-4">Project not found</h1>
+        <Link to="/" className="text-amber-600 hover:text-amber-700">← Back to Home</Link>
+      </div>
+    );
+  }
+
   const allProjects = [...CASE_STUDIES, ...SIDE_PROJECTS];
   const currentIndex = allProjects.findIndex(p => p.id === project.id);
   const nextProject = allProjects[(currentIndex + 1) % allProjects.length];
+  const nextProjectPath = 'category' in nextProject
+    ? `/side-project/${nextProject.id}`
+    : `/case-study/${nextProject.id}`;
+
+  const backPath = isSideProject ? '/side-projects' : '/';
 
   const renderProjectNarrative = () => {
     switch (project.id) {
@@ -70,7 +91,7 @@ const CaseStudyDetail: React.FC<CaseStudyDetailProps> = ({ project, onBack, onNe
         return <CaseStudyTimeClock project={project as CaseStudy} />;
       case 'guardian-data-viz':
         return <SideProjectGuardian />;
-      case 'poetry-game':
+      case 'time-auction':
         return <SideProjectPoetry />;
       default:
         return (
@@ -83,19 +104,19 @@ const CaseStudyDetail: React.FC<CaseStudyDetailProps> = ({ project, onBack, onNe
 
   return (
     <article className="pb-32 animate-in fade-in slide-in-from-bottom-4 duration-700">
-      <button 
-        onClick={onBack}
+      <Link
+        to={backPath}
         className="mt-12 mb-12 text-sm font-medium text-stone-400 hover:text-amber-600 transition-colors flex items-center group"
       >
         <span className="mr-2 transition-transform group-hover:-translate-x-1">←</span> Back to Works
-      </button>
+      </Link>
 
       {/* Shared Hero Header */}
       <header className="space-y-8 mb-12">
         <div className="flex items-center gap-3">
-           <span className="text-[10px] uppercase tracking-[0.2em] font-bold text-amber-600">
-             {isSideProject ? 'Side Project' : 'Case Study'}
-           </span>
+          <span className="text-[10px] uppercase tracking-[0.2em] font-bold text-amber-600">
+            {isSideProject ? 'Side Project' : 'Case Study'}
+          </span>
         </div>
         <h1 className="text-5xl md:text-7xl font-serif leading-tight text-stone-900 max-w-5xl">
           {project.title}
@@ -160,11 +181,10 @@ const CaseStudyDetail: React.FC<CaseStudyDetailProps> = ({ project, onBack, onNe
                   <button
                     key={item.id}
                     onClick={() => scrollTo(item.id)}
-                    className={`text-left pl-4 text-xs font-bold uppercase tracking-widest transition-all relative py-1 ${
-                      activeSection === item.id 
-                      ? 'text-amber-600' 
+                    className={`text-left pl-4 text-xs font-bold uppercase tracking-widest transition-all relative py-1 ${activeSection === item.id
+                      ? 'text-amber-600'
                       : 'text-stone-400 hover:text-stone-600'
-                    }`}
+                      }`}
                   >
                     {activeSection === item.id && (
                       <span className="absolute left-[-1.5px] top-0 bottom-0 w-[2px] bg-amber-500 rounded-full" />
@@ -186,33 +206,33 @@ const CaseStudyDetail: React.FC<CaseStudyDetailProps> = ({ project, onBack, onNe
       {/* Next Project CTA */}
       <footer className="mt-48 pt-16 border-t border-stone-200">
         <div className="space-y-8">
-           <div className="text-[10px] uppercase tracking-[0.2em] font-bold text-stone-400">Up Next</div>
-           <button 
-             onClick={() => onNextProject(nextProject.id)}
-             className="w-full group relative overflow-hidden rounded-[2.5rem] bg-stone-900 p-12 md:p-20 text-left transition-all hover:shadow-2xl hover:shadow-amber-500/20"
-           >
-              <img 
-                src={nextProject.image} 
-                className="absolute inset-0 w-full h-full object-cover opacity-30 grayscale group-hover:scale-105 group-hover:opacity-50 group-hover:grayscale-0 transition-all duration-1000"
-                alt=""
-              />
-              <div className="absolute inset-0 bg-gradient-to-r from-stone-900 via-stone-900/40 to-transparent" />
-              
-              <div className="relative z-10 space-y-4 max-w-xl">
-                <h3 className="text-4xl md:text-6xl font-serif text-white group-hover:text-amber-400 transition-colors">
-                  {nextProject.title}
-                </h3>
-                <p className="text-stone-400 text-lg md:text-xl font-light leading-relaxed line-clamp-2">
-                  {(nextProject as any).subtitle || (nextProject as any).description}
-                </p>
-                <div className="pt-4">
-                  <span className="inline-flex items-center text-white text-sm font-medium">
-                    {('category' in nextProject) ? 'View Experiment' : 'Read Case Study'}
-                    <span className="ml-2 group-hover:translate-x-2 transition-transform">→</span>
-                  </span>
-                </div>
+          <div className="text-[10px] uppercase tracking-[0.2em] font-bold text-stone-400">Up Next</div>
+          <Link
+            to={nextProjectPath}
+            className="w-full group relative overflow-hidden rounded-[2.5rem] bg-stone-900 p-12 md:p-20 text-left transition-all hover:shadow-2xl hover:shadow-amber-500/20 block"
+          >
+            <img
+              src={nextProject.image}
+              className="absolute inset-0 w-full h-full object-cover opacity-30 grayscale group-hover:scale-105 group-hover:opacity-50 group-hover:grayscale-0 transition-all duration-1000"
+              alt=""
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-stone-900 via-stone-900/40 to-transparent" />
+
+            <div className="relative z-10 space-y-4 max-w-xl">
+              <h3 className="text-4xl md:text-6xl font-serif text-white group-hover:text-amber-400 transition-colors">
+                {nextProject.title}
+              </h3>
+              <p className="text-stone-400 text-lg md:text-xl font-light leading-relaxed line-clamp-2">
+                {(nextProject as any).subtitle || (nextProject as any).description}
+              </p>
+              <div className="pt-4">
+                <span className="inline-flex items-center text-white text-sm font-medium">
+                  {('category' in nextProject) ? 'View Experiment' : 'Read Case Study'}
+                  <span className="ml-2 group-hover:translate-x-2 transition-transform">→</span>
+                </span>
               </div>
-           </button>
+            </div>
+          </Link>
         </div>
       </footer>
     </article>

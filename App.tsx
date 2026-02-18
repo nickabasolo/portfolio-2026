@@ -1,63 +1,51 @@
 
-import React, { useState } from 'react';
+import React from 'react';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import CaseStudyDetail from './pages/CaseStudyDetail';
 import SideProjects from './pages/SideProjects';
 import About from './pages/About';
-import { CASE_STUDIES, SIDE_PROJECTS } from './constants';
 
 const App: React.FC = () => {
-  const [activeTab, setActiveTab] = useState('work');
-  const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  const selectedProject = [...CASE_STUDIES, ...SIDE_PROJECTS].find(p => p.id === selectedProjectId);
-
-  const handleProjectSelect = (id: string) => {
-    setSelectedProjectId(id);
-    window.scrollTo(0, 0);
+  // Determine active tab from current path
+  const getActiveTab = () => {
+    const path = location.pathname;
+    if (path.startsWith('/side-project') || path === '/side-projects') return 'side-projects';
+    if (path === '/about') return 'about';
+    return 'work';
   };
 
   const handleTabChange = (tab: string) => {
-    setActiveTab(tab);
-    setSelectedProjectId(null);
-    window.scrollTo(0, 0);
-  };
-
-  const renderContent = () => {
-    if (selectedProjectId && selectedProject) {
-      return (
-        <CaseStudyDetail 
-          project={selectedProject} 
-          onBack={() => setSelectedProjectId(null)}
-          onNextProject={handleProjectSelect}
-        />
-      );
-    }
-
-    switch (activeTab) {
+    switch (tab) {
       case 'work':
-        return (
-          <Home 
-            onProjectClick={handleProjectSelect} 
-            onAboutClick={() => handleTabChange('about')} 
-          />
-        );
+        navigate('/');
+        break;
       case 'side-projects':
-        return <SideProjects onProjectClick={handleProjectSelect} />;
+        navigate('/side-projects');
+        break;
       case 'about':
-        return <About />;
-      default:
-        return <Home onProjectClick={handleProjectSelect} onAboutClick={() => handleTabChange('about')} />;
+        navigate('/about');
+        break;
     }
+    window.scrollTo(0, 0);
   };
 
   return (
     <div className="min-h-screen flex flex-col selection:bg-amber-200 selection:text-amber-900">
-      <Navbar activeTab={activeTab} setActiveTab={handleTabChange} />
-      
+      <Navbar activeTab={getActiveTab()} setActiveTab={handleTabChange} />
+
       <main className="flex-1 max-w-6xl mx-auto px-6 w-full relative">
-        {renderContent()}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/side-projects" element={<SideProjects />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/case-study/:projectId" element={<CaseStudyDetail />} />
+          <Route path="/side-project/:projectId" element={<CaseStudyDetail />} />
+        </Routes>
       </main>
 
       <footer className="py-24 border-t border-stone-200 mt-20">
@@ -65,7 +53,7 @@ const App: React.FC = () => {
           <div className="text-stone-900 font-medium text-lg text-center">
             Nick Abasolo, <span className="text-stone-400 font-normal italic">Product Designer</span>
           </div>
-          <button 
+          <button
             onClick={() => handleTabChange('about')}
             className="inline-flex items-center justify-center px-10 py-4 bg-stone-900 text-white rounded-full font-medium hover:bg-amber-600 transition-all shadow-xl shadow-stone-900/10 group"
           >
