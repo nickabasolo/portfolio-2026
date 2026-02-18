@@ -4,7 +4,6 @@ import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import CaseStudyDetail from './pages/CaseStudyDetail';
-import SideProjects from './pages/SideProjects';
 import About from './pages/About';
 
 const App: React.FC = () => {
@@ -14,7 +13,6 @@ const App: React.FC = () => {
   // Determine active tab from current path
   const getActiveTab = () => {
     const path = location.pathname;
-    if (path.startsWith('/side-project') || path === '/side-projects') return 'side-projects';
     if (path === '/about') return 'about';
     return 'work';
   };
@@ -23,9 +21,6 @@ const App: React.FC = () => {
     switch (tab) {
       case 'work':
         navigate('/');
-        break;
-      case 'side-projects':
-        navigate('/side-projects');
         break;
       case 'about':
         navigate('/about');
@@ -41,7 +36,6 @@ const App: React.FC = () => {
       <main className="flex-1 max-w-6xl mx-auto px-6 w-full relative">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/side-projects" element={<SideProjects />} />
           <Route path="/about" element={<About />} />
           <Route path="/case-study/:projectId" element={<CaseStudyDetail />} />
           <Route path="/side-project/:projectId" element={<CaseStudyDetail />} />

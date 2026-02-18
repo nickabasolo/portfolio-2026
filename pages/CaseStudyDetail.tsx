@@ -84,7 +84,7 @@ const CaseStudyDetail: React.FC = () => {
     ? `/side-project/${nextProject.id}`
     : `/case-study/${nextProject.id}`;
 
-  const backPath = isSideProject ? '/side-projects' : '/';
+  const backPath = '/';
 
   const renderProjectNarrative = () => {
     switch (project.id) {

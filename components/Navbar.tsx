@@ -10,7 +10,6 @@ interface NavbarProps {
 const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
   const tabs = [
     { id: 'work', label: 'Work', path: '/' },
-    { id: 'side-projects', label: 'Side Projects', path: '/side-projects' },
     { id: 'about', label: 'About & Contact', path: '/about' },
   ];
 
@@ -30,8 +29,8 @@ const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
               key={tab.id}
               to={tab.path}
               className={`text-sm font-medium transition-all relative py-1 ${activeTab === tab.id
-                  ? 'text-stone-900'
-                  : 'text-stone-500 hover:text-stone-800'
+                ? 'text-stone-900'
+                : 'text-stone-500 hover:text-stone-800'
                 }`}
             >
               {tab.label}
