@@ -5,6 +5,7 @@ import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import CaseStudyDetail from './pages/CaseStudyDetail';
 import About from './pages/About';
+import Resume from './pages/Resume';
 
 const App: React.FC = () => {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ const App: React.FC = () => {
   const getActiveTab = () => {
     const path = location.pathname;
     if (path === '/about') return 'about';
+    if (path === '/resume') return 'resume';
     return 'work';
   };
 
@@ -24,6 +26,9 @@ const App: React.FC = () => {
         break;
       case 'about':
         navigate('/about');
+        break;
+      case 'resume':
+        navigate('/resume');
         break;
     }
     window.scrollTo(0, 0);
@@ -37,6 +42,7 @@ const App: React.FC = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
+          <Route path="/resume" element={<Resume />} />
           <Route path="/case-study/:projectId" element={<CaseStudyDetail />} />
           <Route path="/side-project/:projectId" element={<CaseStudyDetail />} />
         </Routes>

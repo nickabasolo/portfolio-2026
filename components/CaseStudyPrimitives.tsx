@@ -60,7 +60,7 @@ export const Metrics: React.FC<{ items: string[] }> = ({ items }) => (
 );
 
 export const Visual: React.FC<{ label: string; bg?: string; children?: React.ReactNode }> = ({ label, bg = "bg-stone-100", children }) => (
-  <div className={`${!children ? 'aspect-[16/9]' : 'py-12'} ${bg} rounded-3xl flex items-center justify-center text-stone-400 text-xs italic border border-stone-200 overflow-hidden relative shadow-inner px-6 md:px-12`}>
+  <div className={`${!children ? 'aspect-[16/9] text-stone-400 text-xs italic' : 'py-12'} ${bg} rounded-3xl flex items-center justify-center border border-stone-200 overflow-hidden relative shadow-inner px-6 md:px-12`}>
     {children || <span>[ {label} ]</span>}
   </div>
 );
@@ -76,8 +76,8 @@ export const GridList: React.FC<{ items: { title: string; content: string }[] }>
   </div>
 );
 
-export const Table: React.FC<{ 
-  headers: string[]; 
+export const Table: React.FC<{
+  headers: string[];
   rows: string[][];
 }> = ({ headers, rows }) => (
   <div className="overflow-x-auto -mx-6 px-6 md:mx-0 md:px-0 bg-white border border-stone-200 rounded-3xl">
@@ -148,7 +148,7 @@ export const JourneyMap: React.FC = () => (
           strokeLinecap="round"
           className="drop-shadow-sm"
         />
-        
+
         {/* Interaction Labels */}
         <g className="text-[11px] font-serif italic font-bold fill-stone-900">
           <circle cx="200" cy="175" r="4" fill="#f59e0b" />
@@ -156,7 +156,7 @@ export const JourneyMap: React.FC = () => (
 
           <circle cx="350" cy="320" r="4" fill="#f59e0b" />
           <text x="362" y="315">See agenda</text>
-          
+
           <text x="600" y="25" className="fill-stone-400 font-sans uppercase tracking-widest text-[9px]">Cooking, Serving, etc.</text>
 
           <circle cx="900" cy="320" r="4" fill="#f59e0b" />
@@ -164,7 +164,7 @@ export const JourneyMap: React.FC = () => (
         </g>
       </svg>
     </div>
-    
+
     <div className="pt-6 border-t border-stone-200 flex justify-between items-center text-[10px] uppercase tracking-widest font-bold text-stone-400">
       <span>Shift Start</span>
       <span className="text-stone-300">— — — — — —</span>

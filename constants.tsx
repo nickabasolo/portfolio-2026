@@ -4,8 +4,8 @@ import { CaseStudy, SideProject } from './types';
 export const CASE_STUDIES: CaseStudy[] = [
   {
     id: 'time-clock',
-    title: 'Time Clock: A Multi-modal Ecosystem',
-    subtitle: 'Designing a reliable way for hourly workers to clock in that prevents payroll errors and saves managers 10+ hours of manual paperwork every week.',
+    title: 'Time Clock: From Audit to Autonomy',
+    subtitle: 'Designing a reliable way for hourly workers to clock in that prevents payroll errors and saves managers 1.5+ hours of manual paperwork every week.',
     role: 'Senior Product Designer',
     duration: '4 Months',
     company: 'Workstream',
@@ -13,16 +13,16 @@ export const CASE_STUDIES: CaseStudy[] = [
     tags: ['Labor Compliance', 'Mobile UX', 'Behavioral Design'],
     overview: 'The worker clock-in is the most critical touchpoint in the labor lifecycle. I redesigned this flow to move compliance resolution from the manager’s Sunday night to the worker’s daily exit.',
     problem: 'Managers were losing 5+ hours a week to admin overhead: manually auditing and correcting flagged timecards that their workers were punching in to the system.',
-    solution: 'On top of improving the manager’s administrative experience, I pivoted the solution by moving the resolution upstream, exposing real-time compliance logic to workers and replacing manual manager audits with worker-led edit suggestions.',
+    solution: 'I pivoted the strategy from a "better manager dashboard" to a "better worker tool." By introducing worker-side editing and a gamified clock-out experience, I encouraged workers to suggestd their own corrections before they ever reached the manager.',
     impact: [
-      '70% Reduction in flagged timecards',
-      '4.5 Hours/Week Reclaimed',
+      '58% Reduction in flagged timecards',
+      '1.5 Hours/Week Reclaimed',
       'Increased Pay Transparency'
     ],
     summary: {
-      problem: "Managers were losing 5+ hours a week to admin overhead: manually auditing and correcting flagged timecards that their workers were punching in to the system.",
-      solution: "On top of improving the manager’s administrative experience, I pivoted the solution by moving the resolution upstream, exposing real-time compliance logic to workers and replacing manual manager audits with worker-led edit suggestions.",
-      outcome: "70% reduction in manual timecard edits and 4.5 hours reclaimed per manager, per week."
+      problem: "Managers were losing 5+ hours a week to admin overhead: manually auditing and correcting flagged timecards that their workers were punching in to the system. They wanted a better timesheet experience.",
+      solution: "On top of improving the manager's experience, I expanded strategy to include the worker's tools as well. Enabling workers to suggest their own corrections prevented them from ever reaching the manager.",
+      outcome: "58% reduction in manual timecard edits and 1.5 hours reclaimed per manager, per week."
     }
   },
   {

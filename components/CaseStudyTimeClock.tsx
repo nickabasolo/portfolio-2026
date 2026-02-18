@@ -4,6 +4,8 @@ import { CaseStudy } from '../types';
 import { Section, TextContent, Quote, Metrics, Visual, GridList, SubHeading, Table, JourneyMap } from './CaseStudyPrimitives';
 import { getAssetPath } from '../utils/paths';
 
+import ReviewShift from './ReviewShift';
+
 interface Props {
   project: CaseStudy;
 }
@@ -55,7 +57,7 @@ const CaseStudyTimeClock: React.FC<Props> = ({ project }) => {
             ]}
           />
 
-          <JourneyMap />
+          {/* <JourneyMap /> */}
         </div>
       </Section>
 
@@ -87,13 +89,11 @@ const CaseStudyTimeClock: React.FC<Props> = ({ project }) => {
               <p>But in initial user tests, managers were terrified of giving edit access to employees. They feared that allowing workers to touch the timecard would lead to unchecked payroll manipulation.</p>
             </TextContent>
 
-            <Visual label="The Edit Request Workflow" bg="bg-stone-50">
-              <img
-                src={getAssetPath('assets/case-studies/review-shift.png')}
-                alt="Edit Request Flow"
-                className="w-full h-auto object-contain max-h-[700px] rounded-lg shadow-lg"
-              />
-            </Visual>
+            <img
+              src={getAssetPath('assets/case-studies/review-shift.png')}
+              alt="Edit Request Flow"
+              className="w-full h-auto object-contain max-h-[700px] rounded-lg shadow-lg my-8"
+            />
 
             <TextContent>
               <p>However, I still believed that allowing workers to edit the errors was beneficial for both parties: saving managers time while giving workers freedom to correct their mistakes.</p>
@@ -109,7 +109,9 @@ const CaseStudyTimeClock: React.FC<Props> = ({ project }) => {
               <p>Inspired by video game end-screens, I designed a shift summary page to be more like high-score celebration. The "ticking" earnings and haptic feedback served a strategic purpose: they acted as a speed bump. I didn't want workers to clock out and immediately pocket their phones. By making the summary engaging, I increased "dwell time" on the page, encouraging workers to poke around and verify that their hours and earnings were accurate before walking away.</p>
               <p>The "delight" factor ensured that the worker performed a final audit of the shift data when the memory was freshest.</p>
             </TextContent>
-            <Visual label="High-Score Shift Summary UI" bg="bg-stone-900" />
+            <Visual label="High-Score Shift Summary UI" bg="bg-stone-100">
+              <ReviewShift />
+            </Visual>
           </div>
         </div>
       </Section>
@@ -117,12 +119,12 @@ const CaseStudyTimeClock: React.FC<Props> = ({ project }) => {
       {/* 04 Impact */}
       <Section id="impact" number="04" title="Impact">
         <TextContent>
-          <p>By narrowing the "Accuracy Gap" at the source, we fundamentally changed the operational health of our customers' businesses.</p>
+          <p>In looking at analytics data and conducting customer interviews one month post-launch, we found that the design intervention had a significant impact on our customers' businesses.</p>
         </TextContent>
         <Metrics items={[
-          '70% Reduction in flagged timecards',
-          '4.5 Hours/Week Reclaimed per manager',
-          'Increased Pay Transparency Workers reported higher trust'
+          '58% Reduction in flagged timecards',
+          '1.5 admin hours/week reclaimed on average',
+          '23 corrections/week per worker on average'
         ]} />
       </Section>
 

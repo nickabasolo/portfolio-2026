@@ -33,7 +33,7 @@ const Home: React.FC = () => {
                   <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
                 </a>
                 <a
-                  href={getAssetPath('resume.pdf')}
+                  href={getAssetPath('assets/about/Resume - Nick Abasolo (2026).pdf')}
                   download
                   className="inline-flex items-center justify-center px-8 py-4 bg-transparent text-stone-900 rounded-full font-medium border-2 border-stone-300 hover:border-amber-600 hover:text-amber-600 transition-all group"
                 >

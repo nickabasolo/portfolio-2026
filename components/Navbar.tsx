@@ -11,6 +11,7 @@ const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
   const tabs = [
     { id: 'work', label: 'Work', path: '/' },
     { id: 'about', label: 'About & Contact', path: '/about' },
+    { id: 'resume', label: 'Resume', path: '/resume' },
   ];
 
   return (

@@ -181,7 +181,7 @@ const About: React.FC = () => {
     {
       title: "AI & Development",
       description: "Leveraging modern LLMs and agentic tools for building.",
-      skills: ["Cursor & Anti", "Gemini", "AI Studio", "Antigravity", "Github"]
+      skills: ["Cursor", "Gemini & AI Studio", "React and React Native prototyping", "Github"]
     }
   ];
 
@@ -228,7 +228,7 @@ const About: React.FC = () => {
           </div>
 
           <a
-            href={getAssetPath('resume.pdf')}
+            href={getAssetPath('assets/about/Resume - Nick Abasolo (2026).pdf')}
             target="_blank"
             className="flex items-center justify-center gap-2 w-full bg-stone-900 text-white py-3.5 rounded-xl font-bold uppercase tracking-widest text-[9px] hover:bg-amber-600 transition-all shadow-lg shadow-stone-900/10 group/resume mt-5"
           >
