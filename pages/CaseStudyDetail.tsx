@@ -7,6 +7,7 @@ import { getAssetPath } from '../utils/paths';
 import CaseStudyTimeClock from '../components/CaseStudyTimeClock';
 import SideProjectGuardian from '../components/SideProjectGuardian';
 import SideProjectPoetry from '../components/SideProjectPoetry';
+import SideProjectPortfolio from '../components/SideProjectPortfolio';
 
 const CaseStudyDetail: React.FC = () => {
   const { projectId } = useParams<{ projectId: string }>();
@@ -94,6 +95,8 @@ const CaseStudyDetail: React.FC = () => {
         return <SideProjectGuardian />;
       case 'time-auction':
         return <SideProjectPoetry />;
+      case 'portfolio-vibe-code':
+        return <SideProjectPortfolio />;
       default:
         return (
           <div className="max-w-3xl py-20 text-center text-stone-400 italic">

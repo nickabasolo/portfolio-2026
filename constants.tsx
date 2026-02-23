@@ -86,7 +86,7 @@ export const SIDE_PROJECTS: SideProject[] = [
   },
   {
     id: 'time-auction',
-    title: 'Time Auction',
+    title: 'Time Auction: A multiplayer party game',
     subtitle: 'A multiplayer party game inspired by Netflix\'s Devil\'s Plan.',
     description: 'A real-time, multiplayer party game where players bid their time in real-time auctions, inspired by Netflix\'s The Devil\'s Plan. Created in Cursor AI with Node.js and Socket.IO.',
     image: 'assets/side-projects/time-auction-hero.png',
@@ -99,6 +99,23 @@ export const SIDE_PROJECTS: SideProject[] = [
       problem: "Party games often require expensive equipment or complex setup, limiting spontaneous play.",
       solution: "A browser-based multiplayer game where players use their phones to bid time in tense real-time auctions.",
       outcome: "In development."
+    }
+  },
+  {
+    id: 'portfolio-vibe-code',
+    title: 'This Portfolio: AI-assisted development',
+    subtitle: 'A vibe-coded portfolio designed and built with AI.',
+    description: 'This portfolio itself is a side project, built using React, Tailwind CSS, and AI assistance in Cursor and Claude Code to translate my design vision directly into production.',
+    image: 'assets/about/headshot.png',
+    category: 'Vibe Coding',
+    role: 'Designer / Developer',
+    duration: 'In Progress',
+    company: 'Personal Project',
+    tags: ['React', 'Tailwind', 'AI-Assisted'],
+    summary: {
+      problem: "Traditional portfolios can feel static and disconnected from the creator's actual process.",
+      solution: "A 'vibe coded' portfolio leveraging AI to rapidly iterate on design and build a rich, interactive experience without complex overhead.",
+      outcome: "A fully functional, polished React application built in a fraction of typical development time."
     }
   }
 ];

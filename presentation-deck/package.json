@@ -1,0 +1,13 @@
+{
+    "name": "portfolio-presentation-2026",
+    "private": true,
+    "scripts": {
+        "dev": "slidev --port 3030",
+        "build": "slidev build",
+        "export": "slidev export"
+    },
+    "dependencies": {
+        "@slidev/cli": "^0.48.0",
+        "@slidev/theme-default": "latest"
+    }
+}

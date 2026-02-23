@@ -1,0 +1,69 @@
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=Roboto+Mono:wght@400;700&display=swap');
+
+:root {
+    --slidev-theme-primary: #d97706;
+    /* amber-600 */
+}
+
+/* Background overrides based on portfolio */
+html,
+body,
+.slidev-layout {
+    background-color: #FAF9F6 !important;
+    color: #1C1917 !important;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Serif font for headers */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Instrument Serif', serif !important;
+    font-weight: normal !important;
+    color: #1C1917 !important;
+}
+
+h1 {
+    font-size: 3.5rem !important;
+    line-height: 1.1 !important;
+}
+
+h2 {
+    font-size: 2.5rem !important;
+}
+
+/* Use amber-600 for prominent accents */
+a,
+strong {
+    color: #d97706;
+}
+
+/* Adding a subtle blob visual element for the portfolio flavor */
+.slidev-layout::before {
+    content: '';
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(245, 158, 11, 0.1) 0%, transparent 70%);
+    top: -100px;
+    right: -100px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.slidev-layout::after {
+    content: '';
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(14, 165, 233, 0.08) 0%, transparent 70%);
+    bottom: -150px;
+    left: -100px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: -1;
+}

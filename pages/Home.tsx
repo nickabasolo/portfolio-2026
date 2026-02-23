@@ -13,15 +13,15 @@ const Home: React.FC = () => {
           {/* Text Content */}
           <div className="space-y-10 flex-1">
             <h1 className="text-5xl md:text-7xl font-serif leading-[1.1] tracking-tight text-stone-900">
-              Hello! I'm <span className="italic text-amber-600">Nick Abasolo</span>.
+              Designing <span className="text-amber-600">human scale</span> solutions for complex, real world systems.
             </h1>
             <div className="space-y-6">
               <div className="space-y-4">
                 <p className="text-xl md:text-2xl text-stone-500 font-light leading-relaxed max-w-2xl">
-                  Former economic analyst, part-time AI dabbler, full-time tea enthusiast.
+                  Hi, I'm <span className="text-amber-600">Nick Abasolo</span>. I design intuitive experiences for people navigating operational workflows and regulatory complexity.
                 </p>
                 <p className="text-xl md:text-2xl text-stone-500 font-light leading-relaxed max-w-2xl">
-                  I also design products at Workstream, where I craft multimodal experiences for the restaurant workforce.
+                  Right now, I'm a Senior Product Designer at Workstream, where I'm streamlining payroll and labor compliance for the restaurant workforce.
                 </p>
               </div>
               <div className="flex flex-wrap gap-4">
