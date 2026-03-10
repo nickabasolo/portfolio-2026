@@ -1,8 +1,15 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { CASE_STUDIES, SIDE_PROJECTS } from '../constants';
 import { getAssetPath } from '../utils/paths';
+import { summary as timeClockSummary } from './case-studies/TimeClock';
+import { summary as perfReviewsSummary } from './case-studies/PerformanceReviews';
+import { summary as managerDashboardSummary } from './case-studies/ManagerDashboard';
+import { summary as guardianDataVizSummary } from './side-projects/GuardianDataViz';
+import { summary as timeAuctionSummary } from './side-projects/TimeAuction';
+import { summary as portfolioVibeSummary } from './side-projects/PortfolioVibecode';
+
+const CASE_STUDIES = [timeClockSummary, perfReviewsSummary, managerDashboardSummary];
+const SIDE_PROJECTS = [guardianDataVizSummary, timeAuctionSummary, portfolioVibeSummary];
 
 const Home: React.FC = () => {
   return (
@@ -12,19 +19,19 @@ const Home: React.FC = () => {
         <div className="flex flex-col md:flex-row md:items-center gap-12 md:gap-16">
           {/* Text Content */}
           <div className="space-y-10 flex-1">
-            <h1 className="text-5xl md:text-7xl font-serif leading-[1.1] tracking-tight text-stone-900">
-              Designing <span className="text-amber-600">human scale</span> solutions for complex, real world systems.
-            </h1>
             <div className="space-y-6">
-              <div className="space-y-4">
-                <p className="text-xl md:text-2xl text-stone-500 font-light leading-relaxed max-w-2xl">
-                  Hi, I'm <span className="text-amber-600">Nick Abasolo</span>. I design intuitive experiences for people navigating operational workflows and regulatory complexity.
-                </p>
-                <p className="text-xl md:text-2xl text-stone-500 font-light leading-relaxed max-w-2xl">
-                  Right now, I'm a Senior Product Designer at Workstream, where I'm streamlining payroll and labor compliance for the restaurant workforce.
-                </p>
-              </div>
-              <div className="flex flex-wrap gap-4">
+              <p className="text-xl text-stone-400 tracking-wide">Hi, I'm Nick!</p>
+              <h1 className="text-5xl md:text-7xl font-serif leading-[1.1] tracking-tight text-stone-900">
+                I design <span className="text-amber-600">human scale</span> solutions for complex, real world systems.
+              </h1>
+              <p className="text-xl md:text-2xl text-stone-500 font-light leading-relaxed max-w-2xl">
+                Currently designing solutions for hospitality HR and payroll — built for workers who are on their feet, not at a desk.
+              </p>
+              <p className="text-xl md:text-2xl text-stone-500 font-light leading-relaxed max-w-2xl">
+                Lately, I rely on AI-assisted prototyping to make real-world experiences that feel lifelike.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-4">
                 <Link
                   to="/about"
                   className="inline-flex items-center justify-center px-8 py-4 bg-stone-900 text-white rounded-full font-medium hover:bg-amber-600 transition-all shadow-lg shadow-stone-900/10 group"
@@ -42,7 +49,6 @@ const Home: React.FC = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                   </svg>
                 </a>
-              </div>
             </div>
           </div>
 
@@ -57,14 +63,14 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* Bento Grid Projects */}
+      {/* Case Studies Section */}
       <section>
         <div className="mb-12 border-b border-stone-200 pb-4">
           <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-stone-400">Selected Works</h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:auto-rows-[300px]">
-          {/* Main Case Study - Time Clock (Project 0) */}
+          {/* Main Case Study - Time Clock */}
           <Link
             to="/case-study/time-clock"
             className="md:col-span-8 md:row-span-2 group cursor-pointer relative overflow-hidden rounded-3xl bg-stone-900 flex flex-col justify-end p-8 md:p-12 transition-all hover:shadow-2xl hover:shadow-amber-500/10"
@@ -81,7 +87,7 @@ const Home: React.FC = () => {
             </div>
           </Link>
 
-          {/* Performance Reviews - Coming Soon (Project 1) */}
+          {/* Performance Reviews - Coming Soon */}
           <div
             className="md:col-span-4 md:row-span-2 relative overflow-hidden rounded-3xl bg-white flex flex-col p-8 border border-stone-200 group"
           >
@@ -101,7 +107,7 @@ const Home: React.FC = () => {
             </div>
           </div>
 
-          {/* Manager Dashboard - Coming Soon (Project 2) */}
+          {/* Manager Dashboard - Coming Soon */}
           <div
             className="md:col-span-12 relative overflow-hidden rounded-3xl bg-white border border-stone-200 p-8 flex flex-col md:flex-row gap-8 items-center group"
           >

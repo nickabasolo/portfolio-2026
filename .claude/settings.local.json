@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(wc -l /c/Users/Nick/Projects/portfolio-2026/components/*.tsx /c/Users/Nick/Projects/portfolio-2026/pages/*.tsx /c/Users/Nick/Projects/portfolio-2026/*.tsx)",
+      "Bash(grep -r \"className\\\\|style\" /c/Users/Nick/Projects/portfolio-2026/components/*.tsx)",
+      "Bash(npx vite build)",
+      "Bash(npm run:*)"
+    ]
+  }
+}

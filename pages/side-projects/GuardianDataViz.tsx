@@ -1,12 +1,30 @@
-
 import React from 'react';
-import { TextContent, Visual } from './CaseStudyPrimitives';
-import { getAssetPath } from '../utils/paths';
+import { TextContent, Visual } from '../../components/CaseStudyPrimitives';
+import CaseStudyLayout from '../../components/CaseStudyLayout';
+import { getAssetPath } from '../../utils/paths';
+import { useScrollToTop } from '../../hooks/useScrollToTop';
 
-const SideProjectGuardian: React.FC = () => {
+export const summary = {
+  id: 'guardian-data-viz',
+  kind: 'side-project' as const,
+  title: 'Visualizing Canada\'s 2025 election data',
+  subtitle: 'Testing the hypothesis that the 2025 Canadian election defined a shift away from minor third parties.',
+  description: 'A data visualization project using Python to analyze and visualize the 2025 Canadian election data.',
+  link: 'https://www.theguardian.com/news/2025/jun/13/the-crunch-how-ukraine-drones-hit-russia-marine-heatwaves-and-the-collapse-of-canadas-third-parties',
+  image: 'assets/side-projects/guardian-data-viz-hero.png',
+  category: 'Data Visualization',
+  role: 'Data Designer',
+  duration: '2 Weeks',
+  company: 'The Guardian (Featured)',
+  tags: ['Data Viz', 'Climate', 'Editorial'],
+};
+
+const GuardianDataViz: React.FC = () => {
+  useScrollToTop();
   return (
-    <div className="space-y-24">
-      {/* Featured Blurb */}
+    <CaseStudyLayout image={summary.image} isSideProject>
+      <div className="space-y-24 animate-in fade-in slide-in-from-bottom-4 duration-700">
+        {/* Featured Blurb */}
       <section className="bg-amber-50 border border-amber-100 p-8 rounded-2xl flex items-start gap-4 mx-auto max-w-3xl">
         <div className="text-amber-600 shrink-0 mt-1">
           <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" /></svg>
@@ -31,7 +49,7 @@ const SideProjectGuardian: React.FC = () => {
       <section>
         <h2 className="text-sm font-bold uppercase tracking-widest text-amber-600 mb-6">Project Goal</h2>
         <p className="text-2xl md:text-3xl font-serif text-stone-900 leading-relaxed max-w-4xl">
-          To test the hypothesis that the 2025 Canadian election was defined by a shift away from minor third parties towards Canada’s two major parties.
+          To test the hypothesis that the 2025 Canadian election was defined by a shift away from minor third parties towards Canada's two major parties.
         </p>
       </section>
 
@@ -40,17 +58,14 @@ const SideProjectGuardian: React.FC = () => {
         <TextContent>
           <h2 className="text-3xl font-serif text-stone-900 mb-6">The Chart</h2>
           <p>
-            Canada’s parliament has had a long history of many different political parties – until recently, when its two major parties dominated the 2025 election. I used a ternary plot to track the vote share of all 343 electoral districts from 2021 to 2025.
+            Canada's parliament has had a long history of many different political parties – until recently, when its two major parties dominated the 2025 election. I used a ternary plot to track the vote share of all 343 electoral districts from 2021 to 2025.
           </p>
           <p>
             It was clear that voters abandoned third parties (NDP, Greens, Bloc Quebecois) to consolidate behind the two major centrist parties, the Liberals and Conservatives.
           </p>
         </TextContent>
 
-        <Visual
-          label="Ternary Plot: 2021 vs 2025 Vote Share"
-          caption="A ternary plot visualizing the movement of 343 electoral districts."
-        >
+        <Visual label="Ternary Plot: 2021 vs 2025 Vote Share">
           <img
             src={getAssetPath('assets/side-projects/guardian-data-viz-chart.png')}
             alt="Ternary plot showing third-party collapse in Canadian 2025 election"
@@ -172,8 +187,9 @@ const SideProjectGuardian: React.FC = () => {
           View on The Guardian website
         </a>
       </div>
-    </div>
+      </div>
+    </CaseStudyLayout>
   );
 };
 
-export default SideProjectGuardian;
+export default GuardianDataViz;

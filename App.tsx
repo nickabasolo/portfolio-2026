@@ -3,7 +3,12 @@ import React from 'react';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
-import CaseStudyDetail from './pages/CaseStudyDetail';
+import TimeClock from './pages/case-studies/TimeClock';
+import PerformanceReviews from './pages/case-studies/PerformanceReviews';
+import ManagerDashboard from './pages/case-studies/ManagerDashboard';
+import GuardianDataViz from './pages/side-projects/GuardianDataViz';
+import TimeAuction from './pages/side-projects/TimeAuction';
+import PortfolioVibecode from './pages/side-projects/PortfolioVibecode';
 import About from './pages/About';
 import Resume from './pages/Resume';
 
@@ -43,8 +48,12 @@ const App: React.FC = () => {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/resume" element={<Resume />} />
-          <Route path="/case-study/:projectId" element={<CaseStudyDetail />} />
-          <Route path="/side-project/:projectId" element={<CaseStudyDetail />} />
+          <Route path="/case-study/time-clock" element={<TimeClock />} />
+          <Route path="/case-study/performance-reviews" element={<PerformanceReviews />} />
+          <Route path="/case-study/manager-dashboard" element={<ManagerDashboard />} />
+          <Route path="/side-project/guardian-data-viz" element={<GuardianDataViz />} />
+          <Route path="/side-project/time-auction" element={<TimeAuction />} />
+          <Route path="/side-project/portfolio-vibe-code" element={<PortfolioVibecode />} />
         </Routes>
       </main>
 
