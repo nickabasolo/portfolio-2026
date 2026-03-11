@@ -343,7 +343,7 @@ const Home: React.FC = () => {
     <div className="flex flex-col items-center" style={{ backgroundColor: '#FAF9F6' }}>
       <style>{animationStyles}</style>
       {/* Hero Section — three fixed zones: hero text | scrollable messages | input */}
-      <section className="w-full px-16 md:px-[180px] h-[75vh] flex flex-col justify-center">
+      <section className="w-full px-6 md:px-16 lg:px-[180px] h-[75vh] flex flex-col justify-center">
 
         {/* Zone 1: Hero text — shrink-0, always visible at top when chat is active */}
         <div className="max-w-[640px] space-y-4 shrink-0 py-8">
@@ -470,13 +470,13 @@ const Home: React.FC = () => {
       </section>
 
       {/* Work Section - Case Studies */}
-      <section className="space-y-12 w-full max-w-[1080px] mx-auto px-16 md:px-8">
+      <section className="space-y-12 w-full max-w-[1080px] mx-auto px-6 md:px-8">
         <div className="flex items-center gap-6">
           <h2 className="text-md text-stone-400">Selected work</h2>
           <div className="flex-1 h-px bg-stone-200" />
         </div>
 
-        <div className="space-y-24 w-full">
+        <div className="space-y-16 md:space-y-24 w-full">
           {CASE_STUDIES.map((project) => {
             const coming = isComingSoon(project.duration);
             const metrics = getMetrics(project.id, project.impact);
@@ -487,12 +487,12 @@ const Home: React.FC = () => {
             return (
               <div
                 key={project.id}
-                className={`flex flex-row gap-16 items-center h-[480px] transition-all ${
+                className={`flex flex-col md:flex-row gap-8 md:gap-16 items-start md:items-center md:h-[480px] transition-all ${
                   coming ? 'opacity-60' : ''
                 }`}
               >
                 {/* Text Content - Left */}
-                <div className="flex flex-col justify-between flex-[0.40] h-full">
+                <div className="flex flex-col justify-between md:flex-[0.40] w-full md:h-full order-2 md:order-1">
                   {/* Top Section */}
                   <div className="space-y-4">
                     <div className="space-y-0">
@@ -559,7 +559,7 @@ const Home: React.FC = () => {
                 </div>
 
                 {/* Image - Right */}
-                <div className="relative overflow-hidden bg-stone-100 flex-[0.60] h-full rounded-lg">
+                <div className="relative overflow-hidden bg-stone-100 md:flex-[0.60] w-full aspect-[16/10] md:aspect-auto md:h-full rounded-lg order-1 md:order-2">
                   {coming ? (
                     <>
                       <img
@@ -593,7 +593,7 @@ const Home: React.FC = () => {
       </section>
 
       {/* Fun Section - Side Projects */}
-      <section className="space-y-12 w-full max-w-[1080px] mx-auto px-16 md:px-8 mt-32">
+      <section className="space-y-12 w-full max-w-[1080px] mx-auto px-6 md:px-8 mt-16 md:mt-32">
         <div className="flex items-center gap-6">
           <h2 className="text-md text-stone-400">Fun and side projects</h2>
           <div className="flex-1 h-px bg-stone-200" />

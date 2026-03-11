@@ -43,7 +43,7 @@ const App: React.FC = () => {
     <div className="min-h-screen flex flex-col selection:bg-amber-200 selection:text-amber-900">
       <Navbar activeTab={getActiveTab()} setActiveTab={handleTabChange} />
 
-      <main className="flex-1 max-w-6xl mx-auto px-6 w-full relative">
+      <main className="flex-1 w-full relative">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />

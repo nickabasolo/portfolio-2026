@@ -8,7 +8,7 @@ export const summary = {
   id: 'performance-reviews',
   kind: 'case-study' as const,
   title: 'Performance reviews for high-turnover industries',
-  subtitle: 'Building a guided review process that helps teams give consistent, unbiased feedback',
+  subtitle: 'Using AI to build high-fidelity prototypes to test complex, multi-user performance review cycles',
   role: 'Senior Product Designer',
   duration: 'In Progress',
   company: 'Workstream',

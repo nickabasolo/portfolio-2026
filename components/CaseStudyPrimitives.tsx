@@ -50,8 +50,8 @@ export const Metrics: React.FC<{ items: string[] }> = ({ items }) => (
       const val = parts[0];
       const rest = parts.slice(1).join(' ');
       return (
-        <div key={idx} className="bg-stone-900 p-6 rounded-lg space-y-2 group hover:bg-stone-800 transition-colors">
-          <div className="text-3xl font-serif text-amber-400 group-hover:scale-105 transition-transform origin-left">{val}</div>
+        <div key={idx} className="bg-stone-50 border border-stone-200 p-6 rounded-lg space-y-2">
+          <div className="text-3xl font-serif text-stone-900">{val}</div>
           <div className="text-[10px] uppercase tracking-widest text-stone-400 leading-snug">{rest}</div>
         </div>
       );

@@ -55,7 +55,7 @@ const CaseStudyLayout: React.FC<CaseStudyLayoutProps> = ({
 
   return (
     <article className="flex flex-col items-center" style={{ backgroundColor: '#FAF9F6' }}>
-      <div className="w-full px-16 md:px-[180px] py-20">
+      <div className="w-full px-6 md:px-16 lg:px-[180px] py-12 md:py-20">
         {/* Narrative Content with Sidebar */}
         <div
           className={`relative ${
