@@ -143,7 +143,8 @@ const About: React.FC = () => {
   ];
 
   return (
-    <div className="py-20 animate-in fade-in slide-in-from-bottom-4 duration-700 space-y-24">
+    <div className="flex flex-col items-center" style={{ backgroundColor: '#FAF9F6' }}>
+      <div className="w-full px-16 md:px-[180px] py-20 space-y-24">
       {/* Photo Gallery Section - Hidden for now
       <section>
         <div className="grid grid-cols-4 gap-3 md:gap-6">
@@ -164,71 +165,69 @@ const About: React.FC = () => {
       </section>
       */}
 
-      {/* Contact & Info Section - 1/3 + 2/3 Layout */}
-      <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {/* Contact Info - 1/3 width */}
-        <div className="bg-white border border-stone-200 p-6 rounded-[2rem] shadow-sm">
-          <div className="divide-y divide-stone-100">
-            <ContactItem
-              icon={<MailIcon />}
-              text="nicholasabasolo@gmail.com"
-              href="mailto:nicholasabasolo@gmail.com"
-              copyText="nicholasabasolo@gmail.com"
-            />
-            <PhoneItem />
-            <ContactItem
-              icon={<LinkedInIcon />}
-              text="/nickabasolo"
-              href="https://linkedin.com/in/nickabasolo"
-              external
-            />
-          </div>
-
-          <a
-            href={getAssetPath('assets/about/Resume - Nick Abasolo (2026).pdf')}
-            target="_blank"
-            className="flex items-center justify-center gap-2 w-full bg-stone-900 text-white py-3.5 rounded-xl font-bold uppercase tracking-widest text-[9px] hover:bg-amber-600 transition-all shadow-lg shadow-stone-900/10 group/resume mt-5"
-          >
-            <svg className="w-3 h-3 group-hover/resume:-translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M12 4v12m0 0l-4-4m4 4l4-4M4 20h16" />
-            </svg>
-            Resume
-          </a>
+      {/* Contact & Info Section */}
+      <section className="space-y-8 max-w-4xl">
+        <div className="flex items-center gap-6">
+          <h2 className="text-md text-stone-400">Contact & Info</h2>
+          <div className="flex-1 h-px bg-stone-200" />
         </div>
 
-        {/* At a Glance - 2/3 width */}
-        <div className="md:col-span-2 bg-amber-50/40 text-stone-900 p-6 md:p-8 rounded-[2rem] shadow-sm border border-amber-100">
-          <div className="grid grid-cols-2 gap-x-6 gap-y-5">
-            <div className="space-y-1">
-              <div className="text-[10px] uppercase tracking-widest text-stone-400 font-bold">Current Position</div>
-              <div className="text-sm text-stone-900 font-medium leading-snug">
-                Senior Product Designer at Workstream
-              </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {/* Contact Info */}
+          <div className="space-y-6">
+            <div className="space-y-4 divide-y divide-stone-200">
+              <ContactItem
+                icon={<MailIcon />}
+                text="nicholasabasolo@gmail.com"
+                href="mailto:nicholasabasolo@gmail.com"
+                copyText="nicholasabasolo@gmail.com"
+              />
+              <PhoneItem />
+              <ContactItem
+                icon={<LinkedInIcon />}
+                text="/nickabasolo"
+                href="https://linkedin.com/in/nickabasolo"
+                external
+              />
             </div>
 
-            <div className="space-y-1">
-              <div className="text-[10px] uppercase tracking-widest text-stone-400 font-bold">Experience</div>
-              <div className="text-sm text-stone-900 font-medium">6 Years</div>
-            </div>
+            <a
+              href={getAssetPath('assets/about/Resume - Nick Abasolo (2026).pdf')}
+              target="_blank"
+              className="flex items-center justify-center gap-2 w-full bg-stone-900 text-white py-3 rounded-lg font-bold uppercase tracking-widest text-[9px] hover:bg-amber-600 transition-colors group/resume"
+            >
+              <svg className="w-3 h-3 group-hover/resume:-translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M12 4v12m0 0l-4-4m4 4l4-4M4 20h16" />
+              </svg>
+              Resume
+            </a>
+          </div>
 
-            <div className="space-y-1">
-              <div className="text-[10px] uppercase tracking-widest text-stone-400 font-bold">Location</div>
-              <div className="text-sm text-stone-900 font-medium">Vancouver, BC</div>
-              <div className="inline-block px-2 py-0.5 rounded-full bg-amber-100/50 text-[9px] font-bold text-amber-700 border border-amber-200 uppercase tracking-wider mt-1">
-                Open to relocation
-              </div>
-            </div>
-
-            <div className="space-y-1">
-              <div className="text-[10px] uppercase tracking-widest text-stone-400 font-bold">Work Authorization</div>
+          {/* At a Glance */}
+          <div className="md:col-span-2 space-y-6">
+            <div className="grid grid-cols-2 gap-6">
               <div className="space-y-1">
-                <div className="flex items-center gap-2">
-                  <span className="text-base">🇺🇸</span>
-                  <span className="text-sm font-medium text-stone-900">US Citizen</span>
+                <div className="text-[10px] uppercase tracking-widest text-stone-400 font-bold">Current Position</div>
+                <div className="text-sm text-stone-900 font-medium leading-snug">
+                  Senior Product Designer at Workstream
                 </div>
+              </div>
+
+              <div className="space-y-1">
+                <div className="text-[10px] uppercase tracking-widest text-stone-400 font-bold">Experience</div>
+                <div className="text-sm text-stone-900 font-medium">6 Years</div>
+              </div>
+
+              <div className="space-y-1">
+                <div className="text-[10px] uppercase tracking-widest text-stone-400 font-bold">Location</div>
+                <div className="text-sm text-stone-900 font-medium">Vancouver, BC</div>
+              </div>
+
+              <div className="space-y-1">
+                <div className="text-[10px] uppercase tracking-widest text-stone-400 font-bold">Work Authorization</div>
                 <div className="flex items-center gap-2">
-                  <span className="text-base">🇨🇦</span>
-                  <span className="text-sm font-medium text-stone-900">Canadian Citizen</span>
+                  <span className="text-base">🇺🇸 🇨🇦</span>
+                  <span className="text-sm font-medium text-stone-900">US & Canadian Citizen</span>
                 </div>
               </div>
             </div>
@@ -237,12 +236,12 @@ const About: React.FC = () => {
       </section>
 
       {/* Bio Section */}
-      <section className="max-w-4xl">
-        <div className="flex items-center gap-6 mb-10">
-          <h2 className="text-[10px] uppercase tracking-[0.3em] font-bold text-stone-400 whitespace-nowrap">About Me</h2>
+      <section className="space-y-8 max-w-4xl">
+        <div className="flex items-center gap-6">
+          <h2 className="text-md text-stone-400">About Me</h2>
           <div className="flex-1 h-px bg-stone-200" />
         </div>
-        <div className="space-y-6 text-lg md:text-xl text-stone-600 font-light leading-relaxed">
+        <div className="space-y-6 text-base text-stone-700 font-light leading-relaxed">
           <p>
             I've always been fascinated by how people navigate complex systems. Before I was a Product Designer, I studied Economics: a field dedicated to understanding incentives, trade-offs, and systemic logic. Today, I apply that same analytical lens to digital products.
           </p>
@@ -258,24 +257,24 @@ const About: React.FC = () => {
       </section>
 
       {/* Expertise & Skills Section */}
-      <section className="space-y-16">
+      <section className="space-y-12 max-w-4xl">
         <div className="flex items-center gap-6">
-          <h2 className="text-[10px] uppercase tracking-[0.3em] font-bold text-stone-400 whitespace-nowrap">Expertise & Stack</h2>
+          <h2 className="text-md text-stone-400">Expertise & Stack</h2>
           <div className="flex-1 h-px bg-stone-200" />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-20">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           {skillCategories.map((cat, i) => (
-            <div key={i} className="space-y-8 group">
-              <div className="space-y-3">
-                <h3 className="text-3xl font-serif text-stone-900">{cat.title}</h3>
-                <p className="text-sm text-stone-500 leading-relaxed max-w-xs">{cat.description}</p>
+            <div key={i} className="space-y-6">
+              <div className="space-y-2">
+                <h3 className="text-xl font-serif text-stone-900">{cat.title}</h3>
+                <p className="text-sm text-stone-600 leading-relaxed">{cat.description}</p>
               </div>
-              <ul className="space-y-4">
+              <ul className="space-y-3">
                 {cat.skills.map((skill, j) => (
-                  <li key={j} className="flex items-center gap-3 group/item">
-                    <div className="w-1.5 h-1.5 rounded-full bg-amber-500/30 group-hover/item:bg-amber-500 transition-colors" />
-                    <span className="text-sm font-medium text-stone-700">{skill}</span>
+                  <li key={j} className="flex items-center gap-3">
+                    <div className="w-1 h-1 rounded-full bg-amber-600 flex-shrink-0" />
+                    <span className="text-sm text-stone-700">{skill}</span>
                   </li>
                 ))}
               </ul>
@@ -283,6 +282,7 @@ const About: React.FC = () => {
           ))}
         </div>
       </section>
+      </div>
     </div>
   );
 };

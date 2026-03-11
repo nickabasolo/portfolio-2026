@@ -35,7 +35,7 @@ const CaseStudyLayout: React.FC<CaseStudyLayoutProps> = ({
         });
       },
       {
-        rootMargin: '-20% 0px -60% 0px',
+        rootMargin: '-100px 0px -66% 0px',
         threshold: 0,
       }
     );
@@ -46,7 +46,7 @@ const CaseStudyLayout: React.FC<CaseStudyLayoutProps> = ({
     });
 
     return () => observer.disconnect();
-  }, [isSideProject]);
+  }, [isSideProject, navItems]);
 
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
@@ -54,56 +54,54 @@ const CaseStudyLayout: React.FC<CaseStudyLayoutProps> = ({
   };
 
   return (
-    <article className="pt-12 pb-32">
-      {/* Hero Image */}
-      <div className="rounded-[2.5rem] overflow-hidden mb-24 bg-stone-100 shadow-2xl shadow-stone-200/50 border border-stone-200">
-        <img
-          src={getAssetPath(image)}
-          alt="Project hero"
-          className="w-full object-cover max-h-[700px]"
-        />
-      </div>
-
-      {/* Narrative Content with Sidebar */}
-      <div
-        className={`relative ${
-          isSideProject
-            ? 'max-w-3xl mx-auto'
-            : 'grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-16'
-        }`}
-      >
-        {/* Sticky Sidebar (Hidden for side projects) */}
-        {!isSideProject && (
-          <aside className="hidden lg:block">
-            <div className="sticky top-32 space-y-6">
-              <div className="text-[10px] uppercase tracking-[0.2em] font-bold text-stone-400 mb-8">
-                Navigation
+    <article className="flex flex-col items-center" style={{ backgroundColor: '#FAF9F6' }}>
+      <div className="w-full px-16 md:px-[180px] py-20">
+        {/* Narrative Content with Sidebar */}
+        <div
+          className={`relative ${
+            isSideProject
+              ? 'max-w-4xl mx-auto'
+              : 'grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-16 max-w-4xl'
+          }`}
+        >
+          {/* Sticky Sidebar (Hidden for side projects) */}
+          {!isSideProject && (
+            <aside className="hidden lg:block">
+              <div className="sticky top-32 space-y-6">
+                <div className="text-md text-stone-400 mb-8">
+                  Navigation
+                </div>
+                <nav className="flex flex-col space-y-4">
+                  {navItems.map((item) => (
+                    <button
+                      key={item.id}
+                      onClick={() => scrollTo(item.id)}
+                      className={`text-left text-xs font-bold uppercase tracking-widest transition-all relative py-1 ${
+                        activeSection === item.id
+                          ? 'text-amber-600'
+                          : 'text-stone-400 hover:text-stone-600'
+                      }`}
+                    >
+                      {item.label}
+                    </button>
+                  ))}
+                </nav>
               </div>
-              <nav className="flex flex-col space-y-4 border-l border-stone-100">
-                {navItems.map((item) => (
-                  <button
-                    key={item.id}
-                    onClick={() => scrollTo(item.id)}
-                    className={`text-left pl-4 text-xs font-bold uppercase tracking-widest transition-all relative py-1 ${
-                      activeSection === item.id
-                        ? 'text-amber-600'
-                        : 'text-stone-400 hover:text-stone-600'
-                    }`}
-                  >
-                    {activeSection === item.id && (
-                      <span className="absolute left-[-1.5px] top-0 bottom-0 w-[2px] bg-amber-500 rounded-full" />
-                    )}
-                    {item.label}
-                  </button>
-                ))}
-              </nav>
-            </div>
-          </aside>
-        )}
+            </aside>
+          )}
 
-        {/* Narrative Body */}
-        <div className={!isSideProject ? 'max-w-3xl' : 'space-y-12'}>
-          {children}
+          {/* Narrative Body - Centered */}
+          <div className={!isSideProject ? 'max-w-3xl space-y-12' : 'space-y-12'}>
+            {/* Hero Image */}
+            <div className="rounded-lg overflow-hidden bg-stone-100 border border-stone-200">
+              <img
+                src={getAssetPath(image)}
+                alt="Project hero"
+                className="w-full object-cover max-h-[600px]"
+              />
+            </div>
+            {children}
+          </div>
         </div>
       </div>
     </article>

@@ -184,6 +184,7 @@ const Home: React.FC = () => {
             const metrics = getMetrics(project.id, project.impact);
             const subtitleText = `${project.company}, ${project.duration}`;
             const routePath = `/case-study/${project.id}`;
+            const cardImage = (project as any).cardImage || project.image;
 
             return (
               <div
@@ -264,7 +265,7 @@ const Home: React.FC = () => {
                   {coming ? (
                     <>
                       <img
-                        src={getAssetPath(project.image)}
+                        src={getAssetPath(cardImage)}
                         alt={project.title}
                         className="w-full h-full object-cover grayscale opacity-40"
                       />
@@ -280,7 +281,7 @@ const Home: React.FC = () => {
                       className="block w-full h-full overflow-hidden group"
                     >
                       <img
-                        src={getAssetPath(project.image)}
+                        src={getAssetPath(cardImage)}
                         alt={project.title}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />

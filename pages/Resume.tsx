@@ -7,42 +7,43 @@ const Resume: React.FC = () => {
     const resumeUrl = getAssetPath('assets/about/Resume - Nick Abasolo (2026).pdf');
 
     return (
-        <div className="py-20 animate-in fade-in slide-in-from-bottom-4 duration-700 max-w-4xl mx-auto">
+        <div className="flex flex-col items-center" style={{ backgroundColor: '#FAF9F6' }}>
+            <div className="w-full px-16 md:px-[180px] py-20 space-y-20">
             {/* Header Section */}
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-16">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 max-w-4xl">
                 <div>
-                    <h1 className="text-4xl md:text-5xl font-serif text-stone-900 mb-2">Nick Abasolo</h1>
-                    <p className="text-xl text-stone-500 font-light">Product Designer</p>
+                    <h1 className="text-2xl font-serif text-stone-900 mb-1">Nick Abasolo</h1>
+                    <p className="text-base text-stone-600 font-light">Senior Product Designer</p>
                 </div>
                 <a
                     href={resumeUrl}
                     target="_blank"
-                    className="flex items-center gap-2 bg-stone-900 text-white px-6 py-3 rounded-full font-medium hover:bg-amber-600 transition-all shadow-lg shadow-stone-900/10 group"
+                    className="flex items-center gap-2 bg-stone-900 text-white px-5 py-2.5 rounded-lg font-bold uppercase tracking-widest text-[9px] hover:bg-amber-600 transition-colors group"
                 >
-                    <DownloadIcon className="w-5 h-5" />
-                    <span>Download PDF</span>
+                    <DownloadIcon className="w-4 h-4" />
+                    <span>Download</span>
                 </a>
             </div>
 
-            <div className="space-y-16">
+            <div className="space-y-16 max-w-4xl">
                 {/* Personal Statement */}
-                <section className="bg-amber-50/50 p-8 rounded-3xl border border-amber-100">
-                    <p className="text-lg text-stone-700 leading-relaxed font-light mb-4">
+                <section className="space-y-4">
+                    <p className="text-base text-stone-700 leading-relaxed font-light">
                         I'm a product designer with 6 years of experience turning complex SaaS products into understandable human experiences, in collaboration with cross-functional, agile teams.
                     </p>
-                    <p className="text-sm text-stone-500 font-medium">
+                    <p className="text-sm text-stone-500">
                         Dual citizen authorized to work in the US and in Canada.
                     </p>
                 </section>
 
                 {/* Experience Section */}
-                <section>
-                    <div className="flex items-center gap-4 mb-10">
-                        <h2 className="text-xs uppercase tracking-[0.2em] font-bold text-stone-400">Experience</h2>
+                <section className="space-y-12">
+                    <div className="flex items-center gap-6">
+                        <h2 className="text-md text-stone-400">Experience</h2>
                         <div className="h-px bg-stone-200 flex-1" />
                     </div>
 
-                    <div className="space-y-12">
+                    <div className="space-y-16">
                         {/* Workstream */}
                         <div className="group">
                             <div className="mb-6">
@@ -118,65 +119,61 @@ const Resume: React.FC = () => {
                 </section>
 
                 {/* Education Section */}
-                <section>
-                    <div className="flex items-center gap-4 mb-10">
-                        <h2 className="text-xs uppercase tracking-[0.2em] font-bold text-stone-400">Education</h2>
+                <section className="space-y-8">
+                    <div className="flex items-center gap-6">
+                        <h2 className="text-md text-stone-400">Education</h2>
                         <div className="h-px bg-stone-200 flex-1" />
                     </div>
 
-                    <div className="space-y-6">
-                        <div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
-                            <div>
-                                <h3 className="text-lg font-serif text-stone-900">Diploma, UX Design</h3>
-                                <p className="text-stone-500">BrainStation</p>
-                            </div>
+                    <div className="space-y-4">
+                        <div>
+                            <h3 className="font-serif text-stone-900 mb-1">Diploma, UX Design</h3>
+                            <p className="text-sm text-stone-600">BrainStation</p>
                         </div>
-                        <div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
-                            <div>
-                                <h3 className="text-lg font-serif text-stone-900">B.A., Political Economics</h3>
-                                <p className="text-stone-500">Simon Fraser University</p>
-                            </div>
+                        <div>
+                            <h3 className="font-serif text-stone-900 mb-1">B.A., Political Economics</h3>
+                            <p className="text-sm text-stone-600">Simon Fraser University</p>
                         </div>
                     </div>
                 </section>
 
                 {/* Skills Section */}
-                <section>
-                    <div className="flex items-center gap-4 mb-10">
-                        <h2 className="text-xs uppercase tracking-[0.2em] font-bold text-stone-400">Skills</h2>
+                <section className="space-y-8">
+                    <div className="flex items-center gap-6">
+                        <h2 className="text-md text-stone-400">Skills</h2>
                         <div className="h-px bg-stone-200 flex-1" />
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
                         <div>
-                            <h3 className="font-serif text-stone-900 mb-4 text-lg">Research & Strategy</h3>
+                            <h3 className="font-serif text-stone-900 mb-3 text-base">Research & Strategy</h3>
                             <div className="flex flex-wrap gap-2">
                                 {["User interviews", "Usability testing", "User stories", "Competitive analysis", "Persona building", "Heuristic evaluation"].map(skill => (
-                                    <span key={skill} className="px-3 py-1 bg-stone-100 text-stone-600 rounded-lg text-sm">{skill}</span>
+                                    <span key={skill} className="px-2.5 py-1 bg-stone-100 text-stone-600 rounded text-xs font-medium">{skill}</span>
                                 ))}
                             </div>
                         </div>
                         <div>
-                            <h3 className="font-serif text-stone-900 mb-4 text-lg">Design Craft</h3>
+                            <h3 className="font-serif text-stone-900 mb-3 text-base">Design Craft</h3>
                             <div className="flex flex-wrap gap-2">
                                 {["Information architecture", "Sketching & wireframing", "User flow mapping", "Prototyping", "Design systems"].map(skill => (
-                                    <span key={skill} className="px-3 py-1 bg-stone-100 text-stone-600 rounded-lg text-sm">{skill}</span>
+                                    <span key={skill} className="px-2.5 py-1 bg-stone-100 text-stone-600 rounded text-xs font-medium">{skill}</span>
                                 ))}
                             </div>
                         </div>
                         <div>
-                            <h3 className="font-serif text-stone-900 mb-4 text-lg">Software</h3>
+                            <h3 className="font-serif text-stone-900 mb-3 text-base">Software</h3>
                             <div className="flex flex-wrap gap-2">
                                 {["Figma", "Webflow", "JIRA", "Adobe CC"].map(skill => (
-                                    <span key={skill} className="px-3 py-1 bg-stone-100 text-stone-600 rounded-lg text-sm">{skill}</span>
+                                    <span key={skill} className="px-2.5 py-1 bg-stone-100 text-stone-600 rounded text-xs font-medium">{skill}</span>
                                 ))}
                             </div>
                         </div>
                         <div>
-                            <h3 className="font-serif text-stone-900 mb-4 text-lg">AI & Development</h3>
+                            <h3 className="font-serif text-stone-900 mb-3 text-base">AI & Development</h3>
                             <div className="flex flex-wrap gap-2">
                                 {["Github", "Cursor", "Gemini", "React prototyping (Vite)"].map(skill => (
-                                    <span key={skill} className="px-3 py-1 bg-amber-50 text-amber-800 border border-amber-100 rounded-lg text-sm">{skill}</span>
+                                    <span key={skill} className="px-2.5 py-1 bg-stone-100 text-stone-700 rounded text-xs font-medium">{skill}</span>
                                 ))}
                             </div>
                         </div>
@@ -184,19 +181,20 @@ const Resume: React.FC = () => {
                 </section>
 
                 {/* Contact Footer */}
-                <section className="pt-10 border-t border-stone-100">
-                    <div className="flex flex-wrap gap-6 text-sm text-stone-500">
+                <section className="pt-8 border-t border-stone-200">
+                    <div className="flex flex-wrap gap-6 text-xs text-stone-600">
                         <a href="mailto:nicholasabasolo@gmail.com" className="flex items-center gap-2 hover:text-amber-600 transition-colors">
-                            <MailIcon /> nicholasabasolo@gmail.com
+                            <MailIcon className="w-4 h-4" /> nicholasabasolo@gmail.com
                         </a>
                         <a href="https://linkedin.com/in/nickabasolo" target="_blank" className="flex items-center gap-2 hover:text-amber-600 transition-colors">
-                            <LinkedInIcon /> /nickabasolo
+                            <LinkedInIcon className="w-4 h-4" /> /nickabasolo
                         </a>
                         <a href="https://github.com/nickabasolo" target="_blank" className="flex items-center gap-2 hover:text-amber-600 transition-colors">
-                            <GithubIcon /> /nickabasolo
+                            <GithubIcon className="w-4 h-4" /> /nickabasolo
                         </a>
                     </div>
                 </section>
+            </div>
             </div>
         </div>
     );
