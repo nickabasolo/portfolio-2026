@@ -1,7 +1,56 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { getAssetPath } from '../utils/paths';
 import { useScrollToTop } from '../hooks/useScrollToTop';
+
+const CHAT_LIMIT = 10;
+const CHAT_COUNT_KEY = 'portfolio-chat-count';
+
+// Map source paths to friendly labels
+const SOURCE_LABELS: Record<string, string> = {
+  '/about': 'About me',
+  '/resume': 'Resume',
+  '/case-study/time-clock': 'Time Clock case study',
+  '/case-study/performance-reviews': 'Performance Reviews',
+  '/case-study/manager-dashboard': 'Manager Dashboard',
+  '/side-project/guardian-data-viz': 'Guardian Data Viz',
+  '/side-project/time-auction': 'Time Auction',
+  '/side-project/portfolio-vibe-code': 'Portfolio Vibecode',
+};
+
+function parseCitations(text: string): { cleanText: string; citations: { path: string; label: string }[] } {
+  const citations: { path: string; label: string }[] = [];
+  const cleanText = text.replace(/\[Source:\s*([^\]]+)\]/g, (_, path) => {
+    const trimmed = path.trim();
+    if (!citations.some(c => c.path === trimmed)) {
+      citations.push({ path: trimmed, label: SOURCE_LABELS[trimmed] || trimmed });
+    }
+    return '';
+  }).trim();
+  return { cleanText, citations };
+}
+
+function getChatCount(): number {
+  try {
+    return parseInt(localStorage.getItem(CHAT_COUNT_KEY) || '0', 10);
+  } catch {
+    return 0;
+  }
+}
+
+function incrementChatCount(): number {
+  const count = getChatCount() + 1;
+  try {
+    localStorage.setItem(CHAT_COUNT_KEY, String(count));
+  } catch {}
+  return count;
+}
+
+interface ChatMessage {
+  role: 'user' | 'assistant';
+  content: string;
+  citations?: { path: string; label: string }[];
+}
 
 const animationStyles = `
   @keyframes slideInUp {
@@ -24,6 +73,11 @@ const animationStyles = `
     }
   }
 
+  @keyframes dotPulse {
+    0%, 80%, 100% { opacity: 0.3; }
+    40% { opacity: 1; }
+  }
+
   .animate-slide-up {
     opacity: 0;
     animation: slideInUp 2s ease-out forwards;
@@ -43,6 +97,31 @@ const animationStyles = `
     margin-left: 2px;
     animation: blink 1s infinite;
   }
+
+  .dot-pulse span {
+    animation: dotPulse 1.4s infinite ease-in-out both;
+  }
+  .dot-pulse span:nth-child(1) { animation-delay: 0s; }
+  .dot-pulse span:nth-child(2) { animation-delay: 0.2s; }
+  .dot-pulse span:nth-child(3) { animation-delay: 0.4s; }
+
+  .chat-scroll::-webkit-scrollbar {
+    width: 4px;
+  }
+  .chat-scroll::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .chat-scroll::-webkit-scrollbar-thumb {
+    background: #d6d3cd;
+    border-radius: 99px;
+  }
+  .chat-scroll::-webkit-scrollbar-thumb:hover {
+    background: #a8a39a;
+  }
+  .chat-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: #d6d3cd transparent;
+  }
 `;
 import { summary as timeClockSummary } from './case-studies/TimeClock';
 import { summary as perfReviewsSummary } from './case-studies/PerformanceReviews';
@@ -56,11 +135,14 @@ const SIDE_PROJECTS = [guardianDataVizSummary, timeAuctionSummary, portfolioVibe
 
 const Home: React.FC = () => {
   useScrollToTop();
-  // TODO: Uncomment when "Ask me anything" is implemented
-  // const [askInput, setAskInput] = useState('');
+  const [askInput, setAskInput] = useState('');
   const [displayedText, setDisplayedText] = useState('');
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
   const [isTyping, setIsTyping] = useState(true);
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [rateLimited, setRateLimited] = useState(() => getChatCount() >= CHAT_LIMIT);
+  const messagesContainerRef = useRef<HTMLDivElement>(null);
 
   const phrases = [
     'about my projects',
@@ -71,7 +153,20 @@ const Home: React.FC = () => {
 
   const prefix = 'Ask me ';
 
+  // Auto-scroll container to bottom when messages change
   useEffect(() => {
+    if (messages.length === 0) return;
+    const container = messagesContainerRef.current;
+    if (container) {
+      container.scrollTop = container.scrollHeight;
+    }
+  }, [messages]);
+
+  // Placeholder typing animation
+  useEffect(() => {
+    // Stop placeholder animation once chat has started
+    if (messages.length > 0) return;
+
     const currentPhrase = phrases[currentPhraseIndex];
     const fullPhrase = prefix + currentPhrase;
     let timeout: NodeJS.Timeout;
@@ -82,7 +177,6 @@ const Home: React.FC = () => {
           setDisplayedText(fullPhrase.slice(0, displayedText.length + 1));
         }, 50);
       } else {
-        // Finished typing, pause for 2 seconds before backspacing
         timeout = setTimeout(() => {
           setIsTyping(false);
         }, 2000);
@@ -93,21 +187,125 @@ const Home: React.FC = () => {
           setDisplayedText(displayedText.slice(0, -1));
         }, 30);
       } else {
-        // Finished backspacing to prefix, move to next phrase
         setCurrentPhraseIndex((prev) => (prev + 1) % phrases.length);
         setIsTyping(true);
       }
     }
 
     return () => clearTimeout(timeout);
-  }, [displayedText, isTyping, currentPhraseIndex]);
+  }, [displayedText, isTyping, currentPhraseIndex, messages.length]);
 
-  // TODO: Uncomment when "Ask me anything" is implemented
-  // const handleAskKeyDown = (e: React.KeyboardEvent) => {
-  //   if (e.key === 'Enter') {
-  //     navigate('/about');
-  //   }
-  // };
+  const sendMessage = async () => {
+    const trimmed = askInput.trim();
+    if (!trimmed || isLoading) return;
+
+    if (getChatCount() >= CHAT_LIMIT) {
+      setRateLimited(true);
+      return;
+    }
+
+    const userMessage: ChatMessage = { role: 'user', content: trimmed };
+    setMessages(prev => [...prev, userMessage]);
+    setAskInput('');
+    setIsLoading(true);
+    incrementChatCount();
+
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: trimmed }),
+      });
+
+      if (response.status === 429) {
+        setRateLimited(true);
+        setMessages(prev => [...prev, {
+          role: 'assistant',
+          content: "You've sent quite a few questions! Nick is happy to chat with you directly!",
+          citations: [{ path: '/about', label: 'About me' }],
+        }]);
+        setIsLoading(false);
+        return;
+      }
+
+      if (!response.ok) {
+        setMessages(prev => [...prev, {
+          role: 'assistant',
+          content: 'Sorry, something went wrong. Please try again in a moment.',
+        }]);
+        setIsLoading(false);
+        return;
+      }
+
+      // Stream the response
+      const reader = response.body?.getReader();
+      if (!reader) throw new Error('No reader');
+
+      const decoder = new TextDecoder();
+      let buffer = '';
+      let fullContent = '';
+
+      // Add empty assistant message to stream into
+      setMessages(prev => [...prev, { role: 'assistant', content: '' }]);
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split('\n');
+        buffer = lines.pop() || '';
+
+        for (const line of lines) {
+          if (line.startsWith('data: ')) {
+            const data = line.slice(6);
+            if (data === '[DONE]') break;
+            try {
+              const parsed = JSON.parse(data);
+              if (parsed.content) {
+                fullContent += parsed.content;
+                const { cleanText, citations } = parseCitations(fullContent);
+                setMessages(prev => {
+                  const updated = [...prev];
+                  updated[updated.length - 1] = {
+                    role: 'assistant',
+                    content: cleanText,
+                    citations: citations.length > 0 ? citations : undefined,
+                  };
+                  return updated;
+                });
+              }
+            } catch {}
+          }
+        }
+      }
+
+      // Final parse to catch any remaining citations
+      const { cleanText, citations } = parseCitations(fullContent);
+      setMessages(prev => {
+        const updated = [...prev];
+        updated[updated.length - 1] = {
+          role: 'assistant',
+          content: cleanText,
+          citations: citations.length > 0 ? citations : undefined,
+        };
+        return updated;
+      });
+    } catch {
+      setMessages(prev => [...prev, {
+        role: 'assistant',
+        content: 'Sorry, something went wrong. Please try again in a moment.',
+      }]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleAskKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      sendMessage();
+    }
+  };
 
   const isComingSoon = (duration: string) => duration === 'In Progress';
 
@@ -137,9 +335,11 @@ const Home: React.FC = () => {
   return (
     <div className="flex flex-col items-center" style={{ backgroundColor: '#FAF9F6' }}>
       <style>{animationStyles}</style>
-      {/* Hero Section */}
-      <section className="space-y-8 w-full px-16 md:px-[180px] h-[75vh] flex flex-col justify-center">
-        <div className="max-w-[640px] space-y-4">
+      {/* Hero Section — three fixed zones: hero text | scrollable messages | input */}
+      <section className="w-full px-16 md:px-[180px] h-[75vh] flex flex-col justify-center">
+
+        {/* Zone 1: Hero text — shrink-0, always visible at top when chat is active */}
+        <div className="max-w-[640px] space-y-4 shrink-0 py-8">
           <div className="animate-slide-up delay-100">
             <h1 className="text-2xl font-serif leading-tight text-stone-900">
               Nick Abasolo
@@ -153,22 +353,113 @@ const Home: React.FC = () => {
           </p>
         </div>
 
-        {/* TODO: Hook up "Ask me anything" input to backend */}
-        {/* <div className="relative w-full max-w-2xl animate-slide-up delay-300">
-          <input
-            type="text"
-            value={askInput}
-            onChange={(e) => setAskInput(e.target.value)}
-            onKeyDown={handleAskKeyDown}
-            className="w-full px-6 py-4 rounded-2xl border border-stone-200 text-stone-900 focus:outline-none focus:border-amber-600 focus:ring-2 focus:ring-amber-600/20 transition-all bg-transparent"
-          />
-          {askInput === '' && (
-            <div className="absolute left-6 top-4 text-stone-400 pointer-events-none">
-              {displayedText}
-              <span className="typing-cursor text-stone-400"></span>
+        {/* Zone 2: Scrollable messages — only appears and takes space when there are messages */}
+        {messages.length > 0 && (
+          <div className="relative flex-1 min-h-0 w-full max-w-2xl">
+            {/* Gradient fade — top */}
+            <div className="absolute top-0 left-0 right-0 h-8 pointer-events-none z-10" style={{ background: 'linear-gradient(to bottom, #FAF9F6, transparent)' }} />
+            <div
+              ref={messagesContainerRef}
+              className="h-full overflow-y-auto min-h-0 py-2 chat-scroll"
+            >
+            <div className="space-y-5">
+              {messages.map((msg, i) => (
+                <div key={i}>
+                  {msg.role === 'user' ? (
+                    <div className="flex justify-end">
+                      <div
+                        className="px-4 py-3 rounded-2xl text-sm text-stone-700 leading-relaxed"
+                        style={{ backgroundColor: '#EDE8D0', maxWidth: 400 }}
+                      >
+                        {msg.content}
+                      </div>
+                    </div>
+                  ) : (
+                    <div style={{ maxWidth: 560 }}>
+                      <p className="text-md text-stone-600 leading-relaxed">
+                        {msg.content}
+                      </p>
+                      {msg.citations && msg.citations.length > 0 && (
+                        <div className="flex flex-wrap gap-2 mt-2">
+                          {msg.citations.map((cite, j) => (
+                            <Link
+                              key={j}
+                              to={cite.path}
+                              className="inline-flex items-center gap-1.5 text-xs font-medium text-stone-500 hover:text-amber-600 transition-colors border border-stone-200 rounded-full px-3 py-1"
+                            >
+                              <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                                <path d="M6.5 11.5L3 11.5C2.17 11.5 1.5 10.83 1.5 10V3C1.5 2.17 2.17 1.5 3 1.5H10C10.83 1.5 11.5 2.17 11.5 3V6.5" />
+                                <path d="M8.5 7.5L14.5 1.5" />
+                                <path d="M10.5 1.5H14.5V5.5" />
+                              </svg>
+                              {cite.label}
+                            </Link>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+              ))}
+
+              {/* Loading indicator */}
+              {isLoading && messages[messages.length - 1]?.role === 'user' && (
+                <div style={{ maxWidth: 560 }}>
+                  <div className="dot-pulse text-stone-400 text-lg">
+                    <span>.</span><span>.</span><span>.</span>
+                  </div>
+                </div>
+              )}
+            </div>
+            </div>
+            {/* Gradient fade — bottom */}
+            <div className="absolute bottom-0 left-0 right-0 h-8 pointer-events-none z-10" style={{ background: 'linear-gradient(to top, #FAF9F6, transparent)' }} />
+          </div>
+        )}
+
+        {/* Zone 3: Input — shrink-0, always visible at bottom when chat is active */}
+        <div className="shrink-0 w-full max-w-2xl pb-8 animate-slide-up delay-300">
+          {rateLimited ? (
+            <div className="text-sm text-stone-500 text-center py-4">
+              You've used all your questions for now.{' '}
+              <Link to="/about" className="text-amber-600 hover:text-amber-700 underline">
+                Nick is happy to chat with you directly!
+              </Link>
+            </div>
+          ) : (
+            <div className="relative w-full">
+              <input
+                type="text"
+                value={askInput}
+                onChange={(e) => setAskInput(e.target.value)}
+                onKeyDown={handleAskKeyDown}
+                disabled={isLoading}
+                className="w-full px-6 py-4 pr-14 rounded-2xl border border-stone-200 text-stone-900 focus:outline-none focus:border-amber-600 focus:ring-2 focus:ring-amber-600/20 transition-all bg-transparent disabled:opacity-50"
+              />
+              {askInput === '' && !isLoading && messages.length === 0 && (
+                <div className="absolute left-6 top-4 text-stone-400 pointer-events-none">
+                  {displayedText}
+                  <span className="typing-cursor text-stone-400"></span>
+                </div>
+              )}
+              {askInput === '' && messages.length > 0 && !isLoading && (
+                <div className="absolute left-6 top-4 text-stone-400 pointer-events-none">
+                  Ask a follow-up...
+                </div>
+              )}
+              <button
+                onClick={sendMessage}
+                disabled={!askInput.trim() || isLoading}
+                className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 flex items-center justify-center rounded-full bg-stone-900 text-white disabled:opacity-30 transition-opacity hover:bg-stone-800"
+              >
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M8 12V4" />
+                  <path d="M4 8L8 4L12 8" />
+                </svg>
+              </button>
             </div>
           )}
-        </div> */}
+        </div>
       </section>
 
       {/* Work Section - Case Studies */}

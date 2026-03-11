@@ -10,7 +10,15 @@
       "Bash(npm run:*)",
       "Bash(git pull:*)",
       "Bash(git fetch:*)",
-      "Bash(git symbolic-ref:*)"
+      "Bash(git symbolic-ref:*)",
+      "Bash(find /c/Users/Nick/Projects/portfolio-2026/utils -type f -name *.ts -o -name *.tsx)",
+      "Bash(find /c/Users/Nick/Projects/portfolio-2026/hooks -type f -name *.ts -o -name *.tsx)",
+      "Bash(xargs grep:*)",
+      "Bash(grep -r \"GEMINI_API_KEY\\\\|genai\\\\|@google\" /c/Users/Nick/Projects/portfolio-2026 --include=*.ts --include=*.tsx)",
+      "Bash(npx tsc:*)",
+      "Bash(npm install:*)",
+      "WebFetch(domain:openrouter.ai)",
+      "Bash(curl -s \"https://openrouter.ai/api/v1/models\")"
     ]
   }
 }
