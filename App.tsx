@@ -8,7 +8,7 @@ import PerformanceReviews from './pages/case-studies/PerformanceReviews';
 import ManagerDashboard from './pages/case-studies/ManagerDashboard';
 import GuardianDataViz from './pages/side-projects/GuardianDataViz';
 import TimeAuction from './pages/side-projects/TimeAuction';
-import PortfolioVibecode from './pages/side-projects/PortfolioVibecode';
+import PortfolioChatbot from './pages/side-projects/PortfolioChatbot';
 import About from './pages/About';
 import Resume from './pages/Resume';
 
@@ -53,7 +53,7 @@ const App: React.FC = () => {
           <Route path="/case-study/manager-dashboard" element={<ManagerDashboard />} />
           <Route path="/side-project/guardian-data-viz" element={<GuardianDataViz />} />
           <Route path="/side-project/time-auction" element={<TimeAuction />} />
-          <Route path="/side-project/portfolio-vibe-code" element={<PortfolioVibecode />} />
+          <Route path="/side-project/portfolio-chatbot" element={<PortfolioChatbot />} />
         </Routes>
       </main>
 

@@ -17,6 +17,7 @@ const SOURCE_LABELS: Record<string, string> = {
   '/side-project/guardian-data-viz': 'Guardian Data Viz',
   '/side-project/time-auction': 'Time Auction',
   '/side-project/portfolio-vibe-code': 'Portfolio Vibecode',
+  '/side-project/portfolio-chatbot': 'Portfolio Chatbot',
 };
 
 function parseCitations(text: string): { cleanText: string; citations: { path: string; label: string }[] } {
@@ -135,10 +136,10 @@ import { summary as perfReviewsSummary } from './case-studies/PerformanceReviews
 import { summary as managerDashboardSummary } from './case-studies/ManagerDashboard';
 import { summary as guardianDataVizSummary } from './side-projects/GuardianDataViz';
 import { summary as timeAuctionSummary } from './side-projects/TimeAuction';
-import { summary as portfolioVibeSummary } from './side-projects/PortfolioVibecode';
+import { summary as portfolioChatbotSummary } from './side-projects/PortfolioChatbot';
 
 const CASE_STUDIES = [timeClockSummary, perfReviewsSummary, managerDashboardSummary];
-const SIDE_PROJECTS = [guardianDataVizSummary, timeAuctionSummary, portfolioVibeSummary];
+const SIDE_PROJECTS = [guardianDataVizSummary, timeAuctionSummary, portfolioChatbotSummary];
 
 const Home: React.FC = () => {
   useScrollToTop();
@@ -343,10 +344,11 @@ const Home: React.FC = () => {
     <div className="flex flex-col items-center" style={{ backgroundColor: '#FAF9F6' }}>
       <style>{animationStyles}</style>
       {/* Hero Section — three fixed zones: hero text | scrollable messages | input */}
-      <section className="w-full px-6 md:px-16 lg:px-[180px] h-[75vh] flex flex-col justify-center">
+      <section className="w-full px-6 md:px-8 h-[75vh] flex flex-col justify-center items-center">
 
         {/* Zone 1: Hero text — shrink-0, always visible at top when chat is active */}
-        <div className="max-w-[640px] space-y-4 shrink-0 py-8">
+        <div className="w-full max-w-[640px] shrink-0 py-8">
+        <div className="max-w-[640px] space-y-4">
           <div className="animate-slide-up delay-100">
             <h1 className="text-2xl font-serif leading-tight text-stone-900">
               Nick Abasolo
@@ -359,10 +361,11 @@ const Home: React.FC = () => {
             I design for humans navigating operational workflows and regulatory compliance in messy, real-world situations; whether they're on their feet, on a call, or just in the middle of life.
           </p>
         </div>
+        </div>
 
         {/* Zone 2: Scrollable messages — only appears and takes space when there are messages */}
         {messages.length > 0 && (
-          <div className="relative flex-1 min-h-0 w-full max-w-2xl">
+          <div className="relative flex-1 min-h-0 w-full max-w-[640px]">
             {/* Gradient fade — top */}
             <div className="absolute top-0 left-0 right-0 h-8 pointer-events-none z-10" style={{ background: 'linear-gradient(to bottom, #FAF9F6, transparent)' }} />
             <div
@@ -425,7 +428,7 @@ const Home: React.FC = () => {
         )}
 
         {/* Zone 3: Input — shrink-0, always visible at bottom when chat is active */}
-        <div className="shrink-0 w-full max-w-2xl pb-8 animate-slide-up delay-300">
+        <div className="shrink-0 w-full max-w-[640px] pb-8 animate-slide-up delay-300">
           {rateLimited ? (
             <div className="text-sm text-stone-500 text-center py-4">
               You've used all your questions for now.{' '}
