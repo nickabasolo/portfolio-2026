@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import ReactMarkdown from 'react-markdown';
 import { getAssetPath } from '../utils/paths';
 import { useScrollToTop } from '../hooks/useScrollToTop';
 
@@ -122,6 +123,12 @@ const animationStyles = `
     scrollbar-width: thin;
     scrollbar-color: #d6d3cd transparent;
   }
+
+  .chat-markdown p { margin: 0 0 0.4em 0; }
+  .chat-markdown p:last-child { margin-bottom: 0; }
+  .chat-markdown strong { font-weight: 600; color: #44403c; }
+  .chat-markdown ul { margin: 0.25em 0 0.4em 1.2em; padding: 0; list-style: disc; }
+  .chat-markdown li { margin-bottom: 0.15em; }
 `;
 import { summary as timeClockSummary } from './case-studies/TimeClock';
 import { summary as perfReviewsSummary } from './case-studies/PerformanceReviews';
@@ -360,7 +367,7 @@ const Home: React.FC = () => {
             <div className="absolute top-0 left-0 right-0 h-8 pointer-events-none z-10" style={{ background: 'linear-gradient(to bottom, #FAF9F6, transparent)' }} />
             <div
               ref={messagesContainerRef}
-              className="h-full overflow-y-auto min-h-0 py-2 chat-scroll"
+              className="h-full overflow-y-auto min-h-0 py-10 chat-scroll"
             >
             <div className="space-y-5">
               {messages.map((msg, i) => (
@@ -368,7 +375,7 @@ const Home: React.FC = () => {
                   {msg.role === 'user' ? (
                     <div className="flex justify-end">
                       <div
-                        className="px-4 py-3 rounded-2xl text-sm text-stone-700 leading-relaxed"
+                        className="px-4 py-3 rounded-2xl text-sm text-stone-600 leading-relaxed"
                         style={{ backgroundColor: '#EDE8D0', maxWidth: 400 }}
                       >
                         {msg.content}
@@ -376,9 +383,9 @@ const Home: React.FC = () => {
                     </div>
                   ) : (
                     <div style={{ maxWidth: 560 }}>
-                      <p className="text-md text-stone-600 leading-relaxed">
-                        {msg.content}
-                      </p>
+                      <div className="text-sm text-stone-500 leading-relaxed chat-markdown">
+                        <ReactMarkdown>{msg.content}</ReactMarkdown>
+                      </div>
                       {msg.citations && msg.citations.length > 0 && (
                         <div className="flex flex-wrap gap-2 mt-2">
                           {msg.citations.map((cite, j) => (

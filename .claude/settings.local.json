@@ -18,7 +18,8 @@
       "Bash(npx tsc:*)",
       "Bash(npm install:*)",
       "WebFetch(domain:openrouter.ai)",
-      "Bash(curl -s \"https://openrouter.ai/api/v1/models\")"
+      "Bash(curl -s \"https://openrouter.ai/api/v1/models\")",
+      "Bash(vercel --version)"
     ]
   }
 }
