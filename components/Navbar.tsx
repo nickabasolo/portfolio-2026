@@ -15,8 +15,8 @@ const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
   ];
 
   return (
-    <nav className="sticky top-0 z-50 bg-[#FAF9F6]/80 backdrop-blur-md border-b border-stone-200">
-      <div className="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+    <nav className="sticky top-0 z-50 bg-[#FAF9F6]/80 backdrop-blur-md w-full">
+      <div className="px-16 md:px-[180px] h-20 flex items-center justify-between">
         <Link
           to="/"
           className="text-xl font-serif font-medium tracking-tight hover:text-amber-600 transition-colors"

@@ -7,7 +7,10 @@
       "Bash(wc -l /c/Users/Nick/Projects/portfolio-2026/components/*.tsx /c/Users/Nick/Projects/portfolio-2026/pages/*.tsx /c/Users/Nick/Projects/portfolio-2026/*.tsx)",
       "Bash(grep -r \"className\\\\|style\" /c/Users/Nick/Projects/portfolio-2026/components/*.tsx)",
       "Bash(npx vite build)",
-      "Bash(npm run:*)"
+      "Bash(npm run:*)",
+      "Bash(git pull:*)",
+      "Bash(git fetch:*)",
+      "Bash(git symbolic-ref:*)"
     ]
   }
 }

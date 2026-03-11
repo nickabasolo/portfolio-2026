@@ -7,8 +7,8 @@ import { useScrollToTop } from '../../hooks/useScrollToTop';
 export const summary = {
   id: 'manager-dashboard',
   kind: 'case-study' as const,
-  title: 'Manager Dashboard: Operational Visibility',
-  subtitle: 'Consolidating fragmented labor data into a single view so managers can spot staffing issues and fix operational delays before they impact the bottom line.',
+  title: 'The command center for frontline managers',
+  subtitle: 'Consolidating fragmented labor data into a single view so managers can spot staffing issues and fix operational delays before they impact the bottom line',
   role: 'Senior Product Designer',
   duration: 'In Progress',
   company: 'Workstream',

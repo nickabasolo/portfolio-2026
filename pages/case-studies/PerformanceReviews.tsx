@@ -7,10 +7,10 @@ import { useScrollToTop } from '../../hooks/useScrollToTop';
 export const summary = {
   id: 'performance-reviews',
   kind: 'case-study' as const,
-  title: 'Performance Reviews: A Multi-user Flow',
-  subtitle: 'Building a guided review process that helps teams give consistent, unbiased feedback and tracks employee growth without the administrative friction.',
+  title: 'Performance reviews for high-turnover industries',
+  subtitle: 'Building a guided review process that helps teams give consistent, unbiased feedback',
   role: 'Senior Product Designer',
-  duration: 'Ongoing',
+  duration: 'In Progress',
   company: 'Workstream',
   image: 'assets/case-studies/performance-reviews-hero.png',
   tags: ['Performance Management', 'Multi-user Flows', 'B2B'],

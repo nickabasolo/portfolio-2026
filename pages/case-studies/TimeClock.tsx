@@ -10,17 +10,16 @@ import { useScrollToTop } from '../../hooks/useScrollToTop';
 export const summary = {
   id: 'time-clock',
   kind: 'case-study' as const,
-  title: 'Time Clock: From Audit to Autonomy',
-  subtitle: 'Designing a reliable way for hourly workers to clock in that prevents payroll errors and saves managers 1.5+ hours of manual paperwork every week.',
+  title: 'Eliminating payroll errors at the source',
+  subtitle: 'Empowering shift workers to submit compliant edit suggestions',
   role: 'Senior Product Designer',
-  duration: '4 Months',
+  duration: 'Q3 2025',
   company: 'Workstream',
   image: 'assets/case-studies/time-clock-hero.png',
-  tags: ['Labor Compliance', 'Mobile UX', 'Behavioral Design'],
+  tags: ['End-to-end', 'Web', 'Mobile', 'UX Research & Interviews', 'Compliance tech'],
   impact: [
-    '58% Reduction in flagged timecards',
-    '1.5 Hours/Week Reclaimed',
-    'Increased Pay Transparency'
+    'Error Reduction / 58%',
+    'Hours Saved / 1.5+'
   ],
 };
 

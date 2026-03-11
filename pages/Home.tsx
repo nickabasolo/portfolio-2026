@@ -1,6 +1,49 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getAssetPath } from '../utils/paths';
+import { useScrollToTop } from '../hooks/useScrollToTop';
+
+const animationStyles = `
+  @keyframes slideInUp {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes blink {
+    0%, 49% {
+      opacity: 1;
+    }
+    50%, 100% {
+      opacity: 0;
+    }
+  }
+
+  .animate-slide-up {
+    opacity: 0;
+    animation: slideInUp 2s ease-out forwards;
+  }
+
+  .delay-100 { animation-delay: 100ms; }
+  .delay-200 { animation-delay: 800ms; }
+  .delay-300 { animation-delay: 1200ms; }
+  .delay-500 { animation-delay: 1500ms; }
+  .delay-700 { animation-delay: 2000ms; }
+
+  .typing-cursor {
+    display: inline-block;
+    width: 2px;
+    height: 1em;
+    background-color: currentColor;
+    margin-left: 2px;
+    animation: blink 1s infinite;
+  }
+`;
 import { summary as timeClockSummary } from './case-studies/TimeClock';
 import { summary as perfReviewsSummary } from './case-studies/PerformanceReviews';
 import { summary as managerDashboardSummary } from './case-studies/ManagerDashboard';
@@ -12,180 +55,317 @@ const CASE_STUDIES = [timeClockSummary, perfReviewsSummary, managerDashboardSumm
 const SIDE_PROJECTS = [guardianDataVizSummary, timeAuctionSummary, portfolioVibeSummary];
 
 const Home: React.FC = () => {
+  useScrollToTop();
+  // TODO: Uncomment when "Ask me anything" is implemented
+  // const [askInput, setAskInput] = useState('');
+  const [displayedText, setDisplayedText] = useState('');
+  const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
+  const [isTyping, setIsTyping] = useState(true);
+
+  const phrases = [
+    'about my projects',
+    'about my design process',
+    'about my background',
+    'anything...'
+  ];
+
+  const prefix = 'Ask me ';
+
+  useEffect(() => {
+    const currentPhrase = phrases[currentPhraseIndex];
+    const fullPhrase = prefix + currentPhrase;
+    let timeout: NodeJS.Timeout;
+
+    if (isTyping) {
+      if (displayedText.length < fullPhrase.length) {
+        timeout = setTimeout(() => {
+          setDisplayedText(fullPhrase.slice(0, displayedText.length + 1));
+        }, 50);
+      } else {
+        // Finished typing, pause for 2 seconds before backspacing
+        timeout = setTimeout(() => {
+          setIsTyping(false);
+        }, 2000);
+      }
+    } else {
+      if (displayedText.length > prefix.length) {
+        timeout = setTimeout(() => {
+          setDisplayedText(displayedText.slice(0, -1));
+        }, 30);
+      } else {
+        // Finished backspacing to prefix, move to next phrase
+        setCurrentPhraseIndex((prev) => (prev + 1) % phrases.length);
+        setIsTyping(true);
+      }
+    }
+
+    return () => clearTimeout(timeout);
+  }, [displayedText, isTyping, currentPhraseIndex]);
+
+  // TODO: Uncomment when "Ask me anything" is implemented
+  // const handleAskKeyDown = (e: React.KeyboardEvent) => {
+  //   if (e.key === 'Enter') {
+  //     navigate('/about');
+  //   }
+  // };
+
+  const isComingSoon = (duration: string) => duration === 'In Progress';
+
+  // Metric labels per project
+  const getMetrics = (projectId: string, impact?: string[]) => {
+    if (impact && impact.length > 0) {
+      return [
+        { label: impact[0].split(' / ')[0].toUpperCase(), value: impact[0].split(' / ')[1] || '—' },
+        { label: impact[1]?.split(' / ')[0].toUpperCase() || 'METRIC', value: impact[1]?.split(' / ')[1] || '—' }
+      ];
+    }
+
+    const placeholders: { [key: string]: Array<{ label: string; value: string }> } = {
+      'performance-reviews': [
+        { label: 'MANAGERS IMPACTED', value: '—' },
+        { label: 'COMPLETION RATE', value: '—' }
+      ],
+      'manager-dashboard': [
+        { label: 'TIME SAVED', value: '—' },
+        { label: 'FLAGS REDUCED', value: '—' }
+      ]
+    };
+
+    return placeholders[projectId] || [];
+  };
+
   return (
-    <div className="space-y-24 pb-20">
+    <div className="flex flex-col items-center" style={{ backgroundColor: '#FAF9F6' }}>
+      <style>{animationStyles}</style>
       {/* Hero Section */}
-      <section className="pt-20 md:pt-32">
-        <div className="flex flex-col md:flex-row md:items-center gap-12 md:gap-16">
-          {/* Text Content */}
-          <div className="space-y-10 flex-1">
-            <div className="space-y-6">
-              <p className="text-xl text-stone-400 tracking-wide">Hi, I'm Nick!</p>
-              <h1 className="text-5xl md:text-7xl font-serif leading-[1.1] tracking-tight text-stone-900">
-                I design <span className="text-amber-600">human scale</span> solutions for complex, real world systems.
-              </h1>
-              <p className="text-xl md:text-2xl text-stone-500 font-light leading-relaxed max-w-2xl">
-                Currently designing solutions for hospitality HR and payroll — built for workers who are on their feet, not at a desk.
-              </p>
-              <p className="text-xl md:text-2xl text-stone-500 font-light leading-relaxed max-w-2xl">
-                Lately, I rely on AI-assisted prototyping to make real-world experiences that feel lifelike.
-              </p>
-            </div>
-            <div className="flex flex-wrap gap-4">
-                <Link
-                  to="/about"
-                  className="inline-flex items-center justify-center px-8 py-4 bg-stone-900 text-white rounded-full font-medium hover:bg-amber-600 transition-all shadow-lg shadow-stone-900/10 group"
-                >
-                  Contact me
-                  <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
-                </Link>
-                <a
-                  href={getAssetPath('assets/about/Resume - Nick Abasolo (2026).pdf')}
-                  download
-                  className="inline-flex items-center justify-center px-8 py-4 bg-transparent text-stone-900 rounded-full font-medium border-2 border-stone-300 hover:border-amber-600 hover:text-amber-600 transition-all group"
-                >
-                  Download resume
-                  <svg className="ml-2 w-4 h-4 group-hover:translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                  </svg>
-                </a>
+      <section className="space-y-8 w-full px-16 md:px-[180px] h-[75vh] flex flex-col justify-center">
+        <div className="max-w-[640px] space-y-4">
+          <div className="animate-slide-up delay-100">
+            <h1 className="text-2xl font-serif leading-tight text-stone-900">
+              Nick Abasolo
+            </h1>
+            <div className="text-amber-600 font-medium text-base">
+              Senior Product Designer
             </div>
           </div>
+          <p className="text-base text-stone-800 font-light leading-snug animate-slide-up delay-200">
+            I design for humans navigating operational workflows and regulatory compliance in messy, real-world situations; whether they're on their feet, on a call, or just in the middle of life.
+          </p>
+        </div>
 
-          {/* Headshot */}
-          <div className="shrink-0">
-            <img
-              src={getAssetPath('assets/about/headshot.png')}
-              alt="Nick Abasolo"
-              className="w-48 h-48 md:w-64 md:h-64 rounded-full object-cover border-4 border-white shadow-2xl shadow-stone-900/10"
-            />
-          </div>
+        {/* TODO: Hook up "Ask me anything" input to backend */}
+        {/* <div className="relative w-full max-w-2xl animate-slide-up delay-300">
+          <input
+            type="text"
+            value={askInput}
+            onChange={(e) => setAskInput(e.target.value)}
+            onKeyDown={handleAskKeyDown}
+            className="w-full px-6 py-4 rounded-2xl border border-stone-200 text-stone-900 focus:outline-none focus:border-amber-600 focus:ring-2 focus:ring-amber-600/20 transition-all bg-transparent"
+          />
+          {askInput === '' && (
+            <div className="absolute left-6 top-4 text-stone-400 pointer-events-none">
+              {displayedText}
+              <span className="typing-cursor text-stone-400"></span>
+            </div>
+          )}
+        </div> */}
+      </section>
+
+      {/* Work Section - Case Studies */}
+      <section className="space-y-12 w-full max-w-[1080px] mx-auto px-16 md:px-8">
+        <div className="flex items-center gap-6">
+          <h2 className="text-md text-stone-400">Selected work</h2>
+          <div className="flex-1 h-px bg-stone-200" />
+        </div>
+
+        <div className="space-y-24 w-full">
+          {CASE_STUDIES.map((project) => {
+            const coming = isComingSoon(project.duration);
+            const metrics = getMetrics(project.id, project.impact);
+            const subtitleText = `${project.company}, ${project.duration}`;
+            const routePath = `/case-study/${project.id}`;
+
+            return (
+              <div
+                key={project.id}
+                className={`flex flex-row gap-16 items-center h-[480px] transition-all ${
+                  coming ? 'opacity-60' : ''
+                }`}
+              >
+                {/* Text Content - Left */}
+                <div className="flex flex-col justify-between flex-[0.40] h-full">
+                  {/* Top Section */}
+                  <div className="space-y-4">
+                    <div className="space-y-0">
+                      <h3 className="text-2xl font-serif text-stone-900 leading-tight">
+                        {project.title}
+                      </h3>
+                      <div className="text-sm text-stone-400">
+                        {subtitleText}
+                      </div>
+                    </div>
+                    <p className="text-base text-stone-600 leading-tight">
+                      {project.subtitle}
+                    </p>
+
+                    {/* Tags */}
+                    <div className="flex flex-wrap gap-2">
+                      {project.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="text-xs font-medium text-stone-600 px-3 py-1.5 rounded-full bg-stone-200"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+
+                    {/* Metrics */}
+                    {!coming && metrics.length > 0 && (
+                      <div className="grid grid-cols-2 gap-6 pt-4">
+                        {metrics.map((metric, idx) => (
+                          <div key={idx} className="space-y-1">
+                            <div className="text-[10px] tracking-widest font-bold text-stone-400">
+                              {metric.label}
+                            </div>
+                            <div className="text-2xl font-mono text-stone-900">
+                              {metric.value}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Bottom Section */}
+                  <div>
+                    {/* CTA */}
+                    {!coming && (
+                      <Link
+                        to={routePath}
+                        className="inline-flex items-center text-sm font-medium text-amber-600 hover:text-amber-700 transition-colors group"
+                      >
+                        Read more{' '}
+                        <span className="ml-2 group-hover:translate-x-1 transition-transform">
+                          →
+                        </span>
+                      </Link>
+                    )}
+                    {coming && (
+                      <span className="text-sm font-medium text-stone-400">
+                        Coming soon
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                {/* Image - Right */}
+                <div className="relative overflow-hidden bg-stone-100 flex-[0.60] h-full rounded-lg">
+                  {coming ? (
+                    <>
+                      <img
+                        src={getAssetPath(project.image)}
+                        alt={project.title}
+                        className="w-full h-full object-cover grayscale opacity-40"
+                      />
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <span className="text-sm font-bold uppercase tracking-widest text-stone-600 bg-white/80 px-5 py-2.5 rounded-full">
+                          Coming Soon
+                        </span>
+                      </div>
+                    </>
+                  ) : (
+                    <Link
+                      to={routePath}
+                      className="block w-full h-full overflow-hidden group"
+                    >
+                      <img
+                        src={getAssetPath(project.image)}
+                        alt={project.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                    </Link>
+                  )}
+                </div>
+              </div>
+            );
+          })}
         </div>
       </section>
 
-      {/* Case Studies Section */}
-      <section>
-        <div className="mb-12 border-b border-stone-200 pb-4">
-          <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-stone-400">Selected Works</h2>
+      {/* Fun Section - Side Projects */}
+      <section className="space-y-12 w-full max-w-[1080px] mx-auto px-16 md:px-8 mt-32">
+        <div className="flex items-center gap-6">
+          <h2 className="text-md text-stone-400">Fun and side projects</h2>
+          <div className="flex-1 h-px bg-stone-200" />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:auto-rows-[300px]">
-          {/* Main Case Study - Time Clock */}
-          <Link
-            to="/case-study/time-clock"
-            className="md:col-span-8 md:row-span-2 group cursor-pointer relative overflow-hidden rounded-3xl bg-stone-900 flex flex-col justify-end p-8 md:p-12 transition-all hover:shadow-2xl hover:shadow-amber-500/10"
-          >
-            <img
-              src={getAssetPath(CASE_STUDIES[0].image)}
-              className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-1000"
-              alt={CASE_STUDIES[0].title}
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-stone-900/90 via-stone-900/40 to-transparent" />
-            <div className="relative z-10 space-y-4">
-              <h3 className="text-3xl md:text-5xl font-serif text-white">{CASE_STUDIES[0].title}</h3>
-              <p className="text-stone-300 text-sm md:text-base max-w-md">{CASE_STUDIES[0].subtitle}</p>
-            </div>
-          </Link>
-
-          {/* Performance Reviews - Coming Soon */}
-          <div
-            className="md:col-span-4 md:row-span-2 relative overflow-hidden rounded-3xl bg-white flex flex-col p-8 border border-stone-200 group"
-          >
-            <div className="flex-1 overflow-hidden rounded-2xl mb-6 shadow-sm relative">
-              <img
-                src={getAssetPath(CASE_STUDIES[1].image)}
-                className="w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
-                alt=""
-              />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <span className="text-xs uppercase tracking-widest font-bold text-stone-900 px-5 py-2.5 bg-white/90 backdrop-blur rounded-full shadow-lg group-hover:scale-110 transition-transform">Coming Soon</span>
-              </div>
-            </div>
-            <div className="space-y-3">
-              <h3 className="text-2xl font-serif text-stone-900 leading-tight">{CASE_STUDIES[1].title}</h3>
-              <p className="text-stone-500 text-sm leading-relaxed">{CASE_STUDIES[1].subtitle}</p>
-            </div>
-          </div>
-
-          {/* Manager Dashboard - Coming Soon */}
-          <div
-            className="md:col-span-12 relative overflow-hidden rounded-3xl bg-white border border-stone-200 p-8 flex flex-col md:flex-row gap-8 items-center group"
-          >
-            <div className="w-full md:w-1/3 h-48 rounded-2xl overflow-hidden bg-stone-100 relative">
-              <img
-                src={getAssetPath(CASE_STUDIES[2].image)}
-                className="w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
-                alt=""
-              />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <span className="text-xs uppercase tracking-widest font-bold text-stone-900 px-5 py-2.5 bg-white/90 backdrop-blur rounded-full shadow-lg group-hover:scale-110 transition-transform">Coming Soon</span>
-              </div>
-            </div>
-            <div className="flex-1 space-y-4">
-              <div className="space-y-2">
-                <h3 className="text-2xl md:text-3xl font-serif text-stone-900">{CASE_STUDIES[2].title}</h3>
-                <p className="text-stone-500 text-sm md:text-base max-w-2xl">{CASE_STUDIES[2].subtitle}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Side Projects Section */}
-      <section>
-        <div className="mb-12 mt-32">
-          <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-amber-600 mb-3">Side projects</h2>
-          <p className="text-stone-500 max-w-2xl text-lg font-light">Creative coding, data visualization, and curiosities built outside my 9-to-5.</p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full">
           {SIDE_PROJECTS.map((project) => {
-            const isComingSoon = project.duration === 'In Progress';
+            const coming = isComingSoon(project.duration);
+            const routePath = `/side-project/${project.id}`;
 
-            return isComingSoon ? (
-              <div key={project.id} className="group space-y-6">
-                <div
-                  className="aspect-[4/3] bg-stone-100 rounded-3xl overflow-hidden relative border border-stone-200 shadow-sm"
-                >
-                  <img src={getAssetPath(project.image)} alt={project.title} className="w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="text-xs uppercase tracking-widest font-bold text-stone-900 px-5 py-2.5 bg-white/90 backdrop-blur rounded-full shadow-lg group-hover:scale-110 transition-transform">Coming Soon</span>
-                  </div>
+            return (
+              <div
+                key={project.id}
+                className={`space-y-4 group transition-all ${coming ? 'opacity-60' : ''}`}
+              >
+                {/* Image */}
+                <div className="relative overflow-hidden rounded-2xl bg-stone-100 aspect-[4/3] border border-stone-200">
+                  {coming ? (
+                    <>
+                      <img
+                        src={getAssetPath(project.image)}
+                        alt={project.title}
+                        className="w-full h-full object-cover grayscale opacity-40"
+                      />
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <span className="text-xs font-bold uppercase tracking-widest text-stone-600 bg-white/80 px-4 py-2 rounded-full">
+                          Coming Soon
+                        </span>
+                      </div>
+                    </>
+                  ) : (
+                    <Link to={routePath} className="block w-full h-full">
+                      <img
+                        src={getAssetPath(project.image)}
+                        alt={project.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                    </Link>
+                  )}
                 </div>
-                <div className="space-y-2 px-2">
-                  <span className="font-serif text-2xl text-stone-900">
-                    {project.title}
-                  </span>
-                  <p className="text-stone-500 leading-relaxed text-sm">{project.description}</p>
-                </div>
-              </div>
-            ) : (
-              <div key={project.id} className="group space-y-6">
-                <Link
-                  to={`/side-project/${project.id}`}
-                  className="aspect-[4/3] bg-stone-100 rounded-3xl overflow-hidden relative border border-stone-200 shadow-sm cursor-pointer block"
-                >
-                  <img src={getAssetPath(project.image)} alt={project.title} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" />
-                  <div className="absolute inset-0 bg-stone-900/0 group-hover:bg-stone-900/10 transition-colors flex items-center justify-center">
-                    <span className="opacity-0 group-hover:opacity-100 transition-opacity bg-white text-stone-900 px-6 py-2 rounded-full font-bold text-xs uppercase tracking-widest shadow-xl">
-                      View Project
-                    </span>
-                  </div>
-                </Link>
-                <div className="space-y-2 px-2">
+
+                {/* Text Content */}
+                <div className="space-y-2">
                   <Link
-                    to={`/side-project/${project.id}`}
-                    className="font-serif text-2xl text-stone-900 hover:text-amber-600 transition-colors block"
+                    to={routePath}
+                    className={`font-serif text-xl text-stone-900 ${
+                      coming ? 'cursor-default' : 'hover:text-amber-600 transition-colors'
+                    } block`}
                   >
                     {project.title}
                   </Link>
-                  {project.id === 'guardian-data-viz' && (
-                    <span className="inline-flex items-center gap-1.5 text-[10px] uppercase font-bold tracking-wider text-amber-700 bg-amber-50 border border-amber-200 px-3 py-1 rounded-full">
-                      <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" /></svg>
-                      Featured in The Guardian
-                    </span>
-                  )}
-                  <p className="text-stone-500 leading-relaxed text-sm">{project.description}</p>
+
+                  <div className="text-xs text-stone-400 font-medium uppercase tracking-widest">
+                    {project.company}
+                  </div>
+
+                  <p className="text-sm text-stone-600 leading-relaxed">
+                    {project.description}
+                  </p>
+
+                  {/* Tags */}
+                  <div className="flex flex-wrap gap-1.5 pt-2">
+                    {project.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="text-xs font-medium text-stone-600 bg-stone-100 px-2.5 py-1 rounded-full border border-stone-200"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </div>
             );
