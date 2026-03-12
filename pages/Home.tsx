@@ -12,8 +12,8 @@ const SOURCE_LABELS: Record<string, string> = {
   '/about': 'About me',
   '/resume': 'Resume',
   '/case-study/time-clock': 'Time Clock case study',
-  '/case-study/performance-reviews': 'Labour Cost case study',
-  '/case-study/manager-dashboard': 'Break Rules case study',
+  '/case-study/labor-cost': 'Labour Cost case study',
+  '/case-study/break-rules': 'Break Rules case study',
   '/side-project/guardian-data-viz': 'Guardian Data Viz',
   '/side-project/time-auction': 'Time Auction',
   '/side-project/portfolio-vibe-code': 'Portfolio Vibecode',
@@ -132,14 +132,14 @@ const animationStyles = `
   .chat-markdown li { margin-bottom: 0.15em; }
 `;
 import { summary as timeClockSummary } from './case-studies/TimeClock';
-import { summary as perfReviewsSummary } from './case-studies/PerformanceReviews';
-import { summary as managerDashboardSummary } from './case-studies/ManagerDashboard';
+import { summary as laborCostSummary } from './case-studies/LaborCost';
+import { summary as breakRulesSummary } from './case-studies/BreakRules';
 import { summary as guardianDataVizSummary } from './side-projects/GuardianDataViz';
 import { summary as timeAuctionSummary } from './side-projects/TimeAuction';
 import { summary as portfolioChatbotSummary } from './side-projects/PortfolioChatbot';
 
-const CASE_STUDIES = [timeClockSummary, perfReviewsSummary, managerDashboardSummary];
-const SIDE_PROJECTS = [guardianDataVizSummary, timeAuctionSummary, portfolioChatbotSummary];
+const CASE_STUDIES = [timeClockSummary, laborCostSummary, breakRulesSummary];
+const SIDE_PROJECTS = [guardianDataVizSummary, portfolioChatbotSummary];
 
 const Home: React.FC = () => {
   useScrollToTop();
@@ -327,11 +327,11 @@ const Home: React.FC = () => {
     }
 
     const placeholders: { [key: string]: Array<{ label: string; value: string }> } = {
-      'performance-reviews': [
+      'labor-cost': [
         { label: 'MANAGERS IMPACTED', value: '—' },
         { label: 'COMPLETION RATE', value: '—' }
       ],
-      'manager-dashboard': [
+      'break-rules': [
         { label: 'TIME SAVED', value: '—' },
         { label: 'FLAGS REDUCED', value: '—' }
       ]
@@ -500,9 +500,7 @@ const Home: React.FC = () => {
             return (
               <div
                 key={project.id}
-                className={`flex flex-col md:flex-row gap-8 md:gap-16 items-start md:items-center md:h-[480px] transition-all ${
-                  coming ? 'opacity-60' : ''
-                }`}
+                className="flex flex-col md:flex-row gap-8 md:gap-16 items-start md:items-center md:h-[480px] transition-all"
               >
                 {/* Text Content - Left */}
                 <div className="flex flex-col justify-between md:flex-[0.40] w-full md:h-full order-2 md:order-1">
@@ -564,8 +562,8 @@ const Home: React.FC = () => {
                       </Link>
                     )}
                     {coming && (
-                      <span className="text-sm font-medium text-stone-400">
-                        Coming soon
+                      <span className="inline-block text-xs font-bold uppercase tracking-widest text-stone-500 bg-stone-200 px-4 py-2 rounded-full">
+                        Coming Soon
                       </span>
                     )}
                   </div>
@@ -574,18 +572,18 @@ const Home: React.FC = () => {
                 {/* Image - Right */}
                 <div className="relative overflow-hidden bg-stone-100 md:flex-[0.60] w-full aspect-[16/10] md:aspect-auto md:h-full rounded-lg order-1 md:order-2">
                   {coming ? (
-                    <>
+                    <div className="w-full h-full group/coming cursor-default">
                       <img
                         src={getAssetPath(cardImage)}
                         alt={project.title}
-                        className="w-full h-full object-cover grayscale opacity-40"
+                        className="w-full h-full object-cover"
                       />
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <span className="text-sm font-bold uppercase tracking-widest text-stone-600 bg-white/80 px-5 py-2.5 rounded-full">
+                      <div className="absolute inset-0 bg-stone-900/0 group-hover/coming:bg-stone-900/20 transition-colors duration-300 flex items-center justify-center">
+                        <span className="opacity-0 group-hover/coming:opacity-100 transition-opacity duration-300 text-xs font-bold uppercase tracking-widest text-white bg-stone-900/60 px-4 py-2 rounded-full backdrop-blur-sm">
                           Coming Soon
                         </span>
                       </div>
-                    </>
+                    </div>
                   ) : (
                     <Link
                       to={routePath}
@@ -620,23 +618,23 @@ const Home: React.FC = () => {
             return (
               <div
                 key={project.id}
-                className={`space-y-4 group transition-all ${coming ? 'opacity-60' : ''}`}
+                className="space-y-4 group transition-all"
               >
                 {/* Image */}
                 <div className="relative overflow-hidden rounded-2xl bg-stone-100 aspect-[4/3] border border-stone-200">
                   {coming ? (
-                    <>
+                    <div className="w-full h-full group/coming cursor-default">
                       <img
                         src={getAssetPath(project.image)}
                         alt={project.title}
-                        className="w-full h-full object-cover grayscale opacity-40"
+                        className="w-full h-full object-cover"
                       />
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <span className="text-xs font-bold uppercase tracking-widest text-stone-600 bg-white/80 px-4 py-2 rounded-full">
+                      <div className="absolute inset-0 bg-stone-900/0 group-hover/coming:bg-stone-900/20 transition-colors duration-300 flex items-center justify-center">
+                        <span className="opacity-0 group-hover/coming:opacity-100 transition-opacity duration-300 text-xs font-bold uppercase tracking-widest text-white bg-stone-900/60 px-4 py-2 rounded-full backdrop-blur-sm">
                           Coming Soon
                         </span>
                       </div>
-                    </>
+                    </div>
                   ) : (
                     <Link to={routePath} className="block w-full h-full">
                       <img
@@ -678,6 +676,12 @@ const Home: React.FC = () => {
                       </span>
                     ))}
                   </div>
+
+                  {coming && (
+                    <span className="inline-block text-xs font-bold uppercase tracking-widest text-stone-500 bg-stone-200 px-4 py-2 rounded-full mt-2">
+                      Coming Soon
+                    </span>
+                  )}
                 </div>
               </div>
             );

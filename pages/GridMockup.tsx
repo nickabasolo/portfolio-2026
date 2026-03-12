@@ -27,7 +27,7 @@ const CASE_STUDIES = [
     subtitle: 'A data visualisation tool that meets managers in the mental model they already use.',
     metrics: [],
     tags: ['Data viz', 'Desktop', 'Manager-facing'],
-    path: '/case-study/performance-reviews',
+    path: '/case-study/labor-cost',
   },
   {
     id: 'break-rules',
@@ -36,7 +36,7 @@ const CASE_STUDIES = [
     subtitle: 'A compliance engine that translates labor law into natural language — for managers and workers alike.',
     metrics: [],
     tags: ['Systems design', 'Mobile + Desktop', 'Compliance'],
-    path: '/case-study/manager-dashboard',
+    path: '/case-study/break-rules',
   },
 ];
 

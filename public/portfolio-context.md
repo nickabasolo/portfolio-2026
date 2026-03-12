@@ -123,7 +123,7 @@ Developed a mental health training portal for faculty to improve accessibility t
 
 ### Case Study 2: Performance Reviews for High-Turnover Industries
 
-[Source: /case-study/performance-reviews]
+[Source: /case-study/labor-cost]
 
 **Role:** Senior Product Designer | **Company:** Workstream | **Status:** In Progress
 
@@ -133,7 +133,7 @@ Traditional reviews in high-turnover industries like restaurants are often skipp
 
 ### Case Study 3: The Command Center for Frontline Managers (Manager Dashboard)
 
-[Source: /case-study/manager-dashboard]
+[Source: /case-study/break-rules]
 
 **Role:** Senior Product Designer | **Company:** Workstream | **Status:** In Progress
 

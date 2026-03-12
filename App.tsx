@@ -5,8 +5,8 @@ import { Analytics } from '@vercel/analytics/react';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import TimeClock from './pages/case-studies/TimeClock';
-import PerformanceReviews from './pages/case-studies/PerformanceReviews';
-import ManagerDashboard from './pages/case-studies/ManagerDashboard';
+import LaborCost from './pages/case-studies/LaborCost';
+import BreakRules from './pages/case-studies/BreakRules';
 import GuardianDataViz from './pages/side-projects/GuardianDataViz';
 import TimeAuction from './pages/side-projects/TimeAuction';
 import PortfolioChatbot from './pages/side-projects/PortfolioChatbot';
@@ -51,8 +51,8 @@ const App: React.FC = () => {
           <Route path="/about" element={<About />} />
           <Route path="/resume" element={<Resume />} />
           <Route path="/case-study/time-clock" element={<TimeClock />} />
-          <Route path="/case-study/performance-reviews" element={<PerformanceReviews />} />
-          <Route path="/case-study/manager-dashboard" element={<ManagerDashboard />} />
+          <Route path="/case-study/labor-cost" element={<LaborCost />} />
+          <Route path="/case-study/break-rules" element={<BreakRules />} />
           <Route path="/side-project/guardian-data-viz" element={<GuardianDataViz />} />
           <Route path="/side-project/time-auction" element={<TimeAuction />} />
           <Route path="/side-project/portfolio-chatbot" element={<PortfolioChatbot />} />

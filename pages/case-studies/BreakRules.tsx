@@ -5,7 +5,7 @@ import CaseStudyLayout from '../../components/CaseStudyLayout';
 import { useScrollToTop } from '../../hooks/useScrollToTop';
 
 export const summary = {
-  id: 'manager-dashboard',
+  id: 'break-rules',
   kind: 'case-study' as const,
   title: 'Break rules: designing a compliance system for people who aren\'t lawyers',
   subtitle: 'Translating complex, state-by-state labor law into a rules engine managers could configure — and notifications workers could actually act on',
@@ -18,7 +18,7 @@ export const summary = {
   impact: [],
 };
 
-const ManagerDashboard: React.FC = () => {
+const BreakRules: React.FC = () => {
   useScrollToTop();
   return (
     <CaseStudyLayout image={summary.image} navItems={[
@@ -166,4 +166,4 @@ const ManagerDashboard: React.FC = () => {
   );
 };
 
-export default ManagerDashboard;
+export default BreakRules;

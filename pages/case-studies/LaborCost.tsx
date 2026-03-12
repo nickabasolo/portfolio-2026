@@ -5,7 +5,7 @@ import CaseStudyLayout from '../../components/CaseStudyLayout';
 import { useScrollToTop } from '../../hooks/useScrollToTop';
 
 export const summary = {
-  id: 'performance-reviews',
+  id: 'labor-cost',
   kind: 'case-study' as const,
   title: 'Labour cost: designing for a metric that runs a restaurant',
   subtitle: 'Helping managers make staffing decisions in the moment — starting with a better chart, ending with a mobile recommendation engine',
@@ -13,7 +13,7 @@ export const summary = {
   duration: 'In Progress', // TODO: restore to 'Q4 2024' when ready to publish
   company: 'Workstream',
   image: 'assets/case-studies/performance-reviews-hero.png',
-  cardImage: 'assets/case-studies/manager-dashboard-hero.png',
+  cardImage: 'assets/case-studies/Labor cost.png',
   tags: ['Data visualisation', 'Dashboard design', 'Mobile', 'UX Research'],
   impact: [
     'Planning view / shipped',
@@ -21,7 +21,7 @@ export const summary = {
   ],
 };
 
-const PerformanceReviews: React.FC = () => {
+const LaborCost: React.FC = () => {
   useScrollToTop();
   return (
     <CaseStudyLayout image={summary.image} navItems={[
@@ -162,4 +162,4 @@ const PerformanceReviews: React.FC = () => {
   );
 };
 
-export default PerformanceReviews;
+export default LaborCost;
