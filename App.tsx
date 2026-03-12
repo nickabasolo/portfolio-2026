@@ -12,6 +12,7 @@ import TimeAuction from './pages/side-projects/TimeAuction';
 import PortfolioChatbot from './pages/side-projects/PortfolioChatbot';
 import About from './pages/About';
 import Resume from './pages/Resume';
+import GridMockup from './pages/GridMockup';
 
 const App: React.FC = () => {
   const navigate = useNavigate();
@@ -41,7 +42,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col selection:bg-amber-200 selection:text-amber-900">
+    <div className="min-h-screen flex flex-col bg-brand-bg selection:bg-amber-200 selection:text-amber-900">
       <Navbar activeTab={getActiveTab()} setActiveTab={handleTabChange} />
 
       <main className="flex-1 w-full relative">
@@ -55,6 +56,7 @@ const App: React.FC = () => {
           <Route path="/side-project/guardian-data-viz" element={<GuardianDataViz />} />
           <Route path="/side-project/time-auction" element={<TimeAuction />} />
           <Route path="/side-project/portfolio-chatbot" element={<PortfolioChatbot />} />
+          <Route path="/mockup" element={<GridMockup />} />
         </Routes>
       </main>
 

@@ -2,13 +2,28 @@
 
 ---
 
+## New:
+
+Title: Operational system for hourly workforce management
+
+Body:
+
+These three case studies are windows into a single product system I designed from scratch for the past three years — a mobile platform for the hourly workforce at Workstream.
+
+When I joined, the product was a hiring and onboarding tool designed for managers on desktop. Workers didn't have a defined place in it at all. Over three years, working with a UX researcher, a PM, and a team of engineers, I helped establish the hourly worker as a distinct product persona and built out the operational layer that sits between a restaurant's business rules and the people carrying them out.
+
+
+
 ## Card label (small, above title)
+
 THE SYSTEM
 
 ## Card title
+
 Building the operational layer: three years, one platform
 
 ## Card body
+
 The three case studies below are windows into a single product I built from scratch — a mobile platform for the hourly workforce at Workstream.
 
 When I joined, the product was a hiring and onboarding tool designed for managers on desktop. Workers didn't have a defined place in it at all. Over three years, working with a UX researcher, a PM, and a team of engineers, I helped establish the hourly worker as a distinct product persona and built out the operational layer that sits between a restaurant's business rules and the people carrying them out: a time clock, a scheduling and compliance engine, a labour cost visualisation tool, and a shared-device tablet experience.
@@ -16,6 +31,7 @@ When I joined, the product was a hiring and onboarding tool designed for manager
 Each case study zooms into a specific problem inside that system. This card is the view from outside it.
 
 ## Card footer / meta
+
 **Scope:** 0→1 platform · Worker-facing mobile · Manager-facing desktop · Compliance systems · Data visualisation
 **Team:** PM, UX researcher, PMM, CSMs, tech lead, ~8 engineers
 

@@ -475,8 +475,18 @@ const Home: React.FC = () => {
       {/* Work Section - Case Studies */}
       <section className="space-y-12 w-full max-w-[1080px] mx-auto px-6 md:px-8">
         <div className="flex items-center gap-6">
-          <h2 className="text-md text-stone-400">Selected work</h2>
+          <h2 className="text-md text-stone-400">Case studies</h2>
           <div className="flex-1 h-px bg-stone-200" />
+        </div>
+
+        <div className="w-full rounded-2xl px-10 py-8 mx-auto max-w-2xl" style={{ backgroundColor: '#F5F1E3' }}>
+          <h3 className="text-xl font-serif text-stone-700 leading-snug mb-4 text-center">Designing the operational layer of hourly work</h3>
+          <p className="text-base text-stone-500 leading-snug mb-3">
+            When I joined, <a href="https://www.workstream.us/" target="_blank" rel="noopener noreferrer" className="underline hover:text-amber-600 transition-colors">Workstream</a> was a restaurant HR tool built for managers and admins. Workers didn't have a defined place in the product at all.
+          </p>
+          <p className="text-base text-stone-500 leading-snug">
+            Over three years, I changed that. Working with a UX researcher, a PM, and a team of engineers, I established the hourly worker as a distinct persona and built from 0 → 1 the operational layer that turns their real work into the records that run payroll and keep businesses compliant.
+          </p>
         </div>
 
         <div className="space-y-16 md:space-y-24 w-full">

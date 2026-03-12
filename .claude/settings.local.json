@@ -19,7 +19,14 @@
       "Bash(npm install:*)",
       "WebFetch(domain:openrouter.ai)",
       "Bash(curl -s \"https://openrouter.ai/api/v1/models\")",
-      "Bash(vercel --version)"
+      "Bash(vercel --version)",
+      "WebSearch",
+      "WebFetch(domain:emilkowal.ski)",
+      "WebFetch(domain:pafolios.com)",
+      "Bash(python3 -c \":*)",
+      "Bash(node -e \":*)",
+      "Bash(ls c:/Users/Nick/Projects/portfolio-2026/*.ts c:/Users/Nick/Projects/portfolio-2026/*.js)",
+      "Bash(ls c:/Users/Nick/Projects/portfolio-2026/*.html c:/Users/Nick/Projects/portfolio-2026/main.*)"
     ]
   }
 }
