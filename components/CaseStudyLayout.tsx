@@ -1,26 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import { getAssetPath } from '../utils/paths';
 
+interface NavItem {
+  id: string;
+  label: string;
+}
+
 interface CaseStudyLayoutProps {
   image: string;
   children: React.ReactNode;
   isSideProject?: boolean;
+  navItems?: NavItem[];
 }
+
+const defaultNavItems: NavItem[] = [
+  { id: 'challenge', label: 'Challenge' },
+  { id: 'strategy', label: 'Strategy' },
+  { id: 'execution', label: 'Execution' },
+  { id: 'impact', label: 'Impact' },
+  { id: 'learnings', label: 'Learnings' },
+];
 
 const CaseStudyLayout: React.FC<CaseStudyLayoutProps> = ({
   image,
   children,
   isSideProject = false,
+  navItems = defaultNavItems,
 }) => {
   const [activeSection, setActiveSection] = useState<string | null>(null);
 
-  const navItems = [
-    { id: 'challenge', label: '01 Challenge' },
-    { id: 'strategy', label: '02 Strategy' },
-    { id: 'execution', label: '03 Execution' },
-    { id: 'impact', label: '04 Impact' },
-    { id: 'learnings', label: '05 Learnings' },
-  ];
 
   // IntersectionObserver for sticky sidebar nav
   useEffect(() => {
@@ -54,31 +62,28 @@ const CaseStudyLayout: React.FC<CaseStudyLayoutProps> = ({
   };
 
   return (
-    <article className="flex flex-col items-center" style={{ backgroundColor: '#FAF9F6' }}>
-      <div className="w-full px-6 md:px-16 lg:px-[180px] py-12 md:py-20">
+    <article className="flex flex-col items-center bg-brand-bg">
+      <div className="w-full px-6 md:px-20 py-12 md:py-32">
         {/* Narrative Content with Sidebar */}
         <div
-          className={`relative ${
+          className={`relative mx-auto ${
             isSideProject
-              ? 'max-w-4xl mx-auto'
-              : 'grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-16 max-w-4xl'
+              ? 'max-w-[860px]'
+              : 'grid grid-cols-1 lg:grid-cols-[280px_640px] gap-8 max-w-[1000px]'
           }`}
         >
           {/* Sticky Sidebar (Hidden for side projects) */}
           {!isSideProject && (
             <aside className="hidden lg:block">
-              <div className="sticky top-32 space-y-6">
-                <div className="text-md text-stone-400 mb-8">
-                  Navigation
-                </div>
-                <nav className="flex flex-col space-y-4">
+              <div className="sticky top-32">
+                <nav className="flex flex-col">
                   {navItems.map((item) => (
                     <button
                       key={item.id}
                       onClick={() => scrollTo(item.id)}
-                      className={`text-left text-xs font-bold uppercase tracking-widest transition-all relative py-1 ${
+                      className={`text-left text-sm font-normal transition-all relative py-1 ${
                         activeSection === item.id
-                          ? 'text-amber-600'
+                          ? 'text-stone-900 font-medium'
                           : 'text-stone-400 hover:text-stone-600'
                       }`}
                     >
@@ -91,7 +96,7 @@ const CaseStudyLayout: React.FC<CaseStudyLayoutProps> = ({
           )}
 
           {/* Narrative Body - Centered */}
-          <div className={!isSideProject ? 'max-w-3xl space-y-12' : 'space-y-12'}>
+          <div className="space-y-12">
             {/* Hero Image */}
             <div className="rounded-lg overflow-hidden bg-stone-100 border border-stone-200">
               <img

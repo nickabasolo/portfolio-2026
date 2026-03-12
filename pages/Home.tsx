@@ -12,8 +12,8 @@ const SOURCE_LABELS: Record<string, string> = {
   '/about': 'About me',
   '/resume': 'Resume',
   '/case-study/time-clock': 'Time Clock case study',
-  '/case-study/performance-reviews': 'Performance Reviews',
-  '/case-study/manager-dashboard': 'Manager Dashboard',
+  '/case-study/performance-reviews': 'Labour Cost case study',
+  '/case-study/manager-dashboard': 'Break Rules case study',
   '/side-project/guardian-data-viz': 'Guardian Data Viz',
   '/side-project/time-auction': 'Time Auction',
   '/side-project/portfolio-vibe-code': 'Portfolio Vibecode',
@@ -114,20 +114,20 @@ const animationStyles = `
     background: transparent;
   }
   .chat-scroll::-webkit-scrollbar-thumb {
-    background: #d6d3cd;
+    background: #d6d3cd; /* brand-scrollbar */
     border-radius: 99px;
   }
   .chat-scroll::-webkit-scrollbar-thumb:hover {
-    background: #a8a39a;
+    background: #a8a39a; /* brand-scrollbar-hover */
   }
   .chat-scroll {
     scrollbar-width: thin;
-    scrollbar-color: #d6d3cd transparent;
+    scrollbar-color: #d6d3cd transparent; /* brand-scrollbar */
   }
 
   .chat-markdown p { margin: 0 0 0.4em 0; }
   .chat-markdown p:last-child { margin-bottom: 0; }
-  .chat-markdown strong { font-weight: 600; color: #44403c; }
+  .chat-markdown strong { font-weight: 600; color: #44403c; /* stone-700, brand-text adjacent */ }
   .chat-markdown ul { margin: 0.25em 0 0.4em 1.2em; padding: 0; list-style: disc; }
   .chat-markdown li { margin-bottom: 0.15em; }
 `;
@@ -341,7 +341,7 @@ const Home: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center" style={{ backgroundColor: '#FAF9F6' }}>
+    <div className="flex flex-col items-center bg-brand-bg">
       <style>{animationStyles}</style>
       {/* Hero Section — three fixed zones: hero text | scrollable messages | input */}
       <section className="w-full px-6 md:px-8 h-[75vh] flex flex-col justify-center items-center">
@@ -367,7 +367,7 @@ const Home: React.FC = () => {
         {messages.length > 0 && (
           <div className="relative flex-1 min-h-0 w-full max-w-[640px]">
             {/* Gradient fade — top */}
-            <div className="absolute top-0 left-0 right-0 h-8 pointer-events-none z-10" style={{ background: 'linear-gradient(to bottom, #FAF9F6, transparent)' }} />
+            <div className="absolute top-0 left-0 right-0 h-8 pointer-events-none z-10 bg-gradient-to-b from-brand-bg to-transparent" />
             <div
               ref={messagesContainerRef}
               className="h-full overflow-y-auto min-h-0 py-10 chat-scroll"
@@ -378,8 +378,8 @@ const Home: React.FC = () => {
                   {msg.role === 'user' ? (
                     <div className="flex justify-end">
                       <div
-                        className="px-4 py-3 rounded-2xl text-sm text-stone-600 leading-relaxed"
-                        style={{ backgroundColor: '#EDE8D0', maxWidth: 400 }}
+                        className="px-4 py-3 rounded-2xl text-sm text-stone-600 leading-relaxed bg-brand-chat-user"
+                        style={{ maxWidth: 400 }}
                       >
                         {msg.content}
                       </div>
@@ -423,7 +423,7 @@ const Home: React.FC = () => {
             </div>
             </div>
             {/* Gradient fade — bottom */}
-            <div className="absolute bottom-0 left-0 right-0 h-8 pointer-events-none z-10" style={{ background: 'linear-gradient(to top, #FAF9F6, transparent)' }} />
+            <div className="absolute bottom-0 left-0 right-0 h-8 pointer-events-none z-10 bg-gradient-to-t from-brand-bg to-transparent" />
           </div>
         )}
 

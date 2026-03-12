@@ -1,5 +1,5 @@
 import React from 'react';
-import { Section, TextContent, Quote, Metrics, Visual, GridList, SubHeading, Table, JourneyMap } from '../../components/CaseStudyPrimitives';
+import { Section, TextContent, Quote, Metrics, Visual, GridList, SubSection, Table } from '../../components/CaseStudyPrimitives';
 import CaseStudySummary from '../../components/CaseStudySummary';
 import CaseStudyLayout from '../../components/CaseStudyLayout';
 import { getAssetPath } from '../../utils/paths';
@@ -24,15 +24,27 @@ export const summary = {
   ],
 };
 
+// Set to true to show artifact placeholder boxes
+const SHOW_PLACEHOLDERS = false;
+
 const TimeClock: React.FC = () => {
   useScrollToTop();
   return (
-    <CaseStudyLayout image={summary.image}>
-      <div className="space-y-32 animate-in fade-in slide-in-from-bottom-4 duration-700">
+    <CaseStudyLayout image={summary.image} navItems={[
+      { id: 'the-brief', label: 'The brief' },
+      { id: 'research', label: 'What the research revealed' },
+      { id: 'real-problem', label: 'The real problem' },
+      { id: 'execution', label: 'How we solved it' },
+      { id: 'impact', label: 'What changed' },
+      { id: 'learnings', label: 'What I learned' },
+    ]}>
+      <div className="space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-700">
         {/* ARTIFACT — Hero image (keep existing) */}
       {/* The angled mockup spread works well. Consider adding one more screen showing the shift summary "high score" moment — it's your most original idea and currently invisible at the top of the page. */}
 
       <CaseStudySummary
+        title={summary.title}
+        subtitle={summary.subtitle}
         role={summary.role}
         duration={summary.duration}
         company={summary.company}
@@ -41,33 +53,43 @@ const TimeClock: React.FC = () => {
         outcome="58% reduction in manual timecard edits and 1.5 hours reclaimed per manager, per week."
       />
 
-      <Section id="challenge" number="01" title="Challenge">
+      <Section id="the-brief"title="The brief">
         <TextContent>
-          <p>Every Sunday night, restaurant managers face the same grind: wading through 40+ flagged timecards — missed breaks, forgotten clock-outs, disputed punches — each one requiring a manual investigation before submitting to payroll.</p>
-          <p>The stakes are real. Inaccurate timecards mean labor law violations, thousands of dollars in fees, and ultimately an unfair and inaccurate paycheque for their team. The timesheet is critical, and the current process unsustainable.</p>
+          <p>Every Sunday night, restaurant managers face the same grind: wading through 40+ flagged timecards — missed breaks, forgotten clock-outs, disputed punches — each one requiring a manual investigation before payroll can close.</p>
+          <p>The stakes are real. Inaccurate timecards mean labor law violations and significant fines. The process was unsustainable.</p>
+          <p>I'd owned this product since its first line of design. When the brief landed — improve the manager's review dashboard — my instinct was the same as everyone else's: bulk actions, clearer error labels, faster filtering. A better eraser.</p>
         </TextContent>
 
-        {/* ARTIFACT — Real product screenshot */}
-        {/* Use your existing legacy timesheet screenshot (PII redacted) here. One image. Let it breathe. The visual chaos of the old UI makes the case better than any copy can. */}
+        {/* ARTIFACT — Real product screenshot (existing) */}
         <img src={getAssetPath('assets/case-studies/Timesheet_before.png')} alt="Timesheet before redesign" className="w-full rounded-2xl" />
       </Section>
 
-      <Section id="strategy" number="02" title="Strategy">
+      <Section id="research"title="What the research revealed">
         <TextContent>
-          <p>The initial brief was to improve the manager's review dashboard. My first instinct was the same: bulk actions, clearer error labels, faster filtering.</p>
-          <p>But after interviewing 5 managers about their Sunday routine, a pattern emerged: most of their time wasn't spent reviewing flags — it was spent chasing workers to find out what actually happened.</p>
-          <p><strong>The real problem wasn't a bad dashboard. It was bad data at the source.</strong></p>
-          <p>I negotiated for additional discovery time by reframing it as an ROI calculation: every error we prevented a worker from making was an error a manager never had to touch. We shifted focus entirely to the Worker Time Clock experience.</p>
-          <p>After 12 interviews with workers, three intervention points emerged:</p>
+          <p>After interviewing 5 managers about their Sunday night routine, a pattern emerged that changed everything. Most of their time wasn't spent reviewing flags — it was spent chasing workers to find out what actually happened.</p>
+          <p><em>Did you take this break? Did you forget to clock out? When did you actually leave?</em></p>
+          <p>The dashboard wasn't the problem. Bad data at the source was the problem. Every error we prevented a worker from making was an error a manager never had to touch.</p>
+          <p>I negotiated for additional discovery time by framing it as an ROI calculation, then spent time with 12 workers to understand their experience of the shift. Three intervention points emerged.</p>
+        </TextContent>
+
+        {/* ARTIFACT — Research synthesis (placeholder) */}
+        {SHOW_PLACEHOLDERS && <div className="w-full rounded-2xl bg-neutral-100 dark:bg-neutral-800 border-2 border-dashed border-neutral-300 dark:border-neutral-600 flex items-center justify-center p-16 text-neutral-400 dark:text-neutral-500 text-sm">
+          Artifact placeholder — Research synthesis / affinity map
+        </div>}
+      </Section>
+
+      <Section id="real-problem"title="The real problem">
+        <TextContent>
+          <p>We stopped designing for the manager's dashboard. We started designing for the worker's shift.</p>
         </TextContent>
 
         <Table
-          headers={["Touchpoint", "Insight", "Design Response"]}
+          headers={["Moment", "What we learned", "Design response"]}
           rows={[
             [
               "Clock-in",
-              "Workers often didn't know their break schedule",
-              "Surface the full shift agenda on clock-in"
+              "Workers often didn't know their break schedule for the day",
+              "Surface the full shift agenda immediately on clock-in"
             ],
             [
               "Mid-shift",
@@ -76,58 +98,69 @@ const TimeClock: React.FC = () => {
             ],
             [
               "Clock-out",
-              "Workers knew about their errors — but had no way to flag them",
+              "Workers knew about their errors but had no structured way to flag them",
               "Let workers request their own corrections"
             ]
           ]}
         />
-
-        {/* ARTIFACT — Process / research artifact */}
-        {/* [placeholder artifact] */}
       </Section>
 
-      <Section id="execution" number="03" title="Execution">
-        <SubHeading>Giving workers visibility into their shift</SubHeading>
-        <TextContent>
-          <p>Workers spend 95% of a shift away from their phone. So the interface needed to work at the periphery, not demand attention.</p>
-          <p><strong>Notifications</strong> handled the lock screen layer — timed reminders before breaks and before clock-out, requiring zero interaction. <strong>The agenda view</strong> handled moments when workers were already in the app: a full timeline of what lay ahead, surfaced immediately on clock-in.</p>
-        </TextContent>
+      <Section id="execution"title="How we solved it">
+        <SubSection heading="Visibility at the right moment">
+          <TextContent>
+            <p>Workers spend 95% of a shift away from their phone. The interface needed to work at the periphery — not demand attention, but be there when it mattered.</p>
+            <p><strong>Notifications</strong> handled the lock screen layer: timed reminders before breaks and before clock-out, requiring zero interaction. <strong>The agenda view</strong> handled moments when workers were already in the app — a full timeline of what lay ahead, surfaced immediately on clock-in.</p>
+          </TextContent>
+        </SubSection>
 
-        {/* ARTIFACT — Side-by-side mockup */}
-        {/* PLACEHOLDER FOR NOW. Show the notification (lock screen) alongside the in-app agenda view. Frame it as "two layers of the same system" — it makes the design logic legible at a glance. If you have a before/after of the clock-in screen, this is a good place for it. */}
+        {/* ARTIFACT — Side-by-side mockup (placeholder) */}
+        {SHOW_PLACEHOLDERS && <div className="w-full rounded-2xl bg-neutral-100 dark:bg-neutral-800 border-2 border-dashed border-neutral-300 dark:border-neutral-600 flex items-center justify-center p-16 text-neutral-400 dark:text-neutral-500 text-sm">
+          Artifact placeholder — Lock screen notification + in-app agenda view (side-by-side)
+        </div>}
 
-        <SubHeading>Letting workers fix their own mistakes</SubHeading>
-        <TextContent>
-          <p>The obvious solution — let workers edit their timecards directly — failed immediately in testing. Managers were wary of giving employees any access to payroll data.</p>
-          <p>The fix was linguistic as much as it was visual: <strong>reframing "edits" as "suggestions."</strong> A small wording change that completely reframed the trust dynamic. Workers could flag their own errors; managers retained final approval. The UI updated to match — request states, pending indicators, approval flows.</p>
-        </TextContent>
+        <SubSection heading="Edit requests, not edits">
+          <TextContent>
+            <p>The obvious solution — let workers edit their timecards directly — failed immediately in testing. Managers were wary of giving employees any access to payroll data.</p>
+            <p>The fix was linguistic as much as it was visual: reframing "edits" as "suggestions." Workers could flag their own errors; managers retained final approval. The UI updated to match — request states, pending indicators, approval flows.</p>
+            <p>A small wording change that completely reframed the trust dynamic.</p>
+          </TextContent>
+        </SubSection>
 
-        {/* ARTIFACT — Exploration / iteration spread */}
-        {/* PLACEHOLDER. This is where your process assets earn their place. Show 2-3 rejected directions (direct edit, comment thread, etc.) alongside the final suggestion flow. The contrast makes the decision feel earned. Even rough wireframes work here — you don't need polished screens. */}
+        {/* ARTIFACT — Exploration spread (placeholder) */}
+        {SHOW_PLACEHOLDERS && <div className="w-full rounded-2xl bg-neutral-100 dark:bg-neutral-800 border-2 border-dashed border-neutral-300 dark:border-neutral-600 flex items-center justify-center p-16 text-neutral-400 dark:text-neutral-500 text-sm">
+          Artifact placeholder — Rejected directions (direct edit, comment thread) vs. final suggestion flow
+        </div>}
 
-        {/* ARTIFACT — Final mockup: Edit request flow */}
-        {/* PLACEHOLDER. The polished request screen. Annotate the key decision: the language ("suggest" not "edit") and how the UI reinforces the manager's sense of control. */}
+        {/* ARTIFACT — Final edit request flow (placeholder) */}
+        {SHOW_PLACEHOLDERS && <div className="w-full rounded-2xl bg-neutral-100 dark:bg-neutral-800 border-2 border-dashed border-neutral-300 dark:border-neutral-600 flex items-center justify-center p-16 text-neutral-400 dark:text-neutral-500 text-sm">
+          Artifact placeholder — Polished edit request flow
+        </div>}
 
-        <SubHeading>Friction as a feature: the shift summary</SubHeading>
-        <TextContent>
-          <p>Beta users were making fewer errors — but they still weren't catching the ones that slipped through. The reason: the moment workers clocked out, they were mentally disengaged as well.</p>
-          <p>Inspired by video game end-screens, I designed the shift summary as a high-score moment rather than a confirmation dialog. Ticking earnings, haptic feedback, a full shift timeline — all designed to create a deliberate pause before the worker pocketed their phone.</p>
-          <p><strong>The goal wasn't delight for its own sake. It was to make the worker perform a final data audit when the memory was freshest.</strong></p>
-        </TextContent>
+        <SubSection heading="Friction as a feature">
+          <TextContent>
+            <p>Beta users were making fewer errors — but they still weren't catching the ones that slipped through. The reason: the moment workers clocked out, they were gone.</p>
+            <p>Inspired by video game end-screens, I designed the shift summary as a high-score moment rather than a confirmation dialog. Ticking earnings, haptic feedback, a full shift timeline — all designed to create a deliberate pause before the worker pocketed their phone.</p>
+            <p>The goal wasn't delight for its own sake. It was to make the worker perform a final data audit when the memory was freshest.</p>
+          </TextContent>
+        </SubSection>
 
-        {/* ARTIFACT — Video / prototype recording */}
-        {/* Keep the current animation module */}
+        {/* ARTIFACT — Screen recording (existing ReviewShift animation) */}
         <Visual label="High-Score Shift Summary UI">
           <ReviewShift />
         </Visual>
 
-        <SubHeading>Timesheet polish (manager side)</SubHeading>
-        <TextContent>
-          <p>With the worker experience reducing upstream errors, the manager dashboard became a much quieter place. The remaining polish focused on clarity: new status chips with specific, actionable microcopy replaced the blunt "flagged" row highlights that made the whole table feel loud.</p>
-        </TextContent>
+        {/* ARTIFACT — Static fallback (placeholder) */}
+        {SHOW_PLACEHOLDERS && <div className="w-full rounded-2xl bg-neutral-100 dark:bg-neutral-800 border-2 border-dashed border-neutral-300 dark:border-neutral-600 flex items-center justify-center p-16 text-neutral-400 dark:text-neutral-500 text-sm">
+          Artifact placeholder — Full-screen shift summary mockup (static)
+        </div>}
 
-        {/* ARTIFACT — Before / after */}
-        {/* Current sliding module */}
+        <SubSection heading="Cleaning up the manager's view">
+          <TextContent>
+            <p>With fewer errors coming in from upstream, the manager dashboard became a quieter place. The remaining polish: new status chips with specific, actionable microcopy replaced the blunt "flagged" row highlights that made the whole table feel loud.</p>
+          </TextContent>
+        </SubSection>
+
+        {/* ARTIFACT — Before / after (existing BeforeAfterSlider) */}
         <BeforeAfterSlider
           beforeSrc={getAssetPath('assets/case-studies/Timesheet_before.png')}
           afterSrc={getAssetPath('assets/case-studies/Timesheet_after.png')}
@@ -135,22 +168,20 @@ const TimeClock: React.FC = () => {
         />
       </Section>
 
-      <Section id="impact" number="04" title="Impact">
-        <TextContent>
-          <p>One month post-launch, the results validated the upstream strategy.</p>
-        </TextContent>
-
+      <Section id="impact"title="What changed">
         <Metrics items={[
           '58% reduction in flagged timecards',
           '1.5 hrs of admin time reclaimed per manager, per week',
           '23 worker-initiated corrections per week — errors caught before they ever reached a manager'
         ]} />
 
-        {/* ARTIFACT — Data visualization */}
-        {/* If you have pre/post timecard volume data, even a simple bar or line chart here adds credibility and visual variety. Alternatively, three large stat callouts (as you currently have) work fine — just give them more vertical space and connect each one back to the design decision that drove it in a single line of caption text. */}
+        {/* ARTIFACT — Data visualisation (placeholder) */}
+        {SHOW_PLACEHOLDERS && <div className="w-full rounded-2xl bg-neutral-100 dark:bg-neutral-800 border-2 border-dashed border-neutral-300 dark:border-neutral-600 flex items-center justify-center p-16 text-neutral-400 dark:text-neutral-500 text-sm">
+          Artifact placeholder — Pre/post timecard volume chart
+        </div>}
       </Section>
 
-      <Section id="learnings" number="05" title="Learnings">
+      <Section id="learnings"title="What I learned">
         <GridList items={[
           {
             title: "Fix the pencil, not the eraser.",
@@ -158,11 +189,11 @@ const TimeClock: React.FC = () => {
           },
           {
             title: "Language is a design material.",
-            content: "Reframing \"worker edits\" as \"worker suggestions\" wasn't a copywriting tweak — it was the solution. The UI followed the language, not the other way around. In B2B products where trust dynamics are complicated (employees, managers, legal compliance all in the same system), word choice often does more work than the interface itself."
+            content: "Reframing \"worker edits\" as \"worker suggestions\" wasn't a copywriting tweak — it was the solution. The UI followed the language, not the other way around. In B2B products where trust dynamics are complicated, word choice often does more work than the interface itself."
           },
           {
             title: "Delight earns its place when it has a job.",
-            content: "The shift summary \"high score\" moment looks like a flourish. It was actually a data integrity mechanism. Hiring managers sometimes push back on delight in enterprise products — this project gave me a concrete argument for why it belongs."
+            content: "The shift summary looks like a flourish. It was actually a data integrity mechanism. The best argument for delight in enterprise products isn't aesthetic — it's functional."
           }
         ]} />
       </Section>

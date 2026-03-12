@@ -7,13 +7,47 @@
     <title>Nick Abasolo | Senior Product Designer</title>
     <link rel="icon" type="image/svg+xml" href="/public/assets/about/favicon.svg">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              // ─── Brand palette ───────────────────────────────────────────
+              // Single source of truth. Use these instead of raw hex or
+              // stone-* / amber-* scale values wherever possible.
+              brand: {
+                bg:              '#F6F5EF', // page & section backgrounds
+                text:            '#1C1917', // primary text  (body class)
+                muted:           '#6B7280', // secondary text
+                subtle:          '#9CA3AF', // tertiary / placeholder
+                border:          '#E5E7EB', // borders & dividers
+                surface:         '#F3F4F6', // card / inset backgrounds
+                accent:          '#f59e0b', // CTAs, active states, highlights
+                'accent-hover':  '#d97706', // hover on accent
+                'chat-user':     '#EDE8D0', // user chat bubble background
+                'scrollbar':     '#d6d3cd', // scrollbar thumb
+                'scrollbar-hover': '#a8a39a',
+              }
+            }
+          }
+        }
+        // ─── Typography conventions ──────────────────────────────────────
+        // Sizes:   text-sm (0.875rem) · text-base (1rem) · text-lg (1.125rem)
+        //          text-xl (1.25rem) · text-2xl (1.5rem)
+        // Weights: font-light (300) prose/body · font-medium (500) UI/nav
+        //          font-semibold (600) emphasis · font-bold (700) labels/CTAs
+        // Leading: leading-snug headings · leading-relaxed prose
+        // Serif headings: font-serif (Instrument Serif)
+        // Mono metrics:   font-mono (Roboto Mono)
+      }
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
       body {
         font-family: 'Inter', sans-serif;
-        background-color: #FAF9F6;
+        background-color: #F6F5EF; /* brand-bg */
         overflow-x: hidden;
       }
       .font-serif {
@@ -37,7 +71,7 @@
 </script>
 
 </head>
-<body class="text-[#1C1917] antialiased">
+<body class="text-brand-text antialiased">
     <div id="root"></div>
 <script type="module" src="/index.tsx"></script>
 </body>

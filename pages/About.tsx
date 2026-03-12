@@ -143,7 +143,7 @@ const About: React.FC = () => {
   ];
 
   return (
-    <div className="flex flex-col items-center" style={{ backgroundColor: '#FAF9F6' }}>
+    <div className="flex flex-col items-center bg-brand-bg">
       <div className="w-full px-6 md:px-16 lg:px-[180px] py-12 md:py-20 space-y-16 md:space-y-24">
       {/* Photo Gallery Section - Hidden for now
       <section>

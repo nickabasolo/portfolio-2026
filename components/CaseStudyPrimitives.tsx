@@ -2,20 +2,20 @@
 import React from 'react';
 
 interface SectionProps {
-  number: string;
+  number?: string;
   title: string;
   id?: string;
   children: React.ReactNode;
 }
 
 export const Section: React.FC<SectionProps> = ({ number, title, id, children }) => (
-  <section id={id} className="space-y-8 scroll-mt-32">
-    <div className="space-y-3">
-      <h2 className="text-sm font-medium text-stone-900 tracking-wide">
-        {number}. {title}
+  <section id={id} className="scroll-mt-32">
+    <div className="mb-3">
+      <h2 className="font-serif text-2xl font-normal text-stone-900 leading-[32px]">
+        {number ? `${number}. ${title}` : title}
       </h2>
-      <div className="h-px w-16 bg-stone-300" />
     </div>
+    {/* 24px between subsections within a section */}
     <div className="space-y-6">
       {children}
     </div>
@@ -23,13 +23,20 @@ export const Section: React.FC<SectionProps> = ({ number, title, id, children })
 );
 
 export const SubHeading: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-  <h3 className="text-xl md:text-2xl font-serif text-stone-900 leading-tight">
+  <h3 className="text-xl font-semibold text-stone-900 leading-[24px] mb-2">
     {children}
   </h3>
 );
 
+export const SubSection: React.FC<{ heading: string; children: React.ReactNode }> = ({ heading, children }) => (
+  <div>
+    <SubHeading>{heading}</SubHeading>
+    {children}
+  </div>
+);
+
 export const TextContent: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-  <div className="text-base md:text-lg text-stone-700 leading-relaxed space-y-4">
+  <div className="text-base font-normal text-stone-700 leading-[19px] space-y-4">
     {children}
   </div>
 );
