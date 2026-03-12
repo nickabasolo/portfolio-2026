@@ -13,7 +13,7 @@ export const summary = {
   duration: 'In Progress', // TODO: restore to 'Q2 2025' when ready to publish
   company: 'Workstream',
   image: 'assets/case-studies/manager-dashboard-hero.png',
-  cardImage: 'assets/case-studies/manager-dashboard-hero.png',
+  cardImage: 'assets/case-studies/Break rules.png',
   tags: ['End-to-end', 'Web', 'Mobile', 'Compliance tech', 'Systems design'],
   impact: [],
 };

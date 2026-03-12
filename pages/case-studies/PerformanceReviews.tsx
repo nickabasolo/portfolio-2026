@@ -13,7 +13,7 @@ export const summary = {
   duration: 'In Progress', // TODO: restore to 'Q4 2024' when ready to publish
   company: 'Workstream',
   image: 'assets/case-studies/performance-reviews-hero.png',
-  cardImage: 'assets/case-studies/performance-reviews-hero.png',
+  cardImage: 'assets/case-studies/manager-dashboard-hero.png',
   tags: ['Data visualisation', 'Dashboard design', 'Mobile', 'UX Research'],
   impact: [
     'Planning view / shipped',

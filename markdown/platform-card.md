@@ -4,15 +4,17 @@
 
 ## New:
 
-Title: Operational system for hourly workforce management
+Workforce management from 0 to 1
 
-Body:
+These case studies are windows into a single product system I designed from scratch over three years — a mobile platform for the hourly workforce.
 
-These three case studies are windows into a single product system I designed from scratch for the past three years — a mobile platform for the hourly workforce at Workstream.
-
-When I joined, the product was a hiring and onboarding tool designed for managers on desktop. Workers didn't have a defined place in it at all. Over three years, working with a UX researcher, a PM, and a team of engineers, I helped establish the hourly worker as a distinct product persona and built out the operational layer that sits between a restaurant's business rules and the people carrying them out.
+When I joined, Workstream was a hiring and onboarding tool designed for managers on desktop. Workers didn't have a defined place in it at all. Over three years, working with a UX researcher, a PM, and a team of engineers, I established the hourly worker as a distinct product persona and built out the operational layer that sits between a restaurant's business rules and the people carrying them out.
 
 
+
+These case studies are windows into a single product I designed from scratch over three years — an operational platform for the hourly workforce at Workstream.
+
+When I joined, Workstream was an HR tool designed for managers on desktop. Workers didn't have a defined place in it at all. Over three years, working with a UX researcher, a PM, and a team of engineers, I established the hourly worker as a distinct product persona and built the layer that translates what workers actually do — clock in, take breaks, go home — into the records that run payroll and keep the business compliant.
 
 ## Card label (small, above title)
 
