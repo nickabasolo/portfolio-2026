@@ -2,7 +2,7 @@ import React from 'react';
 
 interface CaseStudySummaryProps {
   title?: string;
-  subtitle?: string;
+  subtitle?: React.ReactNode;
   role: string;
   duration: string;
   company: string;

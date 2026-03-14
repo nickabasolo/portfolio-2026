@@ -8,6 +8,7 @@ import TimeClock from './pages/case-studies/TimeClock';
 import LaborCost from './pages/case-studies/LaborCost';
 import BreakRules from './pages/case-studies/BreakRules';
 import GuardianDataViz from './pages/side-projects/GuardianDataViz';
+import TernaryPlotTool from './pages/side-projects/TernaryPlotTool';
 import TimeAuction from './pages/side-projects/TimeAuction';
 import PortfolioChatbot from './pages/side-projects/PortfolioChatbot';
 import About from './pages/About';
@@ -54,6 +55,7 @@ const App: React.FC = () => {
           <Route path="/case-study/labor-cost" element={<LaborCost />} />
           <Route path="/case-study/break-rules" element={<BreakRules />} />
           <Route path="/side-project/guardian-data-viz" element={<GuardianDataViz />} />
+          <Route path="/side-project/guardian-data-viz/tool" element={<TernaryPlotTool />} />
           <Route path="/side-project/time-auction" element={<TimeAuction />} />
           <Route path="/side-project/portfolio-chatbot" element={<PortfolioChatbot />} />
           <Route path="/mockup" element={<GridMockup />} />
