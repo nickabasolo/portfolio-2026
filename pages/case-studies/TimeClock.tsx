@@ -1,5 +1,5 @@
 import React from 'react';
-import { Section, TextContent, Quote, Metrics, Visual, GridList, SubSection, Table } from '../../components/CaseStudyPrimitives';
+import { Section, TextContent, Metrics, Visual, GridList, SubSection, Table } from '../../components/CaseStudyPrimitives';
 import CaseStudySummary from '../../components/CaseStudySummary';
 import CaseStudyLayout from '../../components/CaseStudyLayout';
 import { getAssetPath } from '../../utils/paths';
@@ -24,14 +24,12 @@ export const summary = {
   ],
 };
 
-// Set to true to show artifact placeholder boxes
-const SHOW_PLACEHOLDERS = false;
 
 const TimeClock: React.FC = () => {
   useScrollToTop();
   return (
     <CaseStudyLayout image={summary.image} navItems={[
-      { id: 'the-brief', label: 'The brief' },
+      { id: 'the-brief', label: 'The ask' },
       { id: 'research', label: 'What the research revealed' },
       { id: 'real-problem', label: 'The real problem' },
       { id: 'execution', label: 'How we solved it' },
@@ -53,34 +51,36 @@ const TimeClock: React.FC = () => {
         outcome="58% reduction in manual timecard edits and 1.5 hours reclaimed per manager, per week."
       />
 
-      <Section id="the-brief"title="The brief">
+      <Section id="the-brief"title="The ask">
         <TextContent>
-          <p>Every Sunday night, restaurant managers face the same grind: wading through 40+ flagged timecards — missed breaks, forgotten clock-outs, disputed punches — each one requiring a manual investigation before payroll can close.</p>
-          <p>The stakes are real. Inaccurate timecards mean labor law violations and significant fines. The process was unsustainable.</p>
-          <p>I'd owned this product since its first line of design. When the brief landed — improve the manager's review dashboard — my instinct was the same as everyone else's: bulk actions, clearer error labels, faster filtering. A better eraser.</p>
+          <p>Every week, restaurant managers wade through 40+ flagged punches on the timesheet — missed breaks, forgotten clock-outs, disputed punches — each one requiring a manual investigation before payroll can close.</p>
+          <p>The stakes are real: the timesheet is the record of truth for their payroll, where the average restaurant typically pays out $4,500 to employees each week. Inaccurate timesheets mean inaccurate payroll cheques — not including labor law violations and significant fines.</p>
+          <p>So a timesheet riddled with flagged errors and compliance warnings was typically understood as difficult but necessary. That's why when we first started this project, the ask was simply to improve the manager's review flow. My instinct was the same as everyone else's: bulk actions, clearer error labels, faster filtering.</p>
         </TextContent>
 
         {/* ARTIFACT — Real product screenshot (existing) */}
-        <img src={getAssetPath('assets/case-studies/Timesheet_before.png')} alt="Timesheet before redesign" className="w-full rounded-2xl" />
+        <figure className="space-y-2">
+          <img src={getAssetPath('assets/case-studies/Timesheet_before.png')} alt="Timesheet before redesign" className="w-full rounded-2xl" />
+          <figcaption className="text-xs text-neutral-400 dark:text-neutral-500">Real customer view — PII redacted</figcaption>
+        </figure>
       </Section>
 
       <Section id="research"title="What the research revealed">
         <TextContent>
-          <p>After interviewing 5 managers about their Sunday night routine, a pattern emerged that changed everything. Most of their time wasn't spent reviewing flags — it was spent chasing workers to find out what actually happened.</p>
+          <p>After interviewing 5 managers about their Sunday night routine, I noticed a pattern. Most of their time wasn't spent reviewing flags, but chasing down workers to find out what actually happened.</p>
           <p><em>Did you take this break? Did you forget to clock out? When did you actually leave?</em></p>
-          <p>The dashboard wasn't the problem. Bad data at the source was the problem. Every error we prevented a worker from making was an error a manager never had to touch.</p>
-          <p>I negotiated for additional discovery time by framing it as an ROI calculation, then spent time with 12 workers to understand their experience of the shift. Three intervention points emerged.</p>
+          <p>Sure, managers had their own problems with the dashboard; but most of their frustration actually stemmed from bad data at the source. Every error we solved upstream during the worker's shift was an error we saved the manager from dealing with. Even if we saved just one error per worker, that would save the manager of a typical restaurant 30 errors a week — or over 100 for the larger franchise stores.</p>
         </TextContent>
 
-        {/* ARTIFACT — Research synthesis (placeholder) */}
-        {SHOW_PLACEHOLDERS && <div className="w-full rounded-2xl bg-neutral-100 dark:bg-neutral-800 border-2 border-dashed border-neutral-300 dark:border-neutral-600 flex items-center justify-center p-16 text-neutral-400 dark:text-neutral-500 text-sm">
-          Artifact placeholder — Research synthesis / affinity map
-        </div>}
+        <figure className="space-y-2">
+          <img src={getAssetPath('assets/case-studies/gm round.png')} alt="Affinity map from manager and worker interviews" className="w-full rounded-2xl" />
+          <figcaption className="text-xs text-neutral-400 dark:text-neutral-500">Research synthesis — themes across 17 interviews with managers and shift workers</figcaption>
+        </figure>
       </Section>
 
       <Section id="real-problem"title="The real problem">
         <TextContent>
-          <p>We stopped designing for the manager's dashboard. We started designing for the worker's shift.</p>
+          <p>I negotiated for additional discovery time by framing it as an ROI calculation, then spent time with 12 workers to understand their experience of the shift. By mapping out the shift journey, I found three likely points where an intervention could have high-impact on reducing errors:</p>
         </TextContent>
 
         <Table
@@ -108,39 +108,28 @@ const TimeClock: React.FC = () => {
       <Section id="execution"title="How we solved it">
         <SubSection heading="Visibility at the right moment">
           <TextContent>
-            <p>Workers spend 95% of a shift away from their phone. The interface needed to work at the periphery — not demand attention, but be there when it mattered.</p>
-            <p><strong>Notifications</strong> handled the lock screen layer: timed reminders before breaks and before clock-out, requiring zero interaction. <strong>The agenda view</strong> handled moments when workers were already in the app — a full timeline of what lay ahead, surfaced immediately on clock-in.</p>
+            <p>Workers spend 95% of a shift away from their phone. Unlike desk workers, their attention is much further away from a screen and the digital experience, so the interface needed to integrate alongside their real-world work. <strong>Notifications</strong> handled the lock screen layer: timed reminders before breaks and before clock-out, requiring zero interaction.</p>
+            <p>For the 5% of time when they are engaging with the app, we surface an <strong>agenda view</strong>. This is especially important at the moment of clock-in, which gives them a view into what the day will look like.</p>
           </TextContent>
         </SubSection>
 
-        {/* ARTIFACT — Side-by-side mockup (placeholder) */}
-        {SHOW_PLACEHOLDERS && <div className="w-full rounded-2xl bg-neutral-100 dark:bg-neutral-800 border-2 border-dashed border-neutral-300 dark:border-neutral-600 flex items-center justify-center p-16 text-neutral-400 dark:text-neutral-500 text-sm">
-          Artifact placeholder — Lock screen notification + in-app agenda view (side-by-side)
-        </div>}
+        <img src={getAssetPath('assets/case-studies/timeclock-agenda and notif.png')} alt="Lock screen notification and in-app agenda view" className="w-full rounded-2xl" />
 
         <SubSection heading="Edit requests, not edits">
           <TextContent>
-            <p>The obvious solution — let workers edit their timecards directly — failed immediately in testing. Managers were wary of giving employees any access to payroll data.</p>
-            <p>The fix was linguistic as much as it was visual: reframing "edits" as "suggestions." Workers could flag their own errors; managers retained final approval. The UI updated to match — request states, pending indicators, approval flows.</p>
-            <p>A small wording change that completely reframed the trust dynamic.</p>
+            <p>The obvious solution — let workers edit their timecards directly — failed immediately before we even tested. When I approached managers asking to test this solution, they were entirely against the idea of giving employees any edit-level access to payroll data.</p>
+            <p>Even though the edit flow would require manager approval, this mental aversion from managers would be a barrier to adoption. I tried various other ways to present this workflow, and what landed was reframing "edits" as "suggestions."</p>
+            <p>Workers could flag their own errors; managers retained final approval. The UI updated to match — request states, pending indicators, approval flows. Even though the underlying flow stayed the same, the wording and the way we presented it reframed the trust dynamic.</p>
           </TextContent>
         </SubSection>
 
-        {/* ARTIFACT — Exploration spread (placeholder) */}
-        {SHOW_PLACEHOLDERS && <div className="w-full rounded-2xl bg-neutral-100 dark:bg-neutral-800 border-2 border-dashed border-neutral-300 dark:border-neutral-600 flex items-center justify-center p-16 text-neutral-400 dark:text-neutral-500 text-sm">
-          Artifact placeholder — Rejected directions (direct edit, comment thread) vs. final suggestion flow
-        </div>}
-
-        {/* ARTIFACT — Final edit request flow (placeholder) */}
-        {SHOW_PLACEHOLDERS && <div className="w-full rounded-2xl bg-neutral-100 dark:bg-neutral-800 border-2 border-dashed border-neutral-300 dark:border-neutral-600 flex items-center justify-center p-16 text-neutral-400 dark:text-neutral-500 text-sm">
-          Artifact placeholder — Polished edit request flow
-        </div>}
+<img src={getAssetPath('assets/case-studies/timeclock-requestedit.png')} alt="Edit request flow" className="w-full rounded-2xl" />
 
         <SubSection heading="Friction as a feature">
           <TextContent>
-            <p>Beta users were making fewer errors — but they still weren't catching the ones that slipped through. The reason: the moment workers clocked out, they were gone.</p>
-            <p>Inspired by video game end-screens, I designed the shift summary as a high-score moment rather than a confirmation dialog. Ticking earnings, haptic feedback, a full shift timeline — all designed to create a deliberate pause before the worker pocketed their phone.</p>
-            <p>The goal wasn't delight for its own sake. It was to make the worker perform a final data audit when the memory was freshest.</p>
+            <p>Once we got the feature into beta, we saw a modest reduction in errors, but I didn't see high levels of engagement with the edit request feature. It seemed like the moment workers clocked out, they were gone: physically and mentally.</p>
+            <p>Inspired by video game end-screens, I designed the shift summary as a high-score moment rather than a confirmation dialog. Ticking earnings and haptic feedback were designed to create a deliberate pause before the worker pocketed their phone.</p>
+            <p>The goal wasn't delight for its own sake — although it helped, given that this should also be a celebratory moment. But moreover, it was to make the worker perform a final data audit when the memory was freshest.</p>
           </TextContent>
         </SubSection>
 
@@ -149,14 +138,10 @@ const TimeClock: React.FC = () => {
           <ReviewShift />
         </Visual>
 
-        {/* ARTIFACT — Static fallback (placeholder) */}
-        {SHOW_PLACEHOLDERS && <div className="w-full rounded-2xl bg-neutral-100 dark:bg-neutral-800 border-2 border-dashed border-neutral-300 dark:border-neutral-600 flex items-center justify-center p-16 text-neutral-400 dark:text-neutral-500 text-sm">
-          Artifact placeholder — Full-screen shift summary mockup (static)
-        </div>}
 
-        <SubSection heading="Cleaning up the manager's view">
+<SubSection heading="Cleaning up the manager's view">
           <TextContent>
-            <p>With fewer errors coming in from upstream, the manager dashboard became a quieter place. The remaining polish: new status chips with specific, actionable microcopy replaced the blunt "flagged" row highlights that made the whole table feel loud.</p>
+            <p>With fewer errors coming in from upstream, the manager dashboard became a quieter place. The remaining polish: new status chips with short, clear microcopy replaced the blunt "flagged" row highlights that made the whole table feel loud.</p>
           </TextContent>
         </SubSection>
 
@@ -169,31 +154,46 @@ const TimeClock: React.FC = () => {
       </Section>
 
       <Section id="impact"title="What changed">
+        <TextContent>
+          <p>After rollout in late September, the average weekly review volume per location dropped from a steady baseline of ~37 to ~25, representing a 32% reduction in total flags. More significantly, the nature of that work shifted: by December, roughly half of remaining flags were being resolved through system-suggested edits rather than manual manager review. The result was a measurable transfer of cognitive load from operators to the system, while preserving human approval for every final decision.</p>
+        </TextContent>
+
         <Metrics items={[
-          '58% reduction in flagged timecards',
-          '1.5 hrs of admin time reclaimed per manager, per week',
-          '23 worker-initiated corrections per week — errors caught before they ever reached a manager'
+          'Avg. weekly flags (pre) / ~37',
+          'Avg. weekly flags (post) / ~25',
+          'Reduction in review volume / 32%',
+          'Worker-requested edits / ~52%',
         ]} />
 
-        {/* ARTIFACT — Data visualisation (placeholder) */}
-        {SHOW_PLACEHOLDERS && <div className="w-full rounded-2xl bg-neutral-100 dark:bg-neutral-800 border-2 border-dashed border-neutral-300 dark:border-neutral-600 flex items-center justify-center p-16 text-neutral-400 dark:text-neutral-500 text-sm">
-          Artifact placeholder — Pre/post timecard volume chart
-        </div>}
+        <figure className="space-y-3">
+          <div className="flex items-center gap-5 px-1">
+            <div className="flex items-center gap-2">
+              <span className="w-3 h-3 rounded-full inline-block" style={{ backgroundColor: '#F5C08A' }} />
+              <span className="text-xs text-stone-500">Total flags (manager review)</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="w-3 h-3 rounded-full inline-block" style={{ backgroundColor: '#8FD5C8' }} />
+              <span className="text-xs text-stone-500">Worker-requested edits</span>
+            </div>
+          </div>
+          <img src={getAssetPath('assets/case-studies/time clock flagged reduction chart.png')} alt="Pre/post flagged timecard reduction chart" className="w-full rounded-2xl" />
+          <figcaption className="text-xs text-neutral-400 dark:text-neutral-500">Timecards with flagged errors, H2 2025 — before and after the design intervention</figcaption>
+        </figure>
       </Section>
 
       <Section id="learnings"title="What I learned">
         <GridList items={[
           {
-            title: "Fix the pencil, not the eraser.",
-            content: "The biggest ROI came from questioning the brief entirely. The manager dashboard was the eraser — it cleaned up mistakes after the fact. The worker experience was the pencil. Better inputs meant fewer corrections downstream. That reframe only happened because I pushed for more discovery time before committing to a solution."
+            title: "Tracing the source of the problem.",
+            content: "The biggest impact came from questioning the initial ask entirely. The manager dashboard was the most visible problem, especially because our team had higher personal contact with manager users than worker users. But better inputs meant fewer corrections downstream. That reframe only happened because I pushed for more discovery time before committing to a solution."
           },
           {
             title: "Language is a design material.",
-            content: "Reframing \"worker edits\" as \"worker suggestions\" wasn't a copywriting tweak — it was the solution. The UI followed the language, not the other way around. In B2B products where trust dynamics are complicated, word choice often does more work than the interface itself."
+            content: "Reframing \"worker edits\" as \"worker suggestions\" wasn't a copywriting tweak — it was the solution. The UI followed the language, not the other way around. In B2B products where trust dynamics are complicated, word choice can often help shape the interface."
           },
           {
             title: "Delight earns its place when it has a job.",
-            content: "The shift summary looks like a flourish. It was actually a data integrity mechanism. The best argument for delight in enterprise products isn't aesthetic — it's functional."
+            content: "The high-score inspired shift summary looks like a fun delight moment. It is also actually a data integrity mechanism. The best argument for delight in enterprise products isn't aesthetic — it's functional."
           }
         ]} />
       </Section>

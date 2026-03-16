@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
 import { Analytics } from '@vercel/analytics/react';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
@@ -14,6 +15,7 @@ import PortfolioChatbot from './pages/side-projects/PortfolioChatbot';
 import About from './pages/About';
 import Resume from './pages/Resume';
 import GridMockup from './pages/GridMockup';
+import PageTransition from './components/PageTransition';
 
 const App: React.FC = () => {
   const navigate = useNavigate();
@@ -47,19 +49,21 @@ const App: React.FC = () => {
       <Navbar activeTab={getActiveTab()} setActiveTab={handleTabChange} />
 
       <main className="flex-1 w-full relative">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/resume" element={<Resume />} />
-          <Route path="/case-study/time-clock" element={<TimeClock />} />
-          <Route path="/case-study/labor-cost" element={<LaborCost />} />
-          <Route path="/case-study/break-rules" element={<BreakRules />} />
-          <Route path="/side-project/guardian-data-viz" element={<GuardianDataViz />} />
-          <Route path="/side-project/guardian-data-viz/tool" element={<TernaryPlotTool />} />
-          <Route path="/side-project/time-auction" element={<TimeAuction />} />
-          <Route path="/side-project/portfolio-chatbot" element={<PortfolioChatbot />} />
-          <Route path="/mockup" element={<GridMockup />} />
-        </Routes>
+        <AnimatePresence mode="wait">
+          <Routes location={location} key={location.pathname}>
+            <Route path="/" element={<PageTransition routeKey="/"><Home /></PageTransition>} />
+            <Route path="/about" element={<PageTransition routeKey="/about"><About /></PageTransition>} />
+            <Route path="/resume" element={<PageTransition routeKey="/resume"><Resume /></PageTransition>} />
+            <Route path="/case-study/time-clock" element={<PageTransition routeKey="/case-study/time-clock"><TimeClock /></PageTransition>} />
+            <Route path="/case-study/labor-cost" element={<PageTransition routeKey="/case-study/labor-cost"><LaborCost /></PageTransition>} />
+            <Route path="/case-study/break-rules" element={<PageTransition routeKey="/case-study/break-rules"><BreakRules /></PageTransition>} />
+            <Route path="/side-project/guardian-data-viz" element={<PageTransition routeKey="/side-project/guardian-data-viz"><GuardianDataViz /></PageTransition>} />
+            <Route path="/side-project/guardian-data-viz/tool" element={<PageTransition routeKey="/side-project/guardian-data-viz/tool"><TernaryPlotTool /></PageTransition>} />
+            <Route path="/side-project/time-auction" element={<PageTransition routeKey="/side-project/time-auction"><TimeAuction /></PageTransition>} />
+            <Route path="/side-project/portfolio-chatbot" element={<PageTransition routeKey="/side-project/portfolio-chatbot"><PortfolioChatbot /></PageTransition>} />
+            <Route path="/mockup" element={<PageTransition routeKey="/mockup"><GridMockup /></PageTransition>} />
+          </Routes>
+        </AnimatePresence>
       </main>
 
       <footer className="py-24 mt-20">

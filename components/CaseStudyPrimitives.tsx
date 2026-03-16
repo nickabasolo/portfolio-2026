@@ -51,15 +51,13 @@ export const Quote: React.FC<{ text: string }> = ({ text }) => (
 );
 
 export const Metrics: React.FC<{ items: string[] }> = ({ items }) => (
-  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
+  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-2">
     {items.map((item, idx) => {
-      const parts = item.split(' ');
-      const val = parts[0];
-      const rest = parts.slice(1).join(' ');
+      const [label, val] = item.split(' / ');
       return (
-        <div key={idx} className="bg-stone-50 border border-stone-200 p-6 rounded-lg space-y-2">
-          <div className="text-3xl font-serif text-stone-900">{val}</div>
-          <div className="text-[10px] uppercase tracking-widest text-stone-400 leading-snug">{rest}</div>
+        <div key={idx} className="py-2 space-y-1">
+          <div className="text-3xl font-mono text-stone-900">{val}</div>
+          <div className="text-xs text-stone-400 leading-snug">{label}</div>
         </div>
       );
     })}

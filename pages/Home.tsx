@@ -55,17 +55,6 @@ interface ChatMessage {
 }
 
 const animationStyles = `
-  @keyframes slideInUp {
-    from {
-      opacity: 0;
-      transform: translateY(24px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
   @keyframes blink {
     0%, 49% {
       opacity: 1;
@@ -79,17 +68,6 @@ const animationStyles = `
     0%, 80%, 100% { opacity: 0.3; }
     40% { opacity: 1; }
   }
-
-  .animate-slide-up {
-    opacity: 0;
-    animation: slideInUp 2s ease-out forwards;
-  }
-
-  .delay-100 { animation-delay: 100ms; }
-  .delay-200 { animation-delay: 800ms; }
-  .delay-300 { animation-delay: 1200ms; }
-  .delay-500 { animation-delay: 1500ms; }
-  .delay-700 { animation-delay: 2000ms; }
 
   .typing-cursor {
     display: inline-block;
@@ -349,7 +327,7 @@ const Home: React.FC = () => {
         {/* Zone 1: Hero text — shrink-0, always visible at top when chat is active */}
         <div className="w-full max-w-[640px] shrink-0 py-8">
         <div className="max-w-[640px] space-y-4">
-          <div className="animate-slide-up delay-100">
+          <div>
             <h1 className="text-2xl font-serif leading-tight text-stone-900">
               Nick Abasolo
             </h1>
@@ -357,7 +335,7 @@ const Home: React.FC = () => {
               Senior Product Designer
             </div>
           </div>
-          <p className="text-base text-stone-800 font-light leading-snug animate-slide-up delay-200">
+          <p className="text-base text-stone-800 font-light leading-snug">
             I design for humans navigating operational workflows and regulatory compliance in messy, real-world situations; whether they're on their feet, on a call, or just in the middle of life.
           </p>
         </div>
@@ -428,7 +406,7 @@ const Home: React.FC = () => {
         )}
 
         {/* Zone 3: Input — shrink-0, always visible at bottom when chat is active */}
-        <div className="shrink-0 w-full max-w-[640px] pb-8 animate-slide-up delay-300">
+        <div className="shrink-0 w-full max-w-[640px] pb-8">
           {rateLimited ? (
             <div className="text-sm text-stone-500 text-center py-4">
               You've used all your questions for now.{' '}
