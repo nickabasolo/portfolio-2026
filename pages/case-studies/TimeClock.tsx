@@ -19,7 +19,7 @@ export const summary = {
   cardImage: 'assets/case-studies/time clock (5).png',
   tags: ['End-to-end', 'Web', 'Mobile', 'UX Research & Interviews', 'Compliance tech'],
   impact: [
-    'Flagged timecards / 58% ↓',
+    'Review volume / 31% ↓',
     'Admin hours per week / 1.5 ↓'
   ],
 };
@@ -48,7 +48,7 @@ const TimeClock: React.FC = () => {
         company={summary.company}
         problem="Managers were losing 5+ hours a week to admin overhead: manually auditing and correcting flagged timecards that their workers were punching in to the system. They wanted a better timesheet experience."
         solution="On top of improving the manager's experience, I expanded strategy to include the worker's tools as well. Enabling workers to suggest their own corrections prevented them from ever reaching the manager."
-        outcome="58% reduction in manual timecard edits and 1.5 hours reclaimed per manager, per week."
+        outcome="31% reduction in flagged timecard review volume and 1.5 hours reclaimed per manager, per week."
       />
 
       <Section id="the-brief"title="The ask">
@@ -155,13 +155,14 @@ const TimeClock: React.FC = () => {
 
       <Section id="impact"title="What changed">
         <TextContent>
-          <p>After rollout in late September, the average weekly review volume per location dropped from a steady baseline of ~37 to ~25, representing a 32% reduction in total flags. More significantly, the nature of that work shifted: by December, roughly half of remaining flags were being resolved through system-suggested edits rather than manual manager review. The result was a measurable transfer of cognitive load from operators to the system, while preserving human approval for every final decision.</p>
+          <p>After rollout in late September, the average weekly review volume per location dropped from a steady baseline of ~37 to ~25, representing a 31% reduction in total flags. More significantly, the nature of that work shifted: by December, roughly half of remaining flags were being resolved through system-suggested edits rather than manual manager review. The result was a measurable transfer of cognitive load from operators to the system, while preserving human approval for every final decision.</p>
+          <p>Post-launch interviews with 6 managers confirmed a reduction in perceived admin overhead. When asked to estimate their Sunday payroll prep time before and after, responses averaged 1.5 hours saved per week — with several managers noting that the work itself felt less frustrating, not just faster.</p>
         </TextContent>
 
         <Metrics items={[
           'Avg. weekly flags (pre) / ~37',
           'Avg. weekly flags (post) / ~25',
-          'Reduction in review volume / 32%',
+          'Reduction in review volume / 31%',
           'Worker-requested edits / ~52%',
         ]} />
 
