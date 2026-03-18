@@ -51,7 +51,8 @@ const App: React.FC = () => {
 <Route path="/case-study/time-clock" element={<PageTransition routeKey="/case-study/time-clock"><TimeClock /></PageTransition>} />
             <Route path="/case-study/labor-cost" element={<PageTransition routeKey="/case-study/labor-cost"><LaborCost /></PageTransition>} />
             <Route path="/case-study/break-rules" element={<PageTransition routeKey="/case-study/break-rules"><BreakRules /></PageTransition>} />
-            <Route path="/side-project/third-parties" element={<Navigate to="/side-project/third-parties/tool" replace />} />
+            <Route path="/third-parties" element={<Navigate to="/side-project/third-parties/tool" replace />} />
+            <Route path="/side-project/third-parties" element={<Navigate to="/side-project/third-parties/case-study" replace />} />
             <Route path="/side-project/third-parties/case-study" element={<PageTransition routeKey="/side-project/third-parties/case-study"><GuardianDataViz /></PageTransition>} />
             <Route path="/side-project/third-parties/tool" element={<PageTransition routeKey="/side-project/third-parties/tool"><TernaryPlotTool /></PageTransition>} />
             <Route path="/side-project/time-auction" element={<PageTransition routeKey="/side-project/time-auction"><TimeAuction /></PageTransition>} />

@@ -31,6 +31,11 @@ const BreakRules: React.FC = () => {
     ]}>
       <div className="space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-700">
 
+        <div className="flex items-center gap-3 px-4 py-3 rounded-xl bg-amber-50 border border-amber-200 text-sm text-amber-800">
+          <span className="shrink-0">✦</span>
+          <span>This write-up is still in progress — the work is real, the full case study is coming.</span>
+        </div>
+
         <CaseStudySummary
           title={summary.title}
           subtitle={summary.subtitle}
