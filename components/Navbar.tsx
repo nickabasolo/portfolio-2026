@@ -1,6 +1,7 @@
 
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { getAssetPath } from '../utils/paths';
 
 interface NavbarProps {
   activeTab: string;
@@ -8,10 +9,9 @@ interface NavbarProps {
 }
 
 const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
-  const tabs = [
+  const navTabs = [
     { id: 'work', label: 'Work', path: '/' },
     { id: 'about', label: 'About & Contact', path: '/about' },
-    { id: 'resume', label: 'Resume', path: '/resume' },
   ];
 
   return (
@@ -24,8 +24,8 @@ const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
           Nick Abasolo
         </Link>
 
-        <div className="hidden md:flex space-x-8">
-          {tabs.map((tab) => (
+        <div className="hidden md:flex items-center space-x-8">
+          {navTabs.map((tab) => (
             <Link
               key={tab.id}
               to={tab.path}
@@ -40,6 +40,16 @@ const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
               )}
             </Link>
           ))}
+          <a
+            href={getAssetPath('assets/about/Resume - Nick Abasolo (2026).pdf')}
+            download
+            className="text-sm font-medium text-stone-500 hover:text-stone-800 transition-all flex items-center gap-1.5"
+          >
+            Resume
+            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M12 4v12m0 0l-4-4m4 4l4-4M4 20h16" />
+            </svg>
+          </a>
         </div>
 
         <div className="md:hidden">
@@ -48,7 +58,8 @@ const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
             value={activeTab}
             onChange={(e) => setActiveTab(e.target.value)}
           >
-            {tabs.map(t => <option key={t.id} value={t.id}>{t.label}</option>)}
+            {navTabs.map(t => <option key={t.id} value={t.id}>{t.label}</option>)}
+            <option value="resume">Resume ↓</option>
           </select>
         </div>
       </div>

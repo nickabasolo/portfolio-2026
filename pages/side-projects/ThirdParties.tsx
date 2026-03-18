@@ -5,7 +5,7 @@ import CaseStudyLayout from '../../components/CaseStudyLayout';
 import { useScrollToTop } from '../../hooks/useScrollToTop';
 
 export const summary = {
-  id: 'guardian-data-viz',
+  id: 'third-parties',
   kind: 'side-project' as const,
   title: "Canada's 2025 election, by riding",
   subtitle: 'A ternary plot showing how voters consolidated around the two major parties — published by The Guardian.',
@@ -13,9 +13,9 @@ export const summary = {
   link: 'https://www.theguardian.com/news/2025/jun/13/the-crunch-how-ukraine-drones-hit-russia-marine-heatwaves-and-the-collapse-of-canadas-third-parties',
   image: 'assets/side-projects/ternary.png',
   category: 'Data Visualization',
-  role: 'Data Designer',
-  duration: '1–2 days (static) · extended for interactive',
-  company: 'Featured in The Guardian',
+  role: 'Data, design and development',
+  duration: '2 days',
+  company: 'Side project',
   tags: ['Data Viz', 'Python', 'Plotly', 'Editorial'],
 };
 
@@ -34,9 +34,26 @@ const GuardianDataViz: React.FC = () => {
           title={summary.title}
           subtitle={<>A ternary plot showing how voters consolidated around the two major parties — <a href="https://www.theguardian.com/news/2025/jun/13/the-crunch-how-ukraine-drones-hit-russia-marine-heatwaves-and-the-collapse-of-canadas-third-parties" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-stone-700 transition-colors">published by The Guardian</a>.</>}
           role={summary.role}
+          roleLabel="Role"
           duration={summary.duration}
+          durationLabel="Timeline"
           company={summary.company}
+          companyLabel="Scope"
         />
+
+        {/* Interactive tool card */}
+        <a
+          href="/side-project/third-parties/tool"
+          className="block p-6 bg-amber-50 border border-amber-200 rounded-2xl hover:bg-amber-100 transition-colors group max-w-[480px]"
+        >
+          <div className="flex items-center justify-between">
+            <div>
+              <div className="font-serif text-xl text-stone-900 mb-1">Explore the data by riding</div>
+              <p className="text-sm text-amber-800/70">Search any riding, see the 2021–2025 movement, and explore the full dataset.</p>
+            </div>
+            <span className="text-amber-400 group-hover:text-amber-600 transition-colors text-xl ml-6 shrink-0">→</span>
+          </div>
+        </a>
 
         <Section id="why-this-existed" title="Why I made this">
           <TextContent>
@@ -78,19 +95,6 @@ const GuardianDataViz: React.FC = () => {
           ]} />
         </Section>
 
-        {/* Interactive tool card */}
-        <a
-          href="/side-project/guardian-data-viz/tool"
-          className="block p-6 bg-amber-50 border border-amber-200 rounded-2xl hover:bg-amber-100 transition-colors group max-w-[480px] mx-auto"
-        >
-          <div className="flex items-center justify-between">
-            <div>
-              <div className="font-serif text-xl text-stone-900 mb-1">Explore the data by riding</div>
-              <p className="text-sm text-amber-800/70">Search any riding, see the 2021–2025 movement, and explore the full dataset.</p>
-            </div>
-            <span className="text-amber-400 group-hover:text-amber-600 transition-colors text-xl ml-6 shrink-0">→</span>
-          </div>
-        </a>
 
       </div>
     </CaseStudyLayout>

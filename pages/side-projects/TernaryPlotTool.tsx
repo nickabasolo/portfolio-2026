@@ -24,7 +24,7 @@ const TernaryPlotTool: React.FC = () => {
       />
       <div className="max-w-[1200px] mx-auto px-6 py-12">
         <Link
-          to="/side-project/guardian-data-viz"
+          to="/side-project/third-parties/case-study"
           className="flex items-center justify-between gap-6 bg-white border border-stone-200 rounded-2xl px-8 py-6 hover:border-amber-300 hover:shadow-sm transition-all group max-w-[480px]"
         >
           <div className="space-y-1">

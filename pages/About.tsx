@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { getAssetPath } from '../utils/paths';
-import { MailIcon, LinkedInIcon, PhoneIcon, CopyIcon, CheckIcon, EyeIcon, ExternalIcon } from '../components/Icons';
+import { MailIcon, LinkedInIcon, GithubIcon, PhoneIcon, CopyIcon, CheckIcon, EyeIcon, ExternalIcon } from '../components/Icons';
 
 // Contact List Item with Copy
 interface ContactItemProps {
@@ -62,7 +61,7 @@ const ContactItem: React.FC<ContactItemProps> = ({ icon, text, href, copyText, e
   );
 };
 
-// Phone with reveal
+// Phone with reveal/hide
 const PhoneItem: React.FC = () => {
   const [revealed, setRevealed] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -86,12 +85,12 @@ const PhoneItem: React.FC = () => {
       <div className="flex items-center gap-3 flex-1 min-w-0">
         <span className="text-stone-400 flex-shrink-0"><PhoneIcon /></span>
         {revealed ? (
-          <a
-            href={`tel:${fullNumber}`}
-            className="text-sm text-amber-600 hover:underline tabular-nums"
+          <button
+            onClick={() => setRevealed(false)}
+            className="text-sm text-amber-600 hover:underline tabular-nums text-left"
           >
             {displayNumber}
-          </a>
+          </button>
         ) : (
           <button
             onClick={() => setRevealed(true)}
@@ -117,171 +116,96 @@ const PhoneItem: React.FC = () => {
 };
 
 const About: React.FC = () => {
-  const photos = [
-    { url: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=800', alt: 'Portrait' },
-    { url: 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&q=80&w=800', alt: 'Workspace' },
-    { url: 'https://images.unsplash.com/photo-1454165833767-6226d17160d7?auto=format&fit=crop&q=80&w=800', alt: 'Strategy session' },
-    { url: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=800', alt: 'Collaboration' },
-  ];
-
-  const skillCategories = [
-    {
-      title: "Design Craft",
-      description: "Focused on high-fidelity execution and scalable systems.",
-      skills: ["Systems Design", "Interaction Design", "Prototyping", "Figma", "Adobe CC"]
-    },
-    {
-      title: "Strategy & Insight",
-      description: "Applying economic logic to product decision making.",
-      skills: ["Behavioral Design", "Systems Thinking", "Qualitative Research", "Information Architecture", "Product Strategy"]
-    },
-    {
-      title: "AI & Development",
-      description: "Leveraging modern LLMs and agentic tools for building.",
-      skills: ["Cursor", "Gemini & AI Studio", "React and React Native prototyping", "Github"]
-    }
-  ];
-
   return (
     <div className="flex flex-col items-center bg-brand-bg">
-      <div className="w-full px-6 md:px-16 lg:px-[180px] py-12 md:py-20 space-y-16 md:space-y-24">
-      {/* Photo Gallery Section - Hidden for now
-      <section>
-        <div className="grid grid-cols-4 gap-3 md:gap-6">
-          {photos.map((photo, i) => (
-            <div
-              key={i}
-              className={`aspect-[3/4] max-h-[40vh] rounded-2xl md:rounded-[2rem] overflow-hidden bg-stone-100 border border-stone-200 group relative ${i % 2 !== 0 ? 'md:translate-y-6' : ''}`}
-            >
-              <img
-                src={photo.url}
-                alt={photo.alt}
-                className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-stone-900/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
-            </div>
-          ))}
-        </div>
-      </section>
-      */}
+      <div className="w-full px-6 md:px-16 lg:px-[180px] py-12 md:py-20">
+        <div className="flex flex-col md:flex-row gap-12 md:gap-16 max-w-4xl">
 
-      {/* Contact & Info Section */}
-      <section className="space-y-8 max-w-4xl">
-        <div className="flex items-center gap-6">
-          <h2 className="text-md text-stone-400">Contact & Info</h2>
-          <div className="flex-1 h-px bg-stone-200" />
-        </div>
+          {/* Sticky Sidebar */}
+          <aside className="md:w-72 flex-shrink-0">
+            <div className="md:sticky md:top-24 space-y-0">
+                <ContactItem
+                  icon={<MailIcon />}
+                  text="nicholasabasolo@gmail.com"
+                  href="mailto:nicholasabasolo@gmail.com"
+                  copyText="nicholasabasolo@gmail.com"
+                />
+                <PhoneItem />
+                <ContactItem
+                  icon={<LinkedInIcon />}
+                  text="/nickabasolo"
+                  href="https://linkedin.com/in/nickabasolo"
+                  external
+                />
+                <ContactItem
+                  icon={<GithubIcon />}
+                  text="/nickabasolo"
+                  href="https://github.com/nickabasolo"
+                  external
+                />
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Contact Info */}
-          <div className="space-y-6">
-            <div className="space-y-4 divide-y divide-stone-200">
-              <ContactItem
-                icon={<MailIcon />}
-                text="nicholasabasolo@gmail.com"
-                href="mailto:nicholasabasolo@gmail.com"
-                copyText="nicholasabasolo@gmail.com"
-              />
-              <PhoneItem />
-              <ContactItem
-                icon={<LinkedInIcon />}
-                text="/nickabasolo"
-                href="https://linkedin.com/in/nickabasolo"
-                external
-              />
-            </div>
-
-            <a
-              href={getAssetPath('assets/about/Resume - Nick Abasolo (2026).pdf')}
-              target="_blank"
-              className="flex items-center justify-center gap-2 w-full bg-stone-900 text-white py-3 rounded-lg font-bold uppercase tracking-widest text-[9px] hover:bg-amber-600 transition-colors group/resume"
-            >
-              <svg className="w-3 h-3 group-hover/resume:-translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M12 4v12m0 0l-4-4m4 4l4-4M4 20h16" />
-              </svg>
-              Resume
-            </a>
-          </div>
-
-          {/* At a Glance */}
-          <div className="md:col-span-2 space-y-6">
-            <div className="grid grid-cols-2 gap-6">
-              <div className="space-y-1">
-                <div className="text-[10px] uppercase tracking-widest text-stone-400 font-bold">Current Position</div>
-                <div className="text-sm text-stone-900 font-medium leading-snug">
-                  Senior Product Designer at Workstream
+                <div className="py-2 space-y-1">
+                  <div className="text-[10px] uppercase tracking-widest text-stone-400 font-bold">Experience</div>
+                  <div className="text-sm text-stone-900 font-medium">6 Years</div>
                 </div>
-              </div>
-
-              <div className="space-y-1">
-                <div className="text-[10px] uppercase tracking-widest text-stone-400 font-bold">Experience</div>
-                <div className="text-sm text-stone-900 font-medium">6 Years</div>
-              </div>
-
-              <div className="space-y-1">
-                <div className="text-[10px] uppercase tracking-widest text-stone-400 font-bold">Location</div>
-                <div className="text-sm text-stone-900 font-medium">Vancouver, BC</div>
-              </div>
-
-              <div className="space-y-1">
-                <div className="text-[10px] uppercase tracking-widest text-stone-400 font-bold">Work Authorization</div>
-                <div className="flex items-center gap-2">
-                  <span className="text-base">🇺🇸 🇨🇦</span>
-                  <span className="text-sm font-medium text-stone-900">US & Canadian Citizen</span>
+                <div className="py-2 space-y-1">
+                  <div className="text-[10px] uppercase tracking-widest text-stone-400 font-bold">Location</div>
+                  <div className="text-sm text-stone-900 font-medium">Toronto, ON</div>
+                  <div className="text-xs text-stone-400">Open to relocation</div>
                 </div>
-              </div>
+                <div className="py-2 space-y-1">
+                  <div className="text-[10px] uppercase tracking-widest text-stone-400 font-bold">Citizenship</div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm">🇺🇸</span>
+                    <span className="text-sm font-medium text-stone-900">United States</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm">🇨🇦</span>
+                    <span className="text-sm font-medium text-stone-900">Canada</span>
+                  </div>
+                </div>
             </div>
-          </div>
-        </div>
-      </section>
+          </aside>
 
-      {/* Bio Section */}
-      <section className="space-y-8 max-w-4xl">
-        <div className="flex items-center gap-6">
-          <h2 className="text-md text-stone-400">About Me</h2>
-          <div className="flex-1 h-px bg-stone-200" />
-        </div>
-        <div className="space-y-6 text-base text-stone-700 font-light leading-relaxed">
-          <p>
-            I've always been fascinated by how people navigate complex systems. Before I was a Product Designer, I studied Economics: a field dedicated to understanding incentives, trade-offs, and systemic logic. Today, I apply that same analytical lens to digital products.
-          </p>
+          {/* Main Content */}
+          <main className="flex-1 space-y-12">
+            {/* Bio */}
+            <section className="space-y-6 text-base text-stone-700 font-light leading-relaxed">
+              <p>
+                I'm a Senior Product Designer focused on the operational layer of software — the compliance systems, workflows, and everyday tools that sit between a business's rules and the people carrying them out.
+              </p>
+              <p>
+                For the past three years, I've been at Workstream building a 0 → 1 mobile platform for the hourly workforce. When I joined, the product was an HR tool built for managers on desktop.
+              </p>
+              <p>
+                Workers became my mandate. Together with a UX researcher, I helped establish the hourly worker as a distinct persona with distinct needs, and built the case for a product surface designed around them. What started as an ambiguous 0-to-1 brief eventually became a compliance engine covering five US states, a labour cost visualisation tool, a shared-device tablet experience, and a time clock that reduced payroll error reviews by 31%.
+              </p>
+            </section>
 
-          <p>
-            Currently, I'm a Senior Product Designer at Workstream, where I design experiences for restaurant workers and their managers. I specialize in tackling complex workflows like payroll and compliance, and distilling them into intuitive mobile and web experiences that actually work for the people who use them.
-          </p>
+            {/* Background */}
+            <section className="space-y-4">
+              <h2 className="text-md text-stone-400">My background</h2>
+              <p className="text-base text-stone-700 font-light leading-relaxed">
+                My training is in economics and government policy. Economics is the study of human decision-making, which was always what drew me to UX. I loved the field, but I wanted to be building things instead of writing papers, so I transitioned into product design about six years ago.
+              </p>
+            </section>
 
-          <p>
-            Outside of the 9-to-5, I spend a lot of time "vibecoding" mini-games and small web experiments. I'm also a recent tea enthusiast, a persistent foodie, and serial language learner.
-          </p>
-        </div>
-      </section>
-
-      {/* Expertise & Skills Section */}
-      <section className="space-y-12 max-w-4xl">
-        <div className="flex items-center gap-6">
-          <h2 className="text-md text-stone-400">Expertise & Stack</h2>
-          <div className="flex-1 h-px bg-stone-200" />
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-          {skillCategories.map((cat, i) => (
-            <div key={i} className="space-y-6">
-              <div className="space-y-2">
-                <h3 className="text-xl font-serif text-stone-900">{cat.title}</h3>
-                <p className="text-sm text-stone-600 leading-relaxed">{cat.description}</p>
+            {/* Where I'm headed */}
+            <section className="space-y-4">
+              <h2 className="text-md text-stone-400">Where I'm headed</h2>
+              <div className="space-y-4 text-base text-stone-700 font-light leading-relaxed">
+                <p>
+                  It's a super interesting time to be in software now: I really want to explore how we'll use AI both in our process as well as in our products, genuinely changing how decisions get made and how people do their jobs. I'm looking for a team where that kind of thinking about AI is central.
+                </p>
+                <p>
+                  I've been building small AI-integrated tools on the side (check out my side projects for more), partly to learn more about it but mostly because it's just really fun to be creating things again. (That's why outside of work I'm learning wheel-throwing pottery, which is somehow more difficult and messier than asking an AI agent to align a div.)
+                </p>
               </div>
-              <ul className="space-y-3">
-                {cat.skills.map((skill, j) => (
-                  <li key={j} className="flex items-center gap-3">
-                    <div className="w-1 h-1 rounded-full bg-amber-600 flex-shrink-0" />
-                    <span className="text-sm text-stone-700">{skill}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+            </section>
+
+          </main>
+
         </div>
-      </section>
       </div>
     </div>
   );

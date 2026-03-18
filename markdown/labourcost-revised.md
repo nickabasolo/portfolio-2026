@@ -1,8 +1,8 @@
-# Labour cost: designing for a metric that runs a restaurant
+# Designing for a restaurant's most powerful metric
 
 **Role:** Senior Product Designer
 **Company:** Workstream
-**Timeline:** TK
+**Timeline:** Q2 2025
 **Status:** Planning view shipped · Mobile reactive view in beta
 
 ---

@@ -145,7 +145,7 @@ Fragmented labor data across multiple tools makes it impossible for managers to 
 
 ### Side Project 1: Visualizing Canada's 2025 Election Data
 
-[Source: /side-project/guardian-data-viz]
+[Source: /side-project/third-parties]
 
 **Role:** Data Designer | **Company:** The Guardian (Featured) | **Duration:** 2 Weeks
 **Tags:** Data Viz, Climate, Editorial

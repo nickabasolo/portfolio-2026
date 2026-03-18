@@ -14,7 +14,7 @@ const SOURCE_LABELS: Record<string, string> = {
   '/case-study/time-clock': 'Time Clock case study',
   '/case-study/labor-cost': 'Labour Cost case study',
   '/case-study/break-rules': 'Break Rules case study',
-  '/side-project/guardian-data-viz': 'Guardian Data Viz',
+  '/side-project/third-parties': 'Third Parties',
   '/side-project/time-auction': 'Time Auction',
   '/side-project/portfolio-vibe-code': 'Portfolio Vibecode',
   '/side-project/portfolio-chatbot': 'Portfolio Chatbot',
@@ -112,7 +112,7 @@ const animationStyles = `
 import { summary as timeClockSummary } from './case-studies/TimeClock';
 import { summary as laborCostSummary } from './case-studies/LaborCost';
 import { summary as breakRulesSummary } from './case-studies/BreakRules';
-import { summary as guardianDataVizSummary } from './side-projects/GuardianDataViz';
+import { summary as guardianDataVizSummary } from './side-projects/ThirdParties';
 import { summary as timeAuctionSummary } from './side-projects/TimeAuction';
 import { summary as portfolioChatbotSummary } from './side-projects/PortfolioChatbot';
 

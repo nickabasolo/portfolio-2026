@@ -1,4 +1,4 @@
-# Time Clock: From Audit to Autonomy
+# Reducing payroll errors at the source
 
 **Role:** Senior Product Designer
 **Company:** Workstream
