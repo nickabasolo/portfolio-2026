@@ -1,6 +1,15 @@
 import React, { useState } from 'react';
 import { MailIcon, LinkedInIcon, GithubIcon, PhoneIcon, CopyIcon, CheckIcon, EyeIcon, ExternalIcon } from '../components/Icons';
 
+const galleryPhotos = [
+  '/assets/about/Photos-3-001/20240926_205752.jpg',
+  '/assets/about/Photos-3-001/IMG_0216.jpg',
+  '/assets/about/Photos-3-001/C643D911-0B2E-49ED-8FC9-B8ECD1603AC1.jpg',
+  '/assets/about/Photos-3-001/IMG_0217.jpg',
+  '/assets/about/Photos-3-001/20241010_205340.jpg',
+  '/assets/about/Photos-3-001/IMG_0219.jpg',
+];
+
 // Contact List Item with Copy
 interface ContactItemProps {
   icon: React.ReactNode;
@@ -116,6 +125,8 @@ const PhoneItem: React.FC = () => {
 };
 
 const About: React.FC = () => {
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+
   return (
     <div className="flex flex-col items-center bg-brand-bg">
       <div className="w-full px-6 md:px-16 lg:px-[180px] py-12 md:py-20">
@@ -124,6 +135,14 @@ const About: React.FC = () => {
           {/* Sticky Sidebar */}
           <aside className="md:w-72 flex-shrink-0">
             <div className="md:sticky md:top-24 space-y-0">
+              {/* Headshot */}
+              <div className="mb-6 flex justify-center">
+                <img
+                  src="/assets/about/headshot.png"
+                  alt="Nick Abasolo"
+                  className="w-28 h-28 rounded-full object-cover object-top"
+                />
+              </div>
                 <ContactItem
                   icon={<MailIcon />}
                   text="nicholasabasolo@gmail.com"
@@ -197,9 +216,35 @@ const About: React.FC = () => {
                 <p>
                   It's a super interesting time to be in software now: I really want to explore how we'll use AI both in our process as well as in our products, genuinely changing how decisions get made and how people do their jobs. I'm looking for a team where that kind of thinking about AI is central.
                 </p>
+              </div>
+            </section>
+
+            {/* On the side*/}
+            <section className="space-y-4">
+              <h2 className="text-md text-stone-400">On the side</h2>
+              <div className="space-y-4 text-base text-stone-700 font-light leading-relaxed">
                 <p>
                   I've been building small AI-integrated tools on the side (check out my side projects for more), partly to learn more about it but mostly because it's just really fun to be creating things again. (That's why outside of work I'm learning wheel-throwing pottery, which is somehow more difficult and messier than asking an AI agent to align a div.)
                 </p>
+              </div>
+            </section>
+
+            {/* Gallery */}
+            <section className="space-y-4">
+              <div className="grid grid-cols-3 gap-2">
+                {galleryPhotos.map((src, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setLightboxIndex(i)}
+                    className="aspect-square overflow-hidden rounded-lg bg-stone-100 focus:outline-none"
+                  >
+                    <img
+                      src={src}
+                      alt=""
+                      className="w-full h-full object-cover transition-opacity duration-200 hover:opacity-80"
+                    />
+                  </button>
+                ))}
               </div>
             </section>
 
@@ -207,6 +252,21 @@ const About: React.FC = () => {
 
         </div>
       </div>
+
+      {/* Lightbox */}
+      {lightboxIndex !== null && (
+        <div
+          className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-6"
+          onClick={() => setLightboxIndex(null)}
+        >
+          <img
+            src={galleryPhotos[lightboxIndex]}
+            alt=""
+            className="max-w-full max-h-full rounded-lg object-contain"
+            onClick={e => e.stopPropagation()}
+          />
+        </div>
+      )}
     </div>
   );
 };

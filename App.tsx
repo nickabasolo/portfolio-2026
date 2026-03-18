@@ -20,7 +20,7 @@ const App: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Determine active tab from current path
+// Determine active tab from current path
   const getActiveTab = () => {
     const path = location.pathname;
     if (path === '/about') return 'about';
