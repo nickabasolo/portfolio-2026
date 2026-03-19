@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 
 interface SectionProps {
   number?: string;
@@ -175,3 +175,31 @@ export const JourneyMap: React.FC = () => (
     </div>
   </div>
 );
+
+export const CaseStudyImage: React.FC<{ src: string; alt: string; className?: string }> = ({ src, alt, className = '' }) => {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <button onClick={() => setOpen(true)} className="block w-full focus:outline-none group">
+        <img
+          src={src}
+          alt={alt}
+          className={`w-full rounded-2xl transition-opacity duration-200 group-hover:opacity-80 ${className}`}
+        />
+      </button>
+      {open && (
+        <div
+          className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-6"
+          onClick={() => setOpen(false)}
+        >
+          <img
+            src={src}
+            alt={alt}
+            className="max-w-full max-h-full rounded-lg object-contain"
+            onClick={e => e.stopPropagation()}
+          />
+        </div>
+      )}
+    </>
+  );
+};

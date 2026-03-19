@@ -1,4 +1,5 @@
 # About Page Draft
+
 ## Nick Abasolo
 
 ---
@@ -7,7 +8,7 @@
 
 I'm a Senior Product Designer based in Toronto, focused on the operational layer of software — the compliance systems, workflows, and everyday tools that sit between a business's rules and the people carrying them out.
 
-For the past three years, I've been at Workstream building a 0 → 1 mobile platform for the hourly workforce. When I joined, the product was an HR tool built for managers on desktop. 
+For the past three years, I've been at Workstream building a 0 → 1 mobile platform for the hourly workforce. When I joined, the product was an HR tool built for managers on desktop.
 
 Workers became my mandate. Together with a UX researcher, I helped establish the hourly worker as a distinct persona with distinct needs, and built the case for a product surface designed around them. What started as an ambiguous 0-to-1 brief eventually became a compliance engine covering five US states, a labour cost visualisation tool, a shared-device tablet experience, and a time clock that payroll error reviews by 31%.
 
@@ -23,15 +24,10 @@ I've been building small AI-integrated tools on the side (check out my side proj
 
 My background is in economics and government policy, which probably explains why I default to ROI framing and tend to treat design problems as systems problems first.
 
-
 ---
 
 ### Contact / CTA
 
 I'm currently open to new opportunities. Let's talk!
 
-**[Contact me → ]** **[Download resume ↓]**
-
-
-
-
+**\[Contact me → \]** **\[Download resume ↓\]**

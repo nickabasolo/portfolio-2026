@@ -7,15 +7,18 @@ import { useScrollToTop } from '../../hooks/useScrollToTop';
 export const summary = {
   id: 'break-rules',
   kind: 'case-study' as const,
-  title: 'Break rules: designing a compliance system for people who aren\'t lawyers',
-  subtitle: 'Translating complex, state-by-state labor law into a rules engine managers could configure — and notifications workers could actually act on',
+  title: 'A labour law compliance engine, built and tested with AI',
+  subtitle: 'Labour law violations cost restaurants thousands per offence. I designed a compliance engine across three domains and five states, and used AI to prototype the logic in code when Figma couldn\'t capture it.',
   role: 'Senior Product Designer',
-  duration: 'In Progress', // TODO: restore to 'Q2 2025' when ready to publish
+  duration: 'In Progress',
   company: 'Workstream',
   image: 'assets/case-studies/manager-dashboard-hero.png',
   cardImage: 'assets/case-studies/Break rules.png',
-  tags: ['End-to-end', 'Web', 'Mobile', 'Compliance tech', 'Systems design'],
-  impact: [],
+  tags: ['End-to-end', 'Web', 'Mobile', 'Systems design', 'Compliance tech', 'AI-assisted prototyping'],
+  impact: [
+    '89% / new customers using compliant defaults',
+    '5 / states covered',
+  ],
 };
 
 const BreakRules: React.FC = () => {
@@ -31,11 +34,6 @@ const BreakRules: React.FC = () => {
     ]}>
       <div className="space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-700">
 
-        <div className="flex items-center gap-3 px-4 py-3 rounded-xl bg-amber-50 border border-amber-200 text-sm text-amber-800">
-          <span className="shrink-0">✦</span>
-          <span>This write-up is still in progress — the work is real, the full case study is coming.</span>
-        </div>
-
         <CaseStudySummary
           title={summary.title}
           subtitle={summary.subtitle}
@@ -44,7 +42,7 @@ const BreakRules: React.FC = () => {
           company={summary.company}
           problem="Customers were receiving labor law violations they didn't know they were committing. Workstream recorded what happened — but had no opinion on whether it was legal."
           solution="A compliance layer built for two radically different users: a natural language rules builder for managers, and a progressive urgency notification system for workers."
-          outcome="Compliance presets shipped for five states. Worker break notifications in production."
+          outcome="Compliance engine shipped across three domains and five states, with AI used to prototype and validate the rule logic end-to-end."
         />
 
         <Section id="the-stakes" title="The stakes">

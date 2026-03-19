@@ -128,6 +128,7 @@ const Home: React.FC = () => {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [rateLimited, setRateLimited] = useState(() => getChatCount() >= CHAT_LIMIT);
+  const [inputFocused, setInputFocused] = useState(false);
   const messagesContainerRef = useRef<HTMLDivElement>(null);
 
   const phrases = [
@@ -299,8 +300,8 @@ const Home: React.FC = () => {
   const getMetrics = (projectId: string, impact?: string[]) => {
     if (impact && impact.length > 0) {
       return [
-        { label: impact[0].split(' / ')[0].toUpperCase(), value: impact[0].split(' / ')[1] || '—' },
-        { label: impact[1]?.split(' / ')[0].toUpperCase() || 'METRIC', value: impact[1]?.split(' / ')[1] || '—' }
+        { value: impact[0].split(' / ')[0], label: impact[0].split(' / ')[1] || '—' },
+        { value: impact[1]?.split(' / ')[0] || '—', label: impact[1]?.split(' / ')[1] || '—' }
       ];
     }
 
@@ -421,6 +422,8 @@ const Home: React.FC = () => {
                 value={askInput}
                 onChange={(e) => setAskInput(e.target.value)}
                 onKeyDown={handleAskKeyDown}
+                onFocus={() => setInputFocused(true)}
+                onBlur={() => setTimeout(() => setInputFocused(false), 150)}
                 disabled={isLoading}
                 className="w-full px-6 py-4 pr-14 rounded-2xl border border-stone-200 text-stone-900 focus:outline-none focus:border-amber-600 focus:ring-2 focus:ring-amber-600/20 transition-all bg-transparent disabled:opacity-50"
               />
@@ -446,6 +449,14 @@ const Home: React.FC = () => {
                 </svg>
               </button>
             </div>
+          )}
+          {inputFocused && !rateLimited && (
+            <p className="mt-2 text-xs text-stone-400">
+              BTW, I built this AI-powered chatbot from scratch —{' '}
+              <Link to="/side-project/portfolio-chatbot" className="text-amber-600 hover:text-amber-700 transition-colors">
+                read the case study
+              </Link>
+            </p>
           )}
         </div>
       </section>
@@ -509,15 +520,15 @@ const Home: React.FC = () => {
                     </div>
 
                     {/* Metrics */}
-                    {!coming && metrics.length > 0 && (
+                    {metrics.length > 0 && (
                       <div className="grid grid-cols-2 gap-6 pt-4">
                         {metrics.map((metric, idx) => (
-                          <div key={idx} className="space-y-1">
-                            <div className="text-[10px] tracking-widest font-bold text-stone-400">
-                              {metric.label}
-                            </div>
-                            <div className="text-2xl font-mono text-stone-900">
+                          <div key={idx} className="space-y-0.5">
+                            <div className="text-2xl font-bold text-stone-800 leading-none">
                               {metric.value}
+                            </div>
+                            <div className="text-xs text-stone-500 leading-snug">
+                              {metric.label.toLowerCase()}
                             </div>
                           </div>
                         ))}

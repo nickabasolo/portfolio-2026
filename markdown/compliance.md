@@ -1,12 +1,12 @@
 # Labour law, made legible: designing a compliance engine for restaurant operators
 
-**Role:** Senior Product Designer
-**Company:** Workstream
-**Timeline:** TK
+**Role:** Senior Product Designer  
+**Company:** Workstream  
+**Timeline:** Q4 2025
 
 ---
 
-> 📸 **ARTIFACT — Hero image**
+> 📸 **ARTIFACT — Hero image**  
 > A side-by-side of the manager-facing rules config UI and the worker-facing output it produces — a break notification, a scheduling warning, or both. The visual contrast between the two — one complex and configurable, one simple and direct — is the thesis of the whole case study. Make it the first thing a reader sees.
 
 ---
@@ -17,13 +17,11 @@ Labour law violations are expensive, common, and almost always unintentional. Mi
 
 Meanwhile, most restaurant managers wanted to focus on things that mattered to them: fostering a healthy team environment, or creating a pleasant guest experience. They were tired and afraid of dealing with legal compliance issues.
 
-
-
 As Workstream expanded into the enterprise-level market, we found companies with larger headcounts that were subject to more stringent labour laws than smaller SMB shops; and with locations across the country, they had to stay compliant with a patchwork of municipal and state laws. Meanwhile, our system merely recorded what happened, with no opinion on whether what happened was legal.
 
 We needed a compliance engine: a system that could encode the rules of multiple jurisdictions across breaks, overtime, and minor labour laws, surface them to managers in a way they could actually configure, and translate them into clear, timely guidance for workers — without either user needing to read a policy document.
 
-> 📸 **ARTIFACT — Legacy screenshot**
+> 📸 **ARTIFACT — Legacy screenshot**  
 > The early experience — simple logging, no compliance logic, flagged violations in the timesheet. Let the problem speak before you describe the solution.
 
 ---
@@ -42,7 +40,7 @@ The research surfaced how specific — and how varied — the rules actually wer
 
 Five states covered the majority of our active customer base. We built automatic compliance presets for those five, and a manual rule builder for everyone else.
 
-> 💡 **ARTIFACT — State law research matrix**
+> 💡 **ARTIFACT — State law research matrix**  
 > A cleaned-up version of the internal mapping document — states as rows, rule categories and variables as columns. Showing the variability visually across all three domains justifies the design investment without requiring explanation.
 
 ---
@@ -57,18 +55,18 @@ The configuration UI was the harder problem. The first version used a convention
 
 I redesigned the config UI around natural sentence structure. Instead of:
 
-*IF shift_duration > 5 THEN break_required = true AND break_duration >= 30*
+_IF shift\_duration > 5 THEN break\_required = true AND break\_duration >= 30_
 
 The interface read closer to:
 
-*"If a worker's shift is longer than [5 hours], they must take a [30-minute] break, starting within [2 hours] of their shift start."*
+_"If a worker's shift is longer than \[5 hours\], they must take a \[30-minute\] break, starting within \[2 hours\] of their shift start."_
 
 The variables were still fully configurable — the bracketed values were editable fields — but the surrounding sentence gave them meaning. Managers could read it back and verify it matched what they intended. The same sentence structure applied consistently across breaks, overtime thresholds, and minor labour rules: different content, same legibility principle.
 
-> 📸 **ARTIFACT — Rules builder evolution**
+> 📸 **ARTIFACT — Rules builder evolution**  
 > The progression from the logic-style builder to the natural language version. Early wireframes or rejected explorations alongside the final. The contrast makes the decision legible without explanation.
 
-> 📸 **ARTIFACT — Final rules config UI**
+> 📸 **ARTIFACT — Final rules config UI**  
 > The polished natural language builder showing rules across at least two domains — breaks and one other. Annotate the editable fields and the sentence structure. A complex state like California works well here.
 
 ---
@@ -91,7 +89,7 @@ I reframed the proposal: these weren't defaults, they were presets — the same 
 
 That framing resolved the concern. The presets shipped.
 
-> 📸 **ARTIFACT — State preset UI**
+> 📸 **ARTIFACT — State preset UI**  
 > The settings screen showing a preset applied across multiple rule types, with edit controls clearly visible. The key detail: values must look editable, reinforcing the "starting point, not a locked setting" framing.
 
 ---
@@ -106,7 +104,7 @@ We landed on a progressive urgency model: a gentle reminder early in the break w
 
 For scheduling, the compliance output surfaced to managers rather than workers: a warning in the scheduler when a shift would trigger an overtime threshold, or when a minor was being scheduled on a school night during restricted hours. The engine checked both the day of the week and the state holiday calendar simultaneously — because a Friday that's a state holiday carries different rules than a regular Friday.
 
-> 📸 **ARTIFACT — Output sequence**
+> 📸 **ARTIFACT — Output sequence**  
 > Two or three states of the break notification showing the urgency progression. Alongside it, a scheduling warning for either overtime or a minor labour law restriction — showing that the engine's output isn't just one thing, but surfaces contextually across the product.
 
 ---
@@ -117,21 +115,21 @@ The manager config UI and the worker-facing outputs have nothing visually in com
 
 The investment was in making the handoff between them invisible — so that what a manager configured in a sentence always appeared to a worker or a scheduler as a simple, timely, contextual instruction. Same underlying rules. Completely different expressions depending on who needed them, when, and why.
 
-> 📸 **ARTIFACT — The pairing**
+> 📸 **ARTIFACT — The pairing**  
 > The rules config UI next to one of its outputs — a worker notification or a scheduling warning. Full-width, with a caption that names the design principle explicitly: same rule, two expressions.
 
 ---
 
 ## What I learned
 
-**The interface should speak the user's language, not the system's.**
+**The interface should speak the user's language, not the system's.**  
 Managers could describe their compliance rules in conversation. The first version asked them to translate that into logical operators. The natural language redesign removed the translation step. The system got more complex underneath; the experience got simpler on top.
 
-**Constraints build trust in high-stakes domains.**
+**Constraints build trust in high-stakes domains.**  
 AI-assisted configuration would have been faster to interact with and harder to verify. In a compliance context where errors have legal consequences, being able to read a rule back and confirm it means exactly what you intended is more valuable than speed. A more constrained approach — where the constraints themselves are the feature — is a design decision, not a technical limitation.
 
-**The same data needs radically different expressions for different users.**
+**The same data needs radically different expressions for different users.**  
 The manager config UI and the worker outputs share nothing visually. That's not a failure of coherence — it's the right outcome. The work was in the invisible handoff: making sure that what a manager set up in settings always surfaced to the right person, in the right form, at the right moment.
 
-**Language resolves stakeholder concerns that interface changes cannot.**
+**Language resolves stakeholder concerns that interface changes cannot.**  
 "Preset, not default" was not a product change. It was a reframe that addressed a legitimate concern about liability without changing any underlying behaviour. In complex regulated domains, the words you use to describe a feature often matter as much as the feature itself.

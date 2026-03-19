@@ -7,17 +7,17 @@ import { useScrollToTop } from '../../hooks/useScrollToTop';
 export const summary = {
   id: 'labor-cost',
   kind: 'case-study' as const,
-  title: 'Labour cost: designing for a metric that runs a restaurant',
-  subtitle: 'Helping managers make staffing decisions in the moment — starting with a better chart, ending with a mobile recommendation engine',
+  title: 'Making labour cost legible',
+  subtitle: 'Restaurant managers make staffing decisions on gut feel because labour cost data is hard to read. I ran comprehension testing on five chart types and solved it by borrowing a visualisation pattern from a fitness app.',
   role: 'Senior Product Designer',
-  duration: 'In Progress', // TODO: restore to 'Q4 2024' when ready to publish
+  duration: 'In Progress',
   company: 'Workstream',
   image: 'assets/case-studies/performance-reviews-hero.png',
   cardImage: 'assets/case-studies/Labor cost.png',
-  tags: ['Data visualisation', 'Dashboard design', 'Mobile', 'UX Research'],
+  tags: ['End-to-end', 'Web', 'Data visualisation', 'UX Research & Interviews'],
   impact: [
-    'Planning view / shipped',
-    'Mobile reactive view / in beta',
+    '30% → 26% / average labour spend decrease',
+    '$1,400 / average weekly savings per store',
   ],
 };
 
@@ -35,11 +35,6 @@ const LaborCost: React.FC = () => {
     ]}>
       <div className="space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-700">
 
-        <div className="flex items-center gap-3 px-4 py-3 rounded-xl bg-amber-50 border border-amber-200 text-sm text-amber-800">
-          <span className="shrink-0">✦</span>
-          <span>This write-up is still in progress — the work is real, the full case study is coming.</span>
-        </div>
-
         <CaseStudySummary
           title={summary.title}
           subtitle={summary.subtitle}
@@ -48,7 +43,7 @@ const LaborCost: React.FC = () => {
           company={summary.company}
           problem="Labour cost data already existed in Workstream — but none of it was surfaced in a way a manager could actually use. Different managers thought about the metric in completely different ways."
           solution="A bullet chart-based planning view with a metric toggle spanning labour hours, dollars, and SPLH — plus a mobile recommendation engine for in-service decisions."
-          outcome="Desktop planning view shipped. Mobile reactive view in beta."
+          outcome="4pp average reduction in labour spend, equivalent to ~$75k in annual savings per location among customers initially over 30% labour spend."
         />
 
         <Section id="invisible-metric" title="The invisible metric">

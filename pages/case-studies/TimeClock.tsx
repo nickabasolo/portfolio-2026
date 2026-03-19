@@ -1,5 +1,5 @@
 import React from 'react';
-import { Section, TextContent, Metrics, Visual, GridList, SubSection, Table } from '../../components/CaseStudyPrimitives';
+import { Section, TextContent, Metrics, Visual, GridList, SubSection, Table, CaseStudyImage } from '../../components/CaseStudyPrimitives';
 import CaseStudySummary from '../../components/CaseStudySummary';
 import CaseStudyLayout from '../../components/CaseStudyLayout';
 import { getAssetPath } from '../../utils/paths';
@@ -11,16 +11,16 @@ export const summary = {
   id: 'time-clock',
   kind: 'case-study' as const,
   title: 'Eliminating payroll errors at the source',
-  subtitle: 'Empowering shift workers to submit compliant edit suggestions and saving managers hours of manual admin work every week',
+  subtitle: 'Managers lose hours every week auditing timecard errors. I redesigned the worker\'s time clock experience to prevent error audits before they even happened.',
   role: 'Senior Product Designer',
-  duration: 'Q3 2025',
+  duration: 'Q4 2025',
   company: 'Workstream',
   image: 'assets/case-studies/time-clock-hero.png',
   cardImage: 'assets/case-studies/time clock (5).png',
   tags: ['End-to-end', 'Web', 'Mobile', 'UX Research & Interviews', 'Compliance tech'],
   impact: [
-    'Review volume / 31% ↓',
-    'Admin hours per week / 1.5 ↓'
+    '58% ↓ / manual reviews',
+    '1.5 hrs ↓ / saved weekly, per manager',
   ],
 };
 
@@ -48,7 +48,7 @@ const TimeClock: React.FC = () => {
         company={summary.company}
         problem="Managers were losing 5+ hours a week to admin overhead: manually auditing and correcting flagged timecards that their workers were punching in to the system. They wanted a better timesheet experience."
         solution="On top of improving the manager's experience, I expanded strategy to include the worker's tools as well. Enabling workers to suggest their own corrections prevented them from ever reaching the manager."
-        outcome="31% reduction in flagged timecard review volume and 1.5 hours reclaimed per manager, per week."
+        outcome="58% reduction in flagged timecard review volume and 1.5 hours reclaimed per manager, per week."
       />
 
       <Section id="the-brief"title="The ask">
@@ -60,7 +60,7 @@ const TimeClock: React.FC = () => {
 
         {/* ARTIFACT — Real product screenshot (existing) */}
         <figure className="space-y-2">
-          <img src={getAssetPath('assets/case-studies/Timesheet_before.png')} alt="Timesheet before redesign" className="w-full rounded-2xl" />
+          <CaseStudyImage src={getAssetPath('assets/case-studies/Timesheet_before.png')} alt="Timesheet before redesign" />
           <figcaption className="text-xs text-neutral-400 dark:text-neutral-500">Real customer view — PII redacted</figcaption>
         </figure>
       </Section>
@@ -73,7 +73,7 @@ const TimeClock: React.FC = () => {
         </TextContent>
 
         <figure className="space-y-2">
-          <img src={getAssetPath('assets/case-studies/gm round.png')} alt="Affinity map from manager and worker interviews" className="w-full rounded-2xl" />
+          <CaseStudyImage src={getAssetPath('assets/case-studies/gm round.png')} alt="Affinity map from manager and worker interviews" />
           <figcaption className="text-xs text-neutral-400 dark:text-neutral-500">Research synthesis — themes across 17 interviews with managers and shift workers</figcaption>
         </figure>
       </Section>
@@ -113,7 +113,7 @@ const TimeClock: React.FC = () => {
           </TextContent>
         </SubSection>
 
-        <img src={getAssetPath('assets/case-studies/timeclock-agenda and notif.png')} alt="Lock screen notification and in-app agenda view" className="w-full rounded-2xl" />
+        <CaseStudyImage src={getAssetPath('assets/case-studies/timeclock-agenda and notif.png')} alt="Lock screen notification and in-app agenda view" />
 
         <SubSection heading="Edit requests, not edits">
           <TextContent>
@@ -123,7 +123,7 @@ const TimeClock: React.FC = () => {
           </TextContent>
         </SubSection>
 
-<img src={getAssetPath('assets/case-studies/timeclock-requestedit.png')} alt="Edit request flow" className="w-full rounded-2xl" />
+<CaseStudyImage src={getAssetPath('assets/case-studies/timeclock-requestedit.png')} alt="Edit request flow" />
 
         <SubSection heading="Friction as a feature">
           <TextContent>
@@ -177,7 +177,7 @@ const TimeClock: React.FC = () => {
               <span className="text-xs text-stone-500">Worker-requested edits</span>
             </div>
           </div>
-          <img src={getAssetPath('assets/case-studies/time clock flagged reduction chart.png')} alt="Pre/post flagged timecard reduction chart" className="w-full rounded-2xl" />
+          <CaseStudyImage src={getAssetPath('assets/case-studies/time clock flagged reduction chart.png')} alt="Pre/post flagged timecard reduction chart" />
           <figcaption className="text-xs text-neutral-400 dark:text-neutral-500">Timecards with flagged errors, H2 2025 — before and after the design intervention</figcaption>
         </figure>
       </Section>
