@@ -6,7 +6,7 @@ import { PostHogProvider } from '@posthog/react';
 import App from './App';
 
 const posthogOptions = {
-  api_host: import.meta.env.VITE_PUBLIC_POSTHOG_HOST,
+  api_host: 'https://us.i.posthog.com',
   loaded: (ph: { opt_out_capturing: () => void }) => {
     if (import.meta.env.DEV) ph.opt_out_capturing();
   },
@@ -20,7 +20,7 @@ if (!rootElement) {
 const root = ReactDOM.createRoot(rootElement);
 root.render(
   <React.StrictMode>
-    <PostHogProvider apiKey={import.meta.env.VITE_PUBLIC_POSTHOG_KEY} options={posthogOptions}>
+    <PostHogProvider apiKey="phc_Yn1Bf8klzHIgOBMSp6jUS6GVtXnJ8Orx1gsV2kMaVii" options={posthogOptions}>
       <BrowserRouter>
         <App />
       </BrowserRouter>
