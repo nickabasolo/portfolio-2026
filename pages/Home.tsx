@@ -376,10 +376,10 @@ const Home: React.FC = () => {
                               to={cite.path}
                               className="inline-flex items-center gap-1.5 text-xs font-medium text-stone-500 hover:text-amber-600 transition-colors border border-stone-200 rounded-full px-3 py-1"
                             >
-                              <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                                <path d="M6.5 11.5L3 11.5C2.17 11.5 1.5 10.83 1.5 10V3C1.5 2.17 2.17 1.5 3 1.5H10C10.83 1.5 11.5 2.17 11.5 3V6.5" />
-                                <path d="M8.5 7.5L14.5 1.5" />
-                                <path d="M10.5 1.5H14.5V5.5" />
+                              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                                <polyline points="15 3 21 3 21 9" />
+                                <line x1="10" y1="14" x2="21" y2="3" />
                               </svg>
                               {cite.label}
                             </Link>
