@@ -1,9 +1,8 @@
-import React from 'react';
-import { Section, TextContent, Metrics, Visual, GridList, SubSection, Table, CaseStudyImage } from '../../components/CaseStudyPrimitives';
+import React, { useRef, useState } from 'react';
+import { Section, TextContent, Metrics, GridList, SubSection, CaseStudyImage } from '../../components/CaseStudyPrimitives';
 import CaseStudySummary from '../../components/CaseStudySummary';
 import CaseStudyLayout from '../../components/CaseStudyLayout';
 import { getAssetPath } from '../../utils/paths';
-import ReviewShift from '../../components/ReviewShift';
 import BeforeAfterSlider from '../../components/BeforeAfterSlider';
 import { useScrollToTop } from '../../hooks/useScrollToTop';
 
@@ -24,6 +23,84 @@ export const summary = {
   ],
 };
 
+
+const WorkerFlowVideo: React.FC<{ src: string }> = ({ src }) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [playing, setPlaying] = useState(true);
+  const [progress, setProgress] = useState(0);
+  const [dragging, setDragging] = useState(false);
+
+  const toggle = () => {
+    const v = videoRef.current;
+    if (!v) return;
+    if (v.paused) { v.play(); setPlaying(true); }
+    else { v.pause(); setPlaying(false); }
+  };
+
+  const handleTimeUpdate = () => {
+    const v = videoRef.current;
+    if (!v || dragging) return;
+    setProgress(v.currentTime / v.duration);
+  };
+
+  const seek = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const v = videoRef.current;
+    if (!v) return;
+    const val = parseFloat(e.target.value);
+    v.currentTime = val * v.duration;
+    setProgress(val);
+  };
+
+  return (
+    <div className="relative w-full rounded-xl overflow-hidden bg-black group">
+      <video
+        ref={videoRef}
+        src={src}
+        autoPlay
+        loop
+        muted
+        playsInline
+        onTimeUpdate={handleTimeUpdate}
+        className="w-full h-full object-cover block"
+      />
+      {/* Controls bar */}
+      <div className="absolute bottom-0 left-0 right-0 px-4 pb-4 pt-10 flex items-center gap-3 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+        <button
+          onClick={toggle}
+          aria-label={playing ? 'Pause' : 'Play'}
+          className="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-white/20 backdrop-blur-sm text-white hover:bg-white/30 transition-colors"
+        >
+          {playing ? (
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+              <rect x="6" y="4" width="4" height="16" rx="1" />
+              <rect x="14" y="4" width="4" height="16" rx="1" />
+            </svg>
+          ) : (
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M5 3l14 9-14 9V3z" />
+            </svg>
+          )}
+        </button>
+        <input
+          type="range"
+          min={0}
+          max={1}
+          step={0.001}
+          value={progress}
+          onChange={seek}
+          onMouseDown={() => setDragging(true)}
+          onMouseUp={() => setDragging(false)}
+          onTouchStart={() => setDragging(true)}
+          onTouchEnd={() => setDragging(false)}
+          className="flex-1 h-1 appearance-none rounded-full cursor-pointer accent-white"
+          style={{
+            background: `linear-gradient(to right, white ${progress * 100}%, rgba(255,255,255,0.3) ${progress * 100}%)`
+          }}
+        />
+      </div>
+    </div>
+  );
+};
 
 const TimeClock: React.FC = () => {
   useScrollToTop();
@@ -83,26 +160,7 @@ const TimeClock: React.FC = () => {
           <p>I negotiated for additional discovery time by framing it as an ROI calculation, then spent time with 12 workers to understand their experience of the shift. By mapping out the shift journey, I found three likely points where an intervention could have high-impact on reducing errors:</p>
         </TextContent>
 
-        <Table
-          headers={["Moment", "What we learned", "Design response"]}
-          rows={[
-            [
-              "Clock-in",
-              "Workers often didn't know their break schedule for the day",
-              "Surface the full shift agenda immediately on clock-in"
-            ],
-            [
-              "Mid-shift",
-              "Missed breaks are the #1 cause of labor fines",
-              "Lock screen notifications requiring zero app interaction"
-            ],
-            [
-              "Clock-out",
-              "Workers knew about their errors but had no structured way to flag them",
-              "Let workers request their own corrections"
-            ]
-          ]}
-        />
+        <CaseStudyImage src={getAssetPath('assets/case-studies/Userjourney.png')} alt="Worker shift journey map showing attention curve and intervention points" />
       </Section>
 
       <Section id="execution"title="How we solved it">
@@ -133,10 +191,7 @@ const TimeClock: React.FC = () => {
           </TextContent>
         </SubSection>
 
-        {/* ARTIFACT — Screen recording (existing ReviewShift animation) */}
-        <Visual label="High-Score Shift Summary UI">
-          <ReviewShift />
-        </Visual>
+        <WorkerFlowVideo src={getAssetPath('assets/case-studies/worker flow.mp4')} />
 
 
 <SubSection heading="Cleaning up the manager's view">

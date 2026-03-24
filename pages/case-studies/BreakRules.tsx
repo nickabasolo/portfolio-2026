@@ -10,9 +10,9 @@ export const summary = {
   title: 'A labour law compliance engine, built and tested with AI',
   subtitle: 'Labour law violations cost restaurants thousands per offence. I designed a compliance engine across three domains and five states, and used AI to prototype the logic in code when Figma couldn\'t capture it.',
   role: 'Senior Product Designer',
-  duration: 'In Progress',
+  duration: 'Q4 2025',
   company: 'Workstream',
-  image: 'assets/case-studies/manager-dashboard-hero.png',
+  image: 'assets/case-studies/Break rules.png',
   cardImage: 'assets/case-studies/Break rules.png',
   tags: ['End-to-end', 'Web', 'Mobile', 'Systems design', 'Compliance tech', 'AI-assisted prototyping'],
   impact: [
