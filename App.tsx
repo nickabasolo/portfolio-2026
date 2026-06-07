@@ -15,6 +15,7 @@ import PortfolioChatbot from './pages/side-projects/PortfolioChatbot';
 import About from './pages/About';
 import GridMockup from './pages/GridMockup';
 import PageTransition from './components/PageTransition';
+import PasswordGate from './components/PasswordGate';
 
 const App: React.FC = () => {
   const navigate = useNavigate();
@@ -46,18 +47,27 @@ const App: React.FC = () => {
       <main className="flex-1 w-full relative">
         <AnimatePresence mode="wait">
           <Routes location={location} key={location.pathname}>
-            <Route path="/" element={<PageTransition routeKey="/"><Home /></PageTransition>} />
-            <Route path="/about" element={<PageTransition routeKey="/about"><About /></PageTransition>} />
-<Route path="/case-study/time-clock" element={<PageTransition routeKey="/case-study/time-clock"><TimeClock /></PageTransition>} />
-            <Route path="/case-study/labor-cost" element={<PageTransition routeKey="/case-study/labor-cost"><LaborCost /></PageTransition>} />
-            <Route path="/case-study/break-rules" element={<PageTransition routeKey="/case-study/break-rules"><BreakRules /></PageTransition>} />
+            {/* Public: Canada election data viz */}
             <Route path="/third-parties" element={<Navigate to="/side-project/third-parties/tool" replace />} />
             <Route path="/side-project/third-parties" element={<Navigate to="/side-project/third-parties/case-study" replace />} />
             <Route path="/side-project/third-parties/case-study" element={<PageTransition routeKey="/side-project/third-parties/case-study"><GuardianDataViz /></PageTransition>} />
             <Route path="/side-project/third-parties/tool" element={<PageTransition routeKey="/side-project/third-parties/tool"><TernaryPlotTool /></PageTransition>} />
-            <Route path="/side-project/time-auction" element={<PageTransition routeKey="/side-project/time-auction"><TimeAuction /></PageTransition>} />
-            <Route path="/side-project/portfolio-chatbot" element={<PageTransition routeKey="/side-project/portfolio-chatbot"><PortfolioChatbot /></PageTransition>} />
-            <Route path="/mockup" element={<PageTransition routeKey="/mockup"><GridMockup /></PageTransition>} />
+
+            {/* Password-protected */}
+            <Route path="/*" element={
+              <PasswordGate>
+                <Routes location={location} key={location.pathname}>
+                  <Route path="/" element={<PageTransition routeKey="/"><Home /></PageTransition>} />
+                  <Route path="/about" element={<PageTransition routeKey="/about"><About /></PageTransition>} />
+                  <Route path="/case-study/time-clock" element={<PageTransition routeKey="/case-study/time-clock"><TimeClock /></PageTransition>} />
+                  <Route path="/case-study/labor-cost" element={<PageTransition routeKey="/case-study/labor-cost"><LaborCost /></PageTransition>} />
+                  <Route path="/case-study/break-rules" element={<PageTransition routeKey="/case-study/break-rules"><BreakRules /></PageTransition>} />
+                  <Route path="/side-project/time-auction" element={<PageTransition routeKey="/side-project/time-auction"><TimeAuction /></PageTransition>} />
+                  <Route path="/side-project/portfolio-chatbot" element={<PageTransition routeKey="/side-project/portfolio-chatbot"><PortfolioChatbot /></PageTransition>} />
+                  <Route path="/mockup" element={<PageTransition routeKey="/mockup"><GridMockup /></PageTransition>} />
+                </Routes>
+              </PasswordGate>
+            } />
           </Routes>
         </AnimatePresence>
       </main>
